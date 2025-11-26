@@ -1,0 +1,49 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Fill in your details to get started</p>
+
+    <!-- Row 1: First Name + Last Name -->
+    <div class="input-row">
+      <div class="input-group">
+        <input type="text" [(ngModel)]="registerData.firstName" required />
+        <label>First Name</label>
+      </div>
+      <div class="input-group">
+        <input type="text" [(ngModel)]="registerData.lastName" required />
+        <label>Last Name</label>
+      </div>
+    </div>
+
+    <!-- Row 2: Enrollment + Email -->
+    <div class="input-row">
+      <div class="input-group">
+        <input type="text" [(ngModel)]="registerData.enrollment" required />
+        <label>Enrollment</label>
+      </div>
+      <div class="input-group">
+        <input type="email" [(ngModel)]="registerData.email" required />
+        <label>Email</label>
+      </div>
+    </div>
+
+    <!-- Row 3: Password + Confirm Password -->
+    <div class="input-row">
+      <div class="input-group">
+        <input type="password" [(ngModel)]="registerData.password" required />
+        <label>Password</label>
+      </div>
+      <div class="input-group">
+        <input type="password" [(ngModel)]="registerData.confirmPassword" required />
+        <label>Confirm Password</label>
+      </div>
+    </div>
+
+    <button (click)="onRegister()">Register</button>
+
+    <div class="form-links">
+      
+      <a href="#" (click)="goToLogin(); $event.preventDefault()">Already have an account? </a>
+    </div>
+  </div>
+</div>

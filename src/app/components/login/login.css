@@ -1,0 +1,141 @@
+/* Container layout */
+.login-container {
+  display: flex;
+  justify-content: flex-end; /* align to right */
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  position: relative;
+  padding-right: 6vw; /* push slightly inward from right edge */
+  z-index: 2;
+}
+
+/* Card */
+.login-card {
+  background-color: #ffffffcc; /* subtle transparent glass look */
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  animation: fadeInUp 1s ease;
+  transition: all 0.3s ease;
+}
+
+/* Title */
+.login-card h2 {
+  font-family: 'Playfair Display', serif;
+  color: #1b2a49;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+/* Input fields */
+.input-group {
+  position: relative;
+  margin-bottom: 1.8rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.8rem 0.5rem;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+  font-size: 1rem;
+  transition: 0.3s;
+  color: #333;
+  outline: none;
+}
+
+.input-group label {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.9rem;
+  font-size: 1rem;
+  color: #777;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.input-group input:focus,
+.input-group input:valid {
+  border-bottom-color: #1b2a49;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+  top: -0.6rem;
+  left: 0.4rem;
+  font-size: 0.8rem;
+  color: #1b2a49;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #1b2a49;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #334a7a;
+}
+
+/* Links */
+.login-links {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.login-links a {
+  color: #1b2a49;
+  text-decoration: none;
+  margin: 0 0.4rem;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive behavior */
+@media (max-width: 992px) {
+  .login-container {
+    justify-content: center;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-card {
+    max-width: 90%;
+    padding: 2rem 1.5rem;
+  }
+}

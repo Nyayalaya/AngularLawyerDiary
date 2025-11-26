@@ -1,0 +1,21 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  /* background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%); */
+  background: linear-gradient(135deg, #1b2a49, #a7abb5);
+  overflow: hidden;
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}

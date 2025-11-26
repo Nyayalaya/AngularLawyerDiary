@@ -1,0 +1,61 @@
+<aside class="sidebar" [class.sidebar-closed]="!sidebarOpen">
+  <div class="sidebar-header">
+
+    @if (sidebarOpen) {
+      <h1 class="brand-title">LawAdmin</h1>
+    }
+
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <span class="material-icons">
+        {{ sidebarOpen ? 'close' : 'menu' }}
+      </span>
+    </button>
+  </div>
+
+  <nav class="sidebar-nav">
+
+    @for (item of menuItems; track item.id) {
+
+      <div class="menu-item">
+
+        <button
+          class="menu-button"
+          [class.active]="activeMenu === item.id"
+          (click)="onMenuClick(item)"
+        >
+          <span class="material-icons menu-icon">{{ item.icon }}</span>
+
+          @if (sidebarOpen) {
+            <span class="menu-label">{{ item.label }}</span>
+          }
+
+          @if (item.hasSubmenu && sidebarOpen) {
+            <span class="material-icons submenu-arrow">
+              {{ isMenuExpanded(item.id) ? 'expand_less' : 'expand_more' }}
+            </span>
+          }
+        </button>
+
+        @if (item.hasSubmenu && sidebarOpen && isMenuExpanded(item.id)) {
+
+          <div class="submenu">
+
+            @for (sub of item.submenu; track sub) {
+              <button 
+                class="submenu-button"
+                (click)="navigateToSubmenu(sub.route)"
+              >
+                {{ sub.label }}
+              </button>
+            }
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+  </nav>
+</aside>

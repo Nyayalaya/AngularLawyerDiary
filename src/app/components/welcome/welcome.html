@@ -1,0 +1,49 @@
+<!-- App Header -->
+<header class="app-header">
+  LexDiary
+</header>
+
+<!-- Existing Welcome Section -->
+<div class="welcome-container">
+  <!-- Watermark -->
+  <div class="watermark">
+    "Justice delayed is justice denied. • The law is reason free from passion."
+  </div>
+
+  <!-- Left Hero Section -->
+  <div class="hero-left">
+    <h2>Organize your cases, appointments, and notes efficiently</h2>
+    <p>
+      Keep track of your legal cases, manage your client meetings, and stay on top of deadlines with LexDiary – 
+      the smart diary designed for lawyers.
+    </p>
+  </div>
+
+  <!-- Right Login Section -->
+  <div class="hero-right">
+    <app-login *ngIf="activeBox === 'login'" 
+             (registerClick)="showRegister()" 
+             (forgotClick)="showForgot()">
+  </app-login>
+
+  <app-register *ngIf="activeBox === 'register'" 
+                (loginClick)="showLogin()">
+  </app-register>
+
+  <app-forgot-password *ngIf="activeBox === 'forgot'" 
+                       (loginClick)="showLogin()">
+  </app-forgot-password>
+  </div>
+
+  <!-- Floating Icons -->
+  <div class="icon scales"></div>
+  <div class="icon gavel"></div>
+  <div class="icon book"></div>
+</div>
+
+<!-- App Footer -->
+<footer class="app-footer">
+  © 2025 LawTech Solutions | v1.0.0 |
+  <a href="#">Privacy Policy</a> |
+  <a href="#">Terms of Service</a>
+</footer>

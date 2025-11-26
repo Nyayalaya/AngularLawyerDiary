@@ -1,0 +1,51 @@
+header {
+  background-color: #1b2a49;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
+    height: 60px;
+    z-index: 2;
+}
+header h1 {
+   font-family: 'Playfair Display', serif;
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 1.8rem);
+}
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+.user-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #fff;
+  color: #1b2a49;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 0.5rem 1rem;
+  display: none;
+}
+.user-menu:hover .dropdown {
+  display: flex;
+}
+.dropdown a {
+  color: #1b2a49;
+  text-decoration: none;
+  padding: 0.3rem 0;
+}
+.dropdown a:hover {
+  text-decoration: underline;
+}

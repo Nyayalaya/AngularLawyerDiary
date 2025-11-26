@@ -1,0 +1,140 @@
+.sidebar {
+  width: 260px;
+  /* background: linear-gradient(180deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%); */
+  background: linear-gradient(135deg, #1b2a49, #a7abb5);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  box-shadow: 8px 0 32px rgba(124, 58, 237, 0.1);
+}
+
+.sidebar-closed {
+  width: 80px;
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.toggle-btn {
+  background: rgba(124, 58, 237, 0.2);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #a78bfa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background: rgba(124, 58, 237, 0.3);
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+}
+
+.menu-item {
+  margin-bottom: 0.5rem;
+}
+
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.menu-button:hover {
+  background: rgba(124, 58, 237, 0.15);
+  color: #a78bfa;
+}
+
+.menu-button.active {
+  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.5);
+}
+
+.menu-icon {
+  font-size: 22px;
+  margin-right: 0.75rem;
+}
+
+.menu-label {
+  flex: 1;
+  text-align: left;
+}
+
+.submenu-arrow {
+  font-size: 20px;
+}
+
+.submenu {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(124, 58, 237, 0.3);
+}
+
+.submenu-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #94a3b8;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  margin-bottom: 0.25rem;
+}
+
+.submenu-button:hover {
+  background: rgba(124, 58, 237, 0.1);
+  color: #c4b5fd;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    z-index: 1000;
+    height: 100vh;
+  }
+
+  .sidebar-closed {
+    width: 0;
+    overflow: hidden;
+  }
+}
