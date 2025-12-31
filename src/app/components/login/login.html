@@ -3,23 +3,55 @@
     <h2>Welcome Back</h2>
     <p class="subtitle">Login to continue to <strong>LexDiary</strong></p>
 
-    <form (ngSubmit)="onLogin()">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <div class="input-group">
-        <input type="text" id="username" [(ngModel)]="username" name="username" required />
-        <label for="username">Username</label>
+        <input  type="email"  formControlName="email"  placeholder=" "/>
+        <label>Email</label>
+
+        @if (submitted && loginForm.get('email')?.errors?.['required']) {
+          <small style="color: red;">Email is required</small>
+        }
+
+        @if (submitted && loginForm.get('email')?.errors?.['email']) {
+          <small style="color: red;">Invalid email address</small>
+        }
       </div>
 
       <div class="input-group">
-        <input type="password" id="password" [(ngModel)]="password" name="password" required />
-        <label for="password">Password</label>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder=" "
+        />
+        <label>Password</label>
+
+        @if (submitted && loginForm.get('password')?.errors?.['required']) {
+          <small style="color: red;">Password is required</small>
+        }
+
+        @if (submitted && loginForm.get('password')?.errors?.['minlength']) {
+          <small style="color: red;">Minimum 6 characters required</small>
+        }
       </div>
 
-      <button type="submit">Login</button>
+      <!-- Submit -->
+      <button type="submit" [disabled]="loading">
+        @if (loading) {
+          Logging in...
+        } @else {
+          Login
+        }
+      </button>
 
+      <!-- Links -->
       <div class="login-links">
-         <a href="#" (click)="onRegisterClick(); $event.preventDefault()">Register</a> | |
+        <a href="#" (click)="onRegisterClick(); $event.preventDefault()">
+          Register
+        </a>
         <span>|</span>
-        <a href="#" (click)="onForgotClick(); $event.preventDefault()">Forgot Password?</a>
+        <a href="#" (click)="onForgotClick(); $event.preventDefault()">
+          Forgot Password?
+        </a>
       </div>
     </form>
   </div>

@@ -1,0 +1,12 @@
+<button
+  type="button"
+  class="primary-btn"
+  [class.secondary]="variant === 'secondary'"
+  [class.ghost]="variant === 'ghost'"
+  [attr.aria-label]="ariaLabel || label"
+  [disabled]="disabled"
+  (click)="onClick()"
+>
+  <span *ngIf="icon" class="btn-icon" aria-hidden="true">{{ icon }}</span>
+  <span class="btn-label">{{ label }}</span>
+</button>

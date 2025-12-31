@@ -23,8 +23,9 @@ interface SubMenuItem {
   styleUrls: ['./sidebar.css']
 })
 export class Sidebar implements OnInit {
-  sidebarOpen: boolean = true;
+   sidebarOpen: boolean = true;
   activeMenu: string = 'dashboard';
+  activeSubmenu: string = '';
   expandedMenus: Set<string> = new Set();
 
   menuItems: MenuItem[] = [
@@ -126,6 +127,7 @@ export class Sidebar implements OnInit {
     this.menuService.setActiveMenu(menuItem.id);
     
     if (menuItem.hasSubmenu) {
+     // Toggle submenu expansion
       if (this.expandedMenus.has(menuItem.id)) {
         this.expandedMenus.delete(menuItem.id);
       } else {
@@ -133,6 +135,7 @@ export class Sidebar implements OnInit {
       }
     } else {
       this.router.navigate([menuItem.route]);
+      this.activeSubmenu = '';
     }
   }
 
@@ -141,8 +144,14 @@ export class Sidebar implements OnInit {
   }
 
   navigateToSubmenu(route: string): void {
+     this.activeSubmenu = route;
     this.router.navigate([route]);
   }
+
+  isSubmenuActive(route: string): boolean {
+    return this.activeSubmenu === route || this.router.url === route;
+  }
+
 
   toggleSidebar(): void {
     this.menuService.toggleSidebar();

@@ -1,0 +1,40 @@
+<div class="court-type-container">
+  <div class="page-header">
+    <h1 class="page-title">Court Types</h1>
+    <button class="btn-primary" (click)="toggleForm()">
+      {{ showForm() ? 'Back to List' : 'Add New Court Type' }}
+    </button>
+  </div>
+
+  <!-- Generic Form -->
+  <app-generic-form-container *ngIf="showForm()"
+    [formGroup]="courtTypeForm"
+    (submit)="onSubmit()"
+    [submitLabel]="'Save Court Type'">
+    
+    <div class="form-group">
+      <label class="form-label">Court Name</label>
+      <input type="text" formControlName="name" class="form-control">
+      <div class="error-message" *ngIf="courtTypeForm.get('name')?.invalid && courtTypeForm.get('name')?.touched">
+        Name is required (min 3 characters)
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea formControlName="description" class="form-control"></textarea>
+      <div class="error-message" *ngIf="courtTypeForm.get('description')?.invalid && courtTypeForm.get('description')?.touched">
+        Description is required
+      </div>
+    </div>
+  </app-generic-form-container>
+
+  <!-- Generic Table -->
+  <app-generic-table *ngIf="!showForm()"
+    [data]="courtTypes()"
+    [columns]="columns"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (view)="onView($event)">
+  </app-generic-table>
+</div>

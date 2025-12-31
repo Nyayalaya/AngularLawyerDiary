@@ -1,0 +1,51 @@
+:host { display: inline-block; }
+
+.primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.18);
+  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  color: #ffffff;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.primary-btn:active { transform: translateY(1px); }
+.primary-btn:focus { outline: 3px solid rgba(124,58,237,0.14); outline-offset: 2px; }
+
+.primary-btn.secondary {
+  background: linear-gradient(90deg, #111827 0%, #374151 100%);
+  color: #f3f4f6;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.primary-btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #f3f4f6;
+  box-shadow: none;
+}
+
+.primary-btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-icon {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.btn-label { line-height: 1; }

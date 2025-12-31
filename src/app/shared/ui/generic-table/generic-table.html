@@ -1,0 +1,43 @@
+<div class="table-container">
+
+  <!-- Search + Export -->
+  <div class="table-header">
+    <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" class="table-search">
+    <button class="btn-export" (click)="exportCSV()">Export CSV</button>
+  </div>
+
+  <!-- Table -->
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns">{{ col.label }}</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rows -->
+      <tr *ngFor="let row of paginatedData()">
+        <td *ngFor="let col of columns">{{ row[col.key] }}</td>
+        <td>
+          <app-action-menu
+            (view)="view.emit(row)"
+            (edit)="edit.emit(row)"
+            (delete)="delete.emit(row)">
+          </app-action-menu>
+        </td>
+      </tr>
+
+      <!-- No Data -->
+      <tr *ngIf="paginatedData().length === 0">
+        <td [attr.colspan]="columns.length + 1" class="no-data">No records found</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalPages() > 1">
+    <button (click)="prevPage()" [disabled]="page() === 1">Prev</button>
+    <span>Page {{ page() }} of {{ totalPages() }}</span>
+    <button (click)="nextPage()" [disabled]="page() === totalPages()">Next</button>
+  </div>
+</div>

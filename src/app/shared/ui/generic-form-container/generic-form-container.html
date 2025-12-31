@@ -1,0 +1,19 @@
+@if (open) {
+  <div class="overlay" (click)="close()"></div>
+
+  <div class="form-drawer">
+    <div class="header">
+      <h2>{{ title }}</h2>
+      <button class="close-btn" (click)="close()">✕</button>
+    </div>
+
+    <div class="body">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="footer">
+      <button class="btn-cancel" (click)="close()">Cancel</button>
+      <button class="btn-submit" (click)="submit()">Submit</button>
+    </div>
+  </div>
+}

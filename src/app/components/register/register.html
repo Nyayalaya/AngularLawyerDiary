@@ -3,47 +3,98 @@
     <h2>Create Account</h2>
     <p class="subtitle">Fill in your details to get started</p>
 
-    <!-- Row 1: First Name + Last Name -->
-    <div class="input-row">
-      <div class="input-group">
-        <input type="text" [(ngModel)]="registerData.firstName" required />
-        <label>First Name</label>
-      </div>
-      <div class="input-group">
-        <input type="text" [(ngModel)]="registerData.lastName" required />
-        <label>Last Name</label>
-      </div>
-    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
 
-    <!-- Row 2: Enrollment + Email -->
-    <div class="input-row">
-      <div class="input-group">
-        <input type="text" [(ngModel)]="registerData.enrollment" required />
-        <label>Enrollment</label>
+      <!-- Role -->
+      <div class="input-row">
+        <div class="input-group floating">
+          <select formControlName="role" required>
+            <option value="" disabled selected hidden></option>
+            @for (r of roles; track r.value) {
+            <option [value]="r.value">{{ r.label }}</option>
+            }
+          </select>
+          <label>Register As *</label>
+        </div>
       </div>
-      <div class="input-group">
-        <input type="email" [(ngModel)]="registerData.email" required />
-        <label>Email</label>
-      </div>
-    </div>
 
-    <!-- Row 3: Password + Confirm Password -->
-    <div class="input-row">
-      <div class="input-group">
-        <input type="password" [(ngModel)]="registerData.password" required />
-        <label>Password</label>
+      <!-- Corporate -->
+      @if (+registerForm.value.role === Role.CORPORATE) {
+      <div class="input-row">
+        <div class="input-group floating">
+          <input type="text" formControlName="firstName" placeholder=" " />
+          <label>Company Name *</label>
+        </div>
       </div>
-      <div class="input-group">
-        <input type="password" [(ngModel)]="registerData.confirmPassword" required />
-        <label>Confirm Password</label>
+      }
+
+      <!-- Lawyer Name -->
+      @if (+registerForm.value.role === Role.LAWYER) {
+      <div class="input-row three-col">
+        <div class="input-group floating">
+          <input type="text" formControlName="firstName" placeholder=" " />
+          <label>First Name *</label>
+        </div>
+
+        <div class="input-group floating">
+          <input type="text" formControlName="middleName" placeholder=" " />
+          <label>Middle Name</label>
+        </div>
+
+        <div class="input-group floating">
+          <input type="text" formControlName="lastName" placeholder=" " />
+          <label>Last Name *</label>
+        </div>
       </div>
-    </div>
+      }
 
-    <button (click)="onRegister()">Register</button>
+      <!-- Lawyer DOB + Gender -->
+      @if (+registerForm.value.role === Role.LAWYER) {
+      <div class="input-row two-col">
+        <div class="input-group floating">
+          <input type="date" formControlName="dateOfBirth" placeholder=" " />
+          <label>Date of Birth *</label>
+        </div>
 
-    <div class="form-links">
-      
-      <a href="#" (click)="goToLogin(); $event.preventDefault()">Already have an account? </a>
-    </div>
+        <div class="input-group floating">
+          <select formControlName="gender" required>
+            <option value="" disabled selected hidden></option>
+            @for (g of genders; track g.value) {
+            <option [value]="g.value">{{ g.label }}</option>
+            }
+          </select>
+          <label>Gender *</label>
+        </div>
+      </div>
+      }
+
+      <!-- Common -->
+      <div class="input-row two-col">
+        <div class="input-group floating">
+          <input type="text" formControlName="registrationNumber" placeholder=" " />
+          <label>Registration Number *</label>
+        </div>
+
+        <div class="input-group floating">
+          <input type="tel" formControlName="mobileNumber" maxlength="10" pattern="[0-9]*" inputmode="numeric"
+            (input)="onMobileInput($event)" placeholder=" " />
+          <label>Mobile *</label>
+        </div>
+      </div>
+
+      <div class="input-row two-col">
+        <div class="input-group floating">
+          <input type="email" formControlName="email" placeholder=" " />
+          <label>Email *</label>
+        </div>
+
+        <div class="input-group floating">
+          <input type="password" formControlName="password" placeholder=" " />
+          <label>Password *</label>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </form>
   </div>
 </div>

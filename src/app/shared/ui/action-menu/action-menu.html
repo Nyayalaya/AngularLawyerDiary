@@ -1,0 +1,29 @@
+<div class="action-menu">
+  <button class="menu-button" type="button" (click)="toggleMenu()">
+    <span class="dots">⋮</span>
+  </button>
+
+  @if (menuOpen) {
+    <div class="menu-dropdown">
+
+      @if (showView) {
+        <button class="menu-item" (click)="onView()">
+          <span class="icon">👁️</span> View
+        </button>
+      }
+
+      @if (showEdit) {
+        <button class="menu-item" (click)="onEdit()">
+          <span class="icon">✏️</span> Edit
+        </button>
+      }
+
+      @if (showDelete) {
+        <button class="menu-item delete" (click)="onDelete()">
+          <span class="icon">🗑️</span> Delete
+        </button>
+      }
+
+    </div>
+  }
+</div>

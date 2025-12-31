@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component,OnInit  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../core';
+import { User } from '../../core/models/auth.model';
 
 @Component({
   selector: 'app-navbar',
@@ -8,36 +10,40 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })
-export class Navbar {
+export class Navbar  implements OnInit {
   
-  profileDropdownOpen: boolean = false;
-  searchQuery: string = '';
+  profileDropdownOpen = false;
+  currentUser: User | null = null;
+  searchQuery = '';
 
-  toggleProfileDropdown(): void {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.currentUser = this.authService.currentUserValue;
+
+    // Optional: subscribe to changes
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+    });
+  }
+
+  toggleProfileDropdown() {
     this.profileDropdownOpen = !this.profileDropdownOpen;
   }
 
-  closeProfileDropdown(): void {
-    this.profileDropdownOpen = false;
+  navigateToProfile() {
+    console.log('Navigate to profile');
   }
 
-  navigateToProfile(): void {
-    console.log('Navigate to Profile');
-    this.closeProfileDropdown();
+  navigateToSettings() {
+    console.log('Navigate to settings');
   }
 
-  navigateToSettings(): void {
-    console.log('Navigate to Settings');
-    this.closeProfileDropdown();
+  logout() {
+    this.authService.logout();
   }
 
-  logout(): void {
-    console.log('User logged out');
-    alert('Logout functionality triggered');
-    this.closeProfileDropdown();
-  }
-
-  onSearch(): void {
+  onSearch() {
     console.log('Search query:', this.searchQuery);
   }
 }
