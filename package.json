@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node --max-http-header-size=16384 node_modules/@angular/cli/bin/ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -29,9 +29,13 @@
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
     "@fortawesome/fontawesome-free": "^7.1.0",
-    "bootstrap": "^5.3.2",
+    "@ng-select/ng-select": "^21.8.0",
+    "@ngrx/effects": "^20.0.0",
+    "@ngrx/store": "^20.0.0",
+    "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "rxjs": "~7.8.0",
+    "select2": "^4.1.0-rc.0",
     "sweetalert2": "^11.26.3",
     "tslib": "^2.3.0",
     "zone.js": "^0.15.1"
@@ -41,12 +45,16 @@
     "@angular/cli": "^20.3.10",
     "@angular/compiler-cli": "^20.3.0",
     "@types/jasmine": "~5.1.0",
+    "autoprefixer": "^10.4.27",
+    "baseline-browser-mapping": "^2.10.9",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
     "typescript": "~5.9.2"
   }
 }

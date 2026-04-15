@@ -1,0 +1,18 @@
+<div class="card p-3 mb-3">
+
+  <h5>{{ section().title }}</h5>
+
+  <div class="row">
+
+    @for (field of section().fields; track field) {
+      <div [class]="colClass">
+        <app-field-renderer
+          [field]="field"
+          [group]="group()">
+        </app-field-renderer>
+      </div>
+    }
+
+  </div>
+
+</div>

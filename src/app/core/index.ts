@@ -10,6 +10,9 @@ export * from './utils';
 // Services
 export * from './services';
 
+// Facades
+export * from './facade';
+
 // Guards
 export * from './guards';
 

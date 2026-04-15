@@ -1,0 +1,26 @@
+@if (schema()) {
+
+<form [formGroup]="form">
+
+  <h3>{{ schema()!.name }}</h3>
+
+  @for (section of schema()!.sections; track section) {
+    <app-section-renderer
+      [section]="section"
+      [group]="form"
+      [columns]="schema()!.columns">
+    </app-section-renderer>
+  }
+
+  @for (grid of schema()!.grids ?? []; track grid) {
+    <app-grid-renderer
+      [grid]="grid"
+      [group]="form">
+    </app-grid-renderer>
+  }
+
+  <button (click)="submit()">Submit</button>
+
+</form>
+
+}

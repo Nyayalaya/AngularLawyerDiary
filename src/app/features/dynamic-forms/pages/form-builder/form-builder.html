@@ -1,0 +1,74 @@
+<div class="container-fluid">
+
+  <div class="row">
+
+    <!-- ================= LEFT DESIGNER ================= -->
+    <div class="col-md-12 border-end">
+
+  <h4 class="text-center mb-3">Form Builder</h4>
+
+  <!-- ================= ONE ROW ================= -->
+  <div class="row g-2 mb-3">
+
+    <div class="col-md-5">
+      <label class="form-label">Form Name</label>
+      <input class="form-control" [(ngModel)]="schema().name">
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Menu Label</label>
+      <input class="form-control" [(ngModel)]="schema().menuLabel">
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Columns</label>
+      <select class="form-control" [(ngModel)]="schema().columns">
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+      </select>
+    </div>
+
+  </div>
+
+
+  <!-- Add section -->
+  <button class="btn btn-primary mb-3" (click)="addSection()">
+    + Add Section
+  </button>
+
+
+  <!-- Sections -->
+  @for (section of schema().sections; let i = $index; track section) {
+
+    <app-section-editor
+      [section]="section"
+      (deleteSection)="removeSection(i)">
+    </app-section-editor>
+
+  }
+
+  <hr>
+
+  <button class="btn btn-success me-2" (click)="saveLocal()">Save</button>
+  <button class="btn btn-info me-2" (click)="exportJson()">Export</button>
+  <button class="btn btn-danger" (click)="reset()">Reset</button>
+
+</div>
+
+
+
+    <!-- ================= RIGHT PREVIEW ================= -->
+    <div class="col-md-12">
+
+      <h4>Live Preview</h4>
+
+      <app-form-renderer [schema]="schema()"></app-form-renderer>
+
+    </div>
+
+  </div>
+
+</div>

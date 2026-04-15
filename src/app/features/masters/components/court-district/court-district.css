@@ -1,0 +1,161 @@
+/* ─── Court District Component Specific Styles ────────────────────────────── */
+
+/* Form Container Layout */
+.form-container {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ng-select styling (Court District Specific) */
+ng-select {
+  width: 100%;
+}
+
+ng-select.ng-select-focused .ng-input > input {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+ng-select.is-invalid .ng-input {
+  border-color: #dc3545 !important;
+}
+
+ng-select.is-invalid:focus-within .ng-input {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.ng-input.ng-input-focused input {
+  border-color: #007bff;
+}
+
+.ng-select-container {
+  min-height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+}
+
+.ng-select-container .ng-input input {
+  font-size: 1rem;
+}
+
+.ng-select-container:hover {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.1);
+  border-color: #80bdff;
+}
+
+/* Panel styling for dropdown options */
+.ng-select-container.ng-has-value {
+  padding: 0.375rem 0.75rem;
+}
+
+.ng-dropdown-panel {
+  z-index: 1050;
+}
+
+.ng-option {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+}
+
+.ng-option:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.ng-option.ng-option-selected {
+  background-color: #e7f3ff;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.ng-option.ng-option-marked {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Clear button styling */
+.ng-clear-zone {
+  color: #6c757d;
+}
+
+.ng-clear-zone:hover {
+  color: #495057;
+}
+
+/* Dropdown arrow */
+.ng-arrow-zone {
+  color: #007bff;
+  padding-right: 0.5rem;
+}
+
+/* Districts Section */
+.districts-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #dee2e6;
+}
+
+.district-card {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.district-card .card-header {
+  background-color: #e7f3ff;
+  border-bottom: 1px solid #b3d9ff;
+}
+
+.district-card .card-body {
+  padding: 1.5rem;
+}
+
+.district-card .form-control:focus,
+.district-card .form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.badge {
+  font-size: 0.875rem;
+  padding: 0.35rem 0.65rem;
+}
+
+.text-warning {
+  color: #fd7e14;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-header,
+  .card-footer {
+    flex-direction: column;
+  }
+
+  .card-header button,
+  .card-footer button {
+    width: 100%;
+  }
+
+  .form-container {
+    padding: 0;
+  }
+}
+/* ─── End Court District Component Specific Styles ──────────────────────── */

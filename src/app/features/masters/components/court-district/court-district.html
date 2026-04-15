@@ -1,0 +1,184 @@
+<!-- Loading -->
+<ng-container *ngIf="(loading$ | async); else tableOrError">
+  <div class="loader-container">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading court districts...</p>
+    </div>
+  </div>
+</ng-container>
+
+<!-- List View or Form View -->
+<ng-template #tableOrError>
+
+  <!-- LIST VIEW -->
+  <div *ngIf="!showForm()">
+    <!-- Error Banner -->
+    <div *ngIf="(error$ | async) as error"
+         class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <span>{{ error }}</span>
+    </div>
+
+    <app-generic-table
+      title="Court Districts"
+      [data]="(courtDistricts$ | async) || []"
+      [columns]="columns"
+      [serverSide]="true"
+      [totalRecords]="(totalRecords$ | async) || 0"
+      [currentPage]="(pageNumber$ | async) || 1"
+      [pageSize]="(pageSize$ | async) || 10"
+      [totalPages]="(totalPages$ | async) || 0"
+      (added)="toggleForm()"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (view)="onView($event)"
+      (pageChanged)="onPageChanged($event)">
+    </app-generic-table>
+  </div>
+
+  <!-- FORM VIEW -->
+  <div *ngIf="showForm()" class="form-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">
+              {{ isEditMode() ? 'Edit Court District' : 'Add Court Districts' }}
+            </h5>
+            <button 
+              type="button" 
+              class="btn btn-outline-secondary btn-sm"
+              (click)="goBackToList()">
+              <i class="bi bi-arrow-left"></i> Back to List
+            </button>
+          </div>
+
+          <div class="card-body">
+            <!-- Error Alert -->
+            <div *ngIf="(error$ | async) as error" class="alert alert-danger mb-3">
+              <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+            </div>
+
+            <form [formGroup]="courtDistrictForm">
+              
+              <!-- State Selection with ng-select (Select2-like) -->
+              <div class="mb-4">
+                <label for="stateSelect" class="form-label fw-bold">
+                  State <span class="text-danger">*</span>
+                </label>
+                <ng-select
+                  id="stateSelect"
+                  formControlName="stateId"
+                  (change)="onStateSelected($event)"
+                  [items]="(states$ | async) || []"
+                  bindLabel="name"
+                  bindValue="id"
+                  placeholder="-- Choose State --"
+                  [clearable]="true"
+                  [searchable]="true"
+                  [class.is-invalid]="courtDistrictForm.get('stateId')?.invalid &&
+                                     courtDistrictForm.get('stateId')?.touched"
+                  notFoundText="No states found">
+                </ng-select>
+                <div class="invalid-feedback d-block"
+                     *ngIf="courtDistrictForm.get('stateId')?.invalid &&
+                            courtDistrictForm.get('stateId')?.touched">
+                  <i class="bi bi-exclamation-circle"></i> State is required
+                </div>
+              </div>
+
+              <!-- Districts FormArray -->
+              <div class="districts-section">
+                <label class="form-label fw-bold mb-3">
+                  Districts <span class="text-danger">*</span>
+                </label>
+
+                <div formArrayName="districts">
+                  <div *ngFor="let district of districts(); let i = index" 
+                       [formGroupName]="i"
+                       class="district-card mb-3">
+                    
+                    <div class="card border-primary">
+                      <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <span class="badge bg-primary">District {{ i + 1 }}</span>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          (click)="removeDistrictRow(i)"
+                          *ngIf="!isEditMode()"
+                          [disabled]="districts().length === 1">
+                          <i class="bi bi-trash"></i> Remove
+                        </button>
+                      </div>
+
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <label [for]="'districtName_' + i" class="form-label">
+                              District Name <span class="text-danger">*</span>
+                            </label>
+                            <input
+                              [id]="'districtName_' + i"
+                              type="text"
+                              class="form-control form-control-lg"
+                              formControlName="name"
+                              placeholder="Enter district name"
+                              (blur)="district.get('name')?.markAsTouched()"
+                              [class.is-invalid]="district.get('name')?.invalid &&
+                                                 district.get('name')?.touched">
+                            <div class="invalid-feedback d-block"
+                                 *ngIf="getDistrictErrorMessage(i)">
+                              <i class="bi bi-exclamation-circle"></i> {{ getDistrictErrorMessage(i) }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Add More Button -->
+                <div class="mt-3" *ngIf="!isEditMode()">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="addDistrictRow()"
+                    [disabled]="!canAddMore()">
+                    <i class="bi bi-plus-circle"></i> Add More Districts
+                  </button>
+                  <small class="d-block mt-2 text-warning"
+                         *ngIf="!canAddMore()">
+                    <i class="bi bi-info-circle"></i> Please complete the current district before adding another
+                  </small>
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- Form Footer -->
+          <div class="card-footer bg-light d-flex justify-content-between gap-2">
+            <button 
+              type="button" 
+              class="btn btn-secondary"
+              (click)="goBackToList()">
+              <i class="bi bi-x-circle"></i> Cancel
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-primary btn-lg"
+              (click)="onSubmit()"
+              [disabled]="courtDistrictForm.invalid || (loading$ | async)">
+              <i class="bi bi-check-circle"></i> 
+              {{ isEditMode() ? 'Update' : 'Create' }} Districts
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>

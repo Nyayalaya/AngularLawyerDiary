@@ -1,0 +1,116 @@
+/* ===== Wrapper ===== */
+
+.gt-wrapper {
+  padding: 16px;
+}
+
+
+/* ===== Header ===== */
+
+.gt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.gt-title {
+  margin: 0;
+  font-weight: 600;
+}
+
+
+/* same height for ALL controls */
+.gt-control {
+  height: 38px !important;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+}
+
+.gt-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.gt-actions .btn {
+  font-size: 14px;
+}
+
+.gt-actions input {
+  width: 220px;
+}
+
+
+/* ===== Card ===== */
+
+.gt-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+
+
+/* ===== Scroll container (IMPORTANT) ===== */
+
+.gt-scroll {
+  max-height: 450px;
+  overflow: auto;
+}
+
+
+/* ===== Table ===== */
+
+.gt-table {
+  margin: 0;
+}
+
+.gt-table th,
+.gt-table td {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+
+/* ===== Sticky header (REAL FIX) ===== */
+
+.gt-table thead th {
+  position: sticky;
+  top: 0;
+  background: #f8f9fa;
+  z-index: 3;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+}
+
+
+/* hover */
+.gt-table tbody tr:hover {
+  background: #f2f4f7;
+}
+
+
+/* ===== Pagination ===== */
+
+.gt-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+  background: #fafafa;
+}
+
+
+/* ===== Empty ===== */
+
+/* empty row inside table */
+.gt-no-data td {
+  text-align: center;
+  padding: 50px 0;
+  color: #6c757d;
+  font-style: italic;
+}
+

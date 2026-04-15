@@ -1,0 +1,41 @@
+<div class="card p-3 mb-3 shadow-sm">
+
+  <!-- ================= HEADER ================= -->
+  <div class="d-flex align-items-center gap-2 mb-3">
+
+    <!-- Title -->
+    <input
+      class="form-control flex-fill"
+      [(ngModel)]="section().title"
+      placeholder="Section Title">
+
+    <!-- Add field -->
+    <button
+      type="button"
+      class="btn btn-primary btn-sm"
+      (click)="addField()">
+      + Field
+    </button>
+
+    <!-- Delete section -->
+    <button
+      type="button"
+      class="btn btn-danger btn-sm"
+      (click)="deleteSection.emit()">
+      Delete
+    </button>
+
+  </div>
+
+
+  <!-- ================= FIELDS ================= -->
+  @for (f of section().fields; let i = $index; track f) {
+
+    <app-field-editor
+      [field]="f"
+      (deleteField)="removeField(i)">
+    </app-field-editor>
+
+  }
+
+</div>

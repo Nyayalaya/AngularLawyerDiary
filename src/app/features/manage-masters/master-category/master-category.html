@@ -1,0 +1,27 @@
+<!-- ================= TABLE ================= -->
+<app-generic-table title="Master Category" [columns]="columns" [data]="data" (added)="onAdd()" (edit)="onEdit($event)"
+  (delete)="onDelete($event)">
+</app-generic-table>
+
+
+<!-- ================= FORM (parent owns formGroup) ================= -->
+<div [formGroup]="form">
+
+  <app-generic-form-model [form]="form" title="Add Category" [show]="showModal" (save)="save(form.value)"
+    (close)="showModal=false">
+
+    <input class="form-control" formControlName="name" placeholder="Category Name"
+      [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched">
+
+    <div class="invalid-feedback">
+      Category name is required
+    </div>
+
+
+    <div class="col-12">
+      <input class="form-control" placeholder="Description" formControlName="description">
+    </div>
+
+  </app-generic-form-model>
+
+</div>

@@ -1,0 +1,31 @@
+<ng-container *ngIf="(loading$ | async); else tableOrError">
+  <div class="loader-container">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading state...</p>
+    </div>
+  </div>
+</ng-container>
+<ng-template #tableOrError>
+
+  <!-- Error Banner -->
+  <div *ngIf="(error$ | async) as error"
+       class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <app-generic-table
+    *ngIf="!showForm()"
+    title="States"
+    [data]="(states$ | async) || []"
+    [columns]="columns"
+    [serverSide]="true"
+    [totalRecords]="(totalRecords$ | async) || 0"
+    [currentPage]="(pageNumber$   | async) || 1"
+    [pageSize]="(pageSize$     | async) || 10"
+    [totalPages]="(totalPages$   | async) || 0"
+    (pageChanged)="onPageChanged($event)">
+  </app-generic-table>
+
+</ng-template>

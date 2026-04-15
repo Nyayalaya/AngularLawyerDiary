@@ -1,0 +1,75 @@
+<!-- Loading -->
+<ng-container *ngIf="(loading$ | async); else tableOrError">
+  <div class="loader-container">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading case categories...</p>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Table -->
+<ng-template #tableOrError>
+
+  <!-- Error Banner -->
+  <div *ngIf="(error$ | async) as error"
+       class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <app-generic-table
+    *ngIf="!showForm()"
+    title="Case Categories"
+    [data]="(caseCategories$ | async) || []"
+    [columns]="columns"
+    [serverSide]="true"
+    [totalRecords]="(totalRecords$ | async) || 0"
+    [currentPage]="(pageNumber$   | async) || 1"
+    [pageSize]="(pageSize$     | async) || 10"
+    [totalPages]="(totalPages$   | async) || 0"
+    (added)="toggleForm()"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (view)="onView($event)"
+    (pageChanged)="onPageChanged($event)">
+  </app-generic-table>
+
+</ng-template>
+
+<!-- Form -->
+<div [formGroup]="caseCategoryForm">
+  <app-generic-form-model
+    [form]="caseCategoryForm"
+    [title]="isEditMode() ? 'Edit Case Category' : 'Add Case Category'"
+    [show]="showForm()"
+    (save)="onSubmit()"
+    (close)="showForm.set(false)">
+
+    <input
+      class="form-control"
+      formControlName="name"
+      placeholder="Case Category Name"
+      [class.is-invalid]="caseCategoryForm.get('name')?.invalid &&
+                           caseCategoryForm.get('name')?.touched">
+    <div class="invalid-feedback">
+      Case Category Name is required (min 2 characters)
+    </div>
+
+    <select
+      class="form-control mt-2"
+      formControlName="courtTypeId"
+      [class.is-invalid]="caseCategoryForm.get('courtTypeId')?.invalid &&
+                           caseCategoryForm.get('courtTypeId')?.touched">
+      <option value="">-- Select Court Type --</option>
+      <option *ngFor="let courtType of (courtTypes$ | async) || []"
+              [value]="courtType.id">
+        {{ courtType.name }}
+      </option>
+    </select>
+    <div class="invalid-feedback">
+      Court Type is required
+    </div>
+
+  </app-generic-form-model>
+</div>

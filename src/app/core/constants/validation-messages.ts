@@ -7,5 +7,7 @@ export const ValidationMessages =
     registrationFailed: 'There are some issue to register the user!',
     saveSuccess: 'Data saved successfully!',
     deleteConfirm: 'Are you sure you want to delete this item?',
-    allRequired:'Please fill all the required field!'
+    allRequired:'Please fill all the required field!',
+    loginSuccess:'Login successful',
+    logoutSuccess:'Logout successful',
 } as const ;

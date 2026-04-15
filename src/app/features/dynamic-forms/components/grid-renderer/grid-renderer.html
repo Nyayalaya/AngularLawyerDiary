@@ -1,0 +1,129 @@
+<div class="card p-3 mt-4" [formGroup]="group()">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h5 class="mb-0">{{ grid().title }}</h5>
+
+    <button
+      type="button"
+      class="btn btn-sm btn-primary"
+      (click)="addRow()">
+      + Add Row
+    </button>
+  </div>
+
+
+  <!-- TABLE -->
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-sm align-middle">
+
+      <!-- ============= HEADER ============= -->
+      <thead class="table-light">
+        <tr>
+          @for (col of grid().columns; track col) {
+            <th>{{ col.label }}</th>
+          }
+          <th style="width:80px">Action</th>
+        </tr>
+      </thead>
+
+
+      <!-- ============= BODY ============= -->
+      <tbody formArrayName="{{ grid().name }}">
+
+        @if (array.length === 0) {
+          <tr>
+            <td
+              [attr.colspan]="grid().columns.length + 1"
+              class="text-center text-muted">
+              No rows added
+            </td>
+          </tr>
+        }
+
+        @for (row of array.controls; let i = $index; track i) {
+
+          <tr [formGroupName]="i">
+
+            <!-- Dynamic Columns -->
+            @for (col of grid().columns; track col) {
+
+              <td>
+
+                @switch (col.type) {
+
+                  @case ('text') {
+                    <input
+                      class="form-control form-control-sm"
+                      [formControlName]="col.name">
+                  }
+
+                  @case ('number') {
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      [formControlName]="col.name">
+                  }
+
+                  @case ('textarea') {
+                    <textarea
+                      rows="1"
+                      class="form-control form-control-sm"
+                      [formControlName]="col.name">
+                    </textarea>
+                  }
+
+                  @case ('select') {
+                    <select
+                      class="form-select form-select-sm"
+                      [formControlName]="col.name">
+
+                      @for (o of col.options ?? []; track o) {
+                        <option [value]="o.value">
+                          {{ o.label }}
+                        </option>
+                      }
+
+                    </select>
+                  }
+
+                  @case ('date') {
+                    <input
+                      type="date"
+                      class="form-control form-control-sm"
+                      [formControlName]="col.name">
+                  }
+
+                  @case ('checkbox') {
+                    <div class="text-center">
+                      <input
+                        type="checkbox"
+                        [formControlName]="col.name">
+                    </div>
+                  }
+
+                }
+
+              </td>
+            }
+
+            <!-- Delete Button -->
+            <td class="text-center">
+              <button
+                type="button"
+                class="btn btn-sm btn-danger"
+                (click)="removeRow(i)">
+                ✕
+              </button>
+            </td>
+
+          </tr>
+        }
+
+      </tbody>
+
+    </table>
+  </div>
+
+</div>

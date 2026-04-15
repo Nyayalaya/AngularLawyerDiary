@@ -1,114 +1,108 @@
 // src/app/core/interceptors/auth.interceptor.ts
-import { Injectable } from '@angular/core';
+
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
+  HttpInterceptorFn,
+  HttpErrorResponse,
+  HttpRequest
 } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, filter, take, switchMap } from 'rxjs/operators';
-import { AuthService } from '../services';
-import { Router } from '@angular/router';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+import { inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { catchError, throwError, timeout } from 'rxjs';
 
-  private isRefreshing = false;
-  private refreshTokenSubject = new BehaviorSubject<string | null>(null);
+import { TokenService } from '../services/token.service';
+import { logout } from '../../features/auth/store/auth.actions';
 
-  constructor(private authService: AuthService, private router: Router) { }
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  const tokenSvc = inject(TokenService);
+  const store = inject(Store);
+  const token = tokenSvc.getAccessToken();
 
-    // ⛔ Skip auth endpoints
-    if (this.isAuthEndpoint(request.url)) {
-      return next.handle(request);
-    }
-
-    // ✅ Attach access token if available
-    const token = this.authService.getAccessToken();
-    if (token) {
-      request = this.addToken(request, token);
-    }
-
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          return this.handle401Error(request, next);
-        }
-        return throwError(() => error);
-      })
-    );
+  /* =========================
+     1. Skip public & static requests
+  ========================= */
+  if (isPublicRequest(req)) {
+    return next(req);
   }
 
-  /* =======================
-     HELPERS
-  ======================= */
+  /* =========================
+     2. ALWAYS overwrite Authorization header
+  ========================= */
+  let authReq: HttpRequest<any> = req;
 
-  private addToken(
-    request: HttpRequest<any>,
-    token: string
-  ): HttpRequest<any> {
-    return request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
+  if (token) {
+    authReq = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${token}`)
     });
   }
-  /**
-   * Handle 401 Unauthorized
-   */
-  private handle401Error(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
 
-    if (!this.isRefreshing) {
-      this.isRefreshing = true;
-      this.refreshTokenSubject.next(null);
+  /* =========================
+     3. Send request
+  ========================= */
+  return next(authReq).pipe(
 
-      return this.authService.refreshToken().pipe(
-        switchMap(authData => {
-          this.isRefreshing = false;
+    timeout(30000),
 
-          // 🔁 Save new token
-          this.refreshTokenSubject.next(authData.token);
+    catchError((err: HttpErrorResponse) => {
 
-          // 🔄 Retry original request
-          return next.handle(
-            this.addToken(request, authData.token)
-          );
-        }),
-        catchError(err => {
-          this.isRefreshing = false;
-          this.authService.logout();
-          this.router.navigate(['/login']);
-          return throwError(() => err);
-        })
-      );
+      /* =========================
+         AUTH ERRORS
+      ========================= */
+      if (err.status === 401) {
+        store.dispatch(logout());
+      }
 
-    } else {
-      // ⏳ Wait until refresh finishes
-      return this.refreshTokenSubject.pipe(
-        filter(token => token !== null),
-        take(1),
-        switchMap(token =>
-          next.handle(this.addToken(request, token!))
-        )
-      );
-    }
+      if (err.status === 403) {
+        console.warn('[AuthInterceptor] Forbidden:', authReq.url);
+      }
+
+      /* =========================
+         NETWORK ERROR
+      ========================= */
+      if (err.status === 0) {
+        console.error('[AuthInterceptor] Network/CORS issue');
+      }
+
+      /* =========================
+         DEBUG (DEV ONLY)
+      ========================= */
+      if (!isProduction()) {
+        console.error('[HTTP ERROR]', {
+          url: authReq.url,
+          status: err.status,
+          message: err.message,
+          tokenLength: token?.length
+        });
+      }
+
+      return throwError(() => err);
+    })
+  );
+};
+
+
+/* =========================
+   Helper: Public Requests
+========================= */
+function isPublicRequest(req: HttpRequest<any>): boolean {
+
+  const publicUrls = [
+    '/auth/login',
+    '/auth/register'
+  ];
+
+  if (req.url.includes('/assets') || req.url.includes('.json')) {
+    return true;
   }
+  console.log('Interceptor running:', req.url);
+  return publicUrls.some(url => req.url.includes(url));
+}
 
-  private isAuthEndpoint(url: string): boolean {
-    return (
-      url.includes('/Auth/login') ||
-      url.includes('/Auth/register') ||
-      url.includes('/Auth/refresh-token')
-    );
-  }
+
+/* =========================
+   Helper: Environment
+========================= */
+function isProduction(): boolean {
+  return !location.hostname.includes('localhost');
 }

@@ -1,0 +1,29 @@
+<div [formGroup]="group()">
+
+  <label>{{ field().label }}</label>
+
+  @switch (field().type) {
+
+    @case ('text') {
+      <input class="form-control" [formControlName]="field().name">
+    }
+
+    @case ('textarea') {
+      <textarea class="form-control" [formControlName]="field().name"></textarea>
+    }
+
+    @case ('select') {
+      <select class="form-control" [formControlName]="field().name">
+        @for (o of field().options ?? []; track o) {
+          <option [value]="o.value">{{o.label}}</option>
+        }
+      </select>
+    }
+
+    @case ('checkbox') {
+      <input type="checkbox" [formControlName]="field().name">
+    }
+
+  }
+
+</div>

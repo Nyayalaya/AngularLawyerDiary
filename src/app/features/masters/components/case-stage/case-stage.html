@@ -1,0 +1,70 @@
+<!-- Loading -->
+<ng-container *ngIf="(loading$ | async); else tableOrError">
+  <div class="loader-container">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading case stages...</p>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Table -->
+<ng-template #tableOrError>
+
+  <!-- Error Banner -->
+  <div *ngIf="(error$ | async) as error"
+       class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <app-generic-table
+    *ngIf="!showForm()"
+    title="Case Stages"
+    [data]="(caseStages$ | async) || []"
+    [columns]="columns"
+    [serverSide]="true"
+    [totalRecords]="(totalRecords$ | async) || 0"
+    [currentPage]="(pageNumber$   | async) || 1"
+    [pageSize]="(pageSize$     | async) || 10"
+    [totalPages]="(totalPages$   | async) || 0"
+    (added)="toggleForm()"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (view)="onView($event)"
+    (pageChanged)="onPageChanged($event)">
+  </app-generic-table>
+
+</ng-template>
+
+<!-- Form -->
+<div [formGroup]="caseStageForm">
+  <app-generic-form-model
+    [form]="caseStageForm"
+    [title]="isEditMode() ? 'Edit Case Stage' : 'Add Case Stage'"
+    [show]="showForm()"
+    (save)="onSubmit()"
+    (close)="showForm.set(false)">
+
+    <input
+      class="form-control"
+      formControlName="name"
+      placeholder="Case Stage Name"
+      [class.is-invalid]="caseStageForm.get('name')?.invalid &&
+                           caseStageForm.get('name')?.touched">
+    <div class="invalid-feedback">
+      Case Stage Name is required (min 2 characters)
+    </div>
+
+    <input
+      class="form-control mt-2"
+      formControlName="code"
+      placeholder="Code"
+      [class.is-invalid]="caseStageForm.get('code')?.invalid &&
+                           caseStageForm.get('code')?.touched">
+    <div class="invalid-feedback">
+      Code is required (min 2 characters)
+    </div>
+
+  </app-generic-form-model>
+</div>

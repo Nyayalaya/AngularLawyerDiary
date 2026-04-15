@@ -1,0 +1,132 @@
+<!-- generic-table.component.html -->
+<div class="container-fluid py-3">
+
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <h5 class="fw-semibold m-0">{{ title }}</h5>
+    <div class="d-flex gap-2">
+      <input class="form-control" style="width:220px" placeholder="Search..."
+        (input)="searchTerm.set($any($event.target).value)" />
+      <button class="btn btn-outline-secondary" (click)="exportCSV()">
+        <i class="bi bi-download me-1"></i>Export
+      </button>
+      <button class="btn btn-primary" (click)="onAddClick()">
+        <i class="bi bi-plus-lg me-1"></i>Add
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th style="width:60px">#</th>
+            @for (col of visibleColumns(); track col.key) {
+              <th>{{ col.label }}</th>
+            }
+            <th style="width:130px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of paginatedData(); let i = $index; track i) {
+            <tr>
+              <td class="text-center fw-semibold text-muted">{{ getSerialNumber(i) }}</td>
+              @for (col of visibleColumns(); track col.key) {
+                <td>{{ row[col.key] }}</td>
+              }
+              <td>
+                <app-action-menu
+                  (view)="view.emit(row)"
+                  (edit)="edit.emit(row)"
+                  (delete)="delete.emit(row)">
+                </app-action-menu>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td [attr.colspan]="visibleColumns().length + 2"
+                  class="text-center text-muted py-4">
+                No records found
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PAGINATION -->
+  @if (activeTotalPages > 1) {
+    <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+
+      <!-- Left: page size + record count -->
+      <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-2">
+          <label class="text-muted small mb-0">Rows:</label>
+          <select class="form-select form-select-sm w-auto" (change)="onPageSizeChange($event)">
+            @for (opt of pageSizeOptions; track opt) {
+              <option [value]="opt" [selected]="opt === activePageSize">{{ opt }}</option>
+            }
+          </select>
+        </div>
+        <span class="text-muted small">
+          Showing
+          <strong>{{ (activePage - 1) * activePageSize + 1 }}</strong>
+          –
+          <strong>{{ [activePage * activePageSize, activeTotalRecs] | minVal }}</strong>
+          of <strong>{{ activeTotalRecs }}</strong> records
+        </span>
+      </div>
+
+      <!-- Right: page buttons -->
+      <div class="d-flex align-items-center gap-1">
+
+        <!-- First -->
+        <button class="btn btn-sm btn-outline-secondary"
+                [disabled]="activePage === 1"
+                (click)="goFirst()" title="First">
+          <i class="bi bi-chevron-double-left"></i>
+        </button>
+
+        <!-- Prev -->
+        <button class="btn btn-sm btn-outline-secondary"
+                [disabled]="activePage === 1"
+                (click)="goPrev()" title="Previous">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <!-- Page numbers -->
+        @for (p of getPageNumbers(); track p) {
+          @if (p === '...') {
+            <span class="px-2 text-muted">…</span>
+          } @else {
+            <button class="btn btn-sm"
+                    [class.btn-primary]="p === activePage"
+                    [class.btn-outline-secondary]="p !== activePage"
+                    (click)="goToPage(+p)">
+              {{ p }}
+            </button>
+          }
+        }
+
+        <!-- Next -->
+        <button class="btn btn-sm btn-outline-secondary"
+                [disabled]="activePage === activeTotalPages"
+                (click)="goNext()" title="Next">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+
+        <!-- Last -->
+        <button class="btn btn-sm btn-outline-secondary"
+                [disabled]="activePage === activeTotalPages"
+                (click)="goLast()" title="Last">
+          <i class="bi bi-chevron-double-right"></i>
+        </button>
+
+      </div>
+    </div>
+  }
+
+</div>
