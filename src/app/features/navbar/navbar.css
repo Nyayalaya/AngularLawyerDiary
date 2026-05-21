@@ -11,9 +11,18 @@
 .navbar-content {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 0.75rem 1.5rem;
+  gap: 1rem;
+}
+
+.navbar-left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 0;
 }
 
 .search-container {
@@ -57,7 +66,23 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  margin-left: 1.5rem;
+}
+
+.navbar-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navbar-title {
+  flex: 0 0 auto;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
 }
 
 .icon-button {
@@ -231,9 +256,22 @@
     flex-wrap: wrap;
   }
 
-  .search-container {
+  .navbar-left {
     order: 3;
     flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .navbar-title {
+    order: 2;
+    flex: 1 1 auto;
+  }
+
+  .navbar-right {
+    order: 1;
+  }
+
+  .search-container {
     max-width: 100%;
   }
 

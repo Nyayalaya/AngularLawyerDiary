@@ -1,13 +1,10 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RegisterRequest } from '../../models/register-request.model';
 import { AuthFacade } from '../../facade/auth.facade';
 import { ValidationMessages } from '../../../../core';
-import { NotificationService } from '../../../../shared/notification.service';
-import { RoutePath } from '../../../../core';
 import { Role, Gender } from '../../../../core';
 
 @Component({
@@ -18,6 +15,11 @@ import { Role, Gender } from '../../../../core';
   styleUrl: './register.css',
 })
 export class Register implements OnInit {
+  /** When embedded inside Welcome page, render without full-page background */
+  @Input() embedded = false;
+
+  @Output() loginClick = new EventEmitter<void>();
+
   returnUrl = '';
   registerForm!: FormGroup;
   Role = Role;
@@ -36,14 +38,14 @@ export class Register implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private authFacade: AuthFacade,
-    private notiService: NotificationService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.initializeForm();
     this.setupRoleChangeListener();
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
+    // App uses `/default` as the login/start page
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/default';
   }
   private initializeForm(): void {
     this.registerForm = this.fb.group({
@@ -162,16 +164,16 @@ export class Register implements OnInit {
     }
 
     const payload = this.preparePayload();
-    // dispatch action and let effect handle navigation
+    // dispatch action and let effects handle navigation and notifications
     this.authFacade.register(payload);
+  }
 
-    // optional: show notification on success or failure
-    this.authFacade.error$.pipe(take(1)).subscribe(err => {
-      if (err) {
-        this.notiService.error('registrationFailed');
-      } else {
-        this.notiService.confirmSuccess('registrationSuccess');
-      }
-    });
+  goToLogin(): void {
+    // If hosted inside Welcome, toggle in-place. Otherwise navigate to route.
+    if ((this.loginClick as any).observers?.length) {
+      this.loginClick.emit();
+      return;
+    }
+    this.router.navigate(['/default']);
   }
 }

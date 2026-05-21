@@ -1,0 +1,201 @@
+<section class="data-integration-page">
+  @if (loading()) {
+    <div class="empty-state">Loading data integrations...</div>
+  } @else {
+    <app-generic-table
+      title="Data Integration"
+      [data]="dataIntegrations()"
+      [columns]="columns"
+      [viewActionLabel]="'Edit'"
+      [editActionLabel]="'Sync'"
+      [showDeleteAction]="true"
+      (added)="openAddIntegration()"
+      (view)="onEdit($event)"
+      (edit)="syncIntegration($event)"
+      (delete)="onDelete($event)">
+    </app-generic-table>
+  }
+</section>
+
+<div [formGroup]="integrationForm">
+  <app-generic-form-model
+    [form]="integrationForm"
+    [title]="isEditMode() ? 'Edit Data Integration' : 'Add Data Integration'"
+    [show]="showIntegrationForm()"
+    (save)="saveIntegration()"
+    (close)="showIntegrationForm.set(false)">
+
+    <div class="integration-form-field">
+      <label class="form-label">Name <span class="text-danger">*</span></label>
+      <input
+        class="form-control"
+        formControlName="name"
+        placeholder="Enter integration name"
+        [class.is-invalid]="integrationForm.get('name')?.invalid && integrationForm.get('name')?.touched">
+      <div class="invalid-feedback">
+        Integration name is required and must be at least 2 characters.
+      </div>
+    </div>
+
+    <div class="integration-form-field">
+      <label class="form-label">Description <span class="text-danger">*</span></label>
+      <textarea
+        class="form-control"
+        formControlName="description"
+        placeholder="Enter integration description"
+        rows="3"
+        [class.is-invalid]="integrationForm.get('description')?.invalid && integrationForm.get('description')?.touched">
+      </textarea>
+      <div class="invalid-feedback">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="integration-form-field">
+          <label class="form-label">Type <span class="text-danger">*</span></label>
+          <select
+            class="form-control"
+            formControlName="type"
+            [class.is-invalid]="integrationForm.get('type')?.invalid && integrationForm.get('type')?.touched">
+            <option value="api">API</option>
+            <option value="excel">Excel File</option>
+            <option value="json">JSON File</option>
+          </select>
+          <div class="invalid-feedback">
+            Type is required.
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="integration-form-field">
+          <label class="form-label">Source <span class="text-danger">*</span></label>
+          @if (integrationForm.get('type')?.value === 'api') {
+            <input
+              class="form-control"
+              type="url"
+              formControlName="source"
+              placeholder="Enter API URL"
+              [class.is-invalid]="integrationForm.get('source')?.invalid && integrationForm.get('source')?.touched">
+            <div class="invalid-feedback">
+              Valid API URL is required.
+            </div>
+          } @else {
+            <div class="file-upload-area">
+              <input
+                type="file"
+                [accept]="integrationForm.get('type')?.value === 'excel' ? '.xlsx,.xls' : '.json'"
+                (change)="onFileSelected($event)"
+                style="display: none;"
+                #fileInput>
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                (click)="fileInput.click()">
+                <i class="fas fa-upload"></i> Choose File
+              </button>
+              @if (selectedFile) {
+                <span class="file-name">{{ selectedFile.name }}</span>
+              } @else if (integrationForm.get('source')?.value) {
+                <span class="file-name">{{ integrationForm.get('source')?.value }}</span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="integration-form-field">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          formControlName="isActive"
+          id="integrationIsActive">
+        <label class="form-check-label" for="integrationIsActive">
+          Active
+        </label>
+      </div>
+    </div>
+
+    <div class="mapping-section">
+      <div class="mapping-header">
+        <h5 class="section-title">Field Mapping</h5>
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="addMapping()">
+          <i class="fas fa-plus"></i> Add Mapping
+        </button>
+      </div>
+
+      <div class="mapping-list">
+        @for (mappingControl of mappingControls; track $index) {
+          <div class="mapping-item" [formGroup]="mappingControl">
+            <div class="row">
+              <div class="col-md-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="sourceField"
+                  placeholder="Source Field"
+                  [class.is-invalid]="mappingControl.get('sourceField')?.invalid && mappingControl.get('sourceField')?.touched">
+              </div>
+              <div class="col-md-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="targetField"
+                  placeholder="Target Field"
+                  [class.is-invalid]="mappingControl.get('targetField')?.invalid && mappingControl.get('targetField')?.touched">
+              </div>
+              <div class="col-md-2">
+                <select
+                  class="form-control"
+                  formControlName="dataType"
+                  [class.is-invalid]="mappingControl.get('dataType')?.invalid && mappingControl.get('dataType')?.touched">
+                  <option value="string">String</option>
+                  <option value="number">Number</option>
+                  <option value="date">Date</option>
+                  <option value="boolean">Boolean</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    formControlName="required"
+                    [id]="'required-' + $index">
+                  <label class="form-check-label" [for]="'required-' + $index">
+                    Required
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="removeMapping($index)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="defaultValue"
+                  placeholder="Default Value (optional)">
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-mapping">
+            No field mappings defined. Click "Add Mapping" to get started.
+          </div>
+        }
+      </div>
+    </div>
+
+  </app-generic-form-model>
+</div>

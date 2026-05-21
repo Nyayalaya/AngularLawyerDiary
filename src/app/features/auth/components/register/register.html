@@ -1,4 +1,4 @@
-<div class="form-container">
+<div class="auth-page" [class.embedded]="embedded">
   <div class="form-card">
     <h2>Create Account</h2>
     <p class="subtitle">Fill in your details to get started</p>
@@ -96,5 +96,9 @@
 
       <button type="submit" [disabled]="registerForm.invalid">Register</button>
     </form>
+
+    <div class="form-links">
+      <a href="#" (click)="goToLogin(); $event.preventDefault()">Already have an account? Login</a>
+    </div>
   </div>
 </div>

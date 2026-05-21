@@ -1,6 +1,7 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, inject, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,9 +12,12 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './forgot-password.css',
 })
 export class ForgotPassword {
-  email = '';
-
+  /** When embedded inside Welcome page, render without full-page background */
+  @Input() embedded = false;
   @Output() loginClick = new EventEmitter<void>();
+
+  email = '';
+  private router = inject(Router);
 
   onSubmit() {
     if (!this.email) {
@@ -22,11 +26,16 @@ export class ForgotPassword {
     }
     console.log('Forgot password for:', this.email);
     alert('Password reset link sent to your email!');
-    this.loginClick.emit(); // go back to login after submission
+    this.goToLogin();
   }
 
   goToLogin() {
-    this.loginClick.emit();
+    // If hosted inside Welcome, toggle in-place. Otherwise navigate to route.
+    if ((this.loginClick as any).observers?.length) {
+      this.loginClick.emit();
+      return;
+    }
+    this.router.navigate(['/default']);
   }
 
 }

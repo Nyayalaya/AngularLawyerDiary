@@ -12,13 +12,21 @@ import { MinValPipe } from "../../pipes/min-val.pipe";
   selector: 'app-generic-table',
   standalone: true,
   templateUrl: './generic-table.html',
-  imports: [CommonModule, FormsModule, ActionMenu, MinValPipe]
+  styleUrls: ['./generic-table.css'],
+  imports: [CommonModule, FormsModule, ActionMenu, MinValPipe],
+  host: { class: 'gt-container' }
 })
 export class GenericTable implements OnChanges {
 
   @Input() title    = '';
   @Input() data:    any[]  = [];
   @Input() columns: { key: string; label: string; hidden?: boolean; isKey?: boolean }[] = [];
+  @Input() showViewAction = true;
+  @Input() showEditAction = true;
+  @Input() showDeleteAction = true;
+  @Input() viewActionLabel = 'View';
+  @Input() editActionLabel = 'Edit';
+  @Input() deleteActionLabel = 'Delete';
 
   // ── Server-side pagination inputs ──────────────────────────────────
   @Input() serverSide    = false;   // flip to true for server paging
@@ -78,6 +86,11 @@ export class GenericTable implements OnChanges {
     // Reset to page 1 when data changes in client mode
     if (changes['data'] && !this.serverSide) {
       this.page.set(1);
+    }
+    
+    // When page size changes on the server, reset to page 1
+    if (changes['pageSize'] && this.serverSide && changes['pageSize'].previousValue !== undefined) {
+      // Parent will handle the page reset via onPageChanged
     }
   }
 
@@ -159,4 +172,9 @@ export class GenericTable implements OnChanges {
   onAddClick(): void {
     this.added.emit();
   }
+
+  onSearch(event: Event): void {
+  const value = (event.target as HTMLInputElement).value;
+  this.searchTerm.set(value);
+}
 }

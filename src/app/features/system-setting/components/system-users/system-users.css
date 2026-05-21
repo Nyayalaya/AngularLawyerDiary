@@ -1,0 +1,56 @@
+.system-users-page {
+  padding: 1rem;
+}
+
+.page-intro {
+  margin-bottom: 1.5rem;
+}
+
+.page-intro h2 {
+  margin-bottom: 0.5rem;
+}
+
+.info-text {
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.field-group {
+  margin-bottom: 1rem;
+}
+
+.field-group.inline-group {
+  display: flex;
+  align-items: center;
+}
+
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.feature-item {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.form-check {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.form-control,
+select {
+  width: 100%;
+}

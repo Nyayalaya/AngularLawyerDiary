@@ -5,3 +5,56 @@
   font-size: 18px;
   line-height: 0;
 }
+
+/* ============================================================================
+   ACTION BUTTONS STYLING
+   ============================================================================ */
+
+:host ::ng-deep .btn-group-sm .btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border-width: 1.5px;
+}
+
+:host ::ng-deep .btn-outline-info {
+  color: #3b82f6;
+  border-color: #3b82f6;
+  background: transparent;
+}
+
+:host ::ng-deep .btn-outline-info:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+:host ::ng-deep .btn-outline-primary {
+  color: #667eea;
+  border-color: #667eea;
+  background: transparent;
+}
+
+:host ::ng-deep .btn-outline-primary:hover {
+  background: rgba(102, 126, 234, 0.1);
+  border-color: #667eea;
+  color: #667eea;
+}
+
+:host ::ng-deep .btn-outline-danger {
+  color: #f56565;
+  border-color: #f56565;
+  background: transparent;
+}
+
+:host ::ng-deep .btn-outline-danger:hover {
+  background: rgba(245, 101, 101, 0.1);
+  border-color: #f56565;
+  color: #f56565;
+}
+
+:host ::ng-deep .btn-group-sm .btn:active {
+  transform: scale(0.95);
+}

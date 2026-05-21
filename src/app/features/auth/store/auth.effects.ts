@@ -9,6 +9,7 @@ import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { AuthService } from '../../../core';
 import { TokenService } from '../../../core/services/token.service';
 import { TokenExpiryService } from '../../../core/services/token-expiry.service';
+import { NotificationService } from '../../../shared/notification.service';
 import { AuthUser, UserRole } from '../models/login-response.model';
 import * as A from './auth.actions';
 
@@ -27,6 +28,7 @@ export class AuthEffects {
   private tokenSvc = inject(TokenService);
   private expirySvc = inject(TokenExpiryService);
   private router = inject(Router);
+  private notificationService = inject(NotificationService);
 
   /* =====================================================
      1. LOGIN
@@ -62,7 +64,47 @@ export class AuthEffects {
   );
 
   /* =====================================================
-     2. LOGIN SUCCESS
+     2. REGISTER
+  ===================================================== */
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(A.registerRequest),
+      exhaustMap(({ userData }) =>
+        this.authService.register(userData).pipe(
+          map((userId) => A.registerSuccess({ userId })),
+          catchError(err =>
+            of(A.registerFailure({
+              error: err.error?.message ?? 'Registration failed'
+            }))
+          )
+        )
+      )
+    )
+  );
+
+  registerSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(A.registerSuccess),
+      tap(() => {
+        this.notificationService.confirmSuccess('registrationSuccess');
+        this.router.navigate(['/default']);
+      })
+    ),
+    { dispatch: false }
+  );
+
+  registerFailure$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(A.registerFailure),
+      tap(() => {
+        this.notificationService.error('registrationFailed');
+      })
+    ),
+    { dispatch: false }
+  );
+
+  /* =====================================================
+     3. LOGIN SUCCESS
   ===================================================== */
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(

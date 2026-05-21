@@ -13,12 +13,16 @@ export class AuthFacade {
   isAuthenticated$!: Observable<boolean>;
   loading$!: Observable<boolean>;
   error$!: Observable<any>;
+  registering$!: Observable<boolean>;
+  registerError$!: Observable<string | null>;
 
   constructor(private store: Store) {
     this.user$ = this.store.select(AuthSelectors.selectCurrentUser);
     this.isAuthenticated$ = this.store.select(AuthSelectors.selectIsLoggedIn);
     this.loading$ = this.store.select(AuthSelectors.selectAuthLoading);
     this.error$ = this.store.select(AuthSelectors.selectAuthError);
+    this.registering$ = this.store.select(AuthSelectors.selectRegistering);
+    this.registerError$ = this.store.select(AuthSelectors.selectRegisterError);
   }
 
   login(credentials: LoginRequest) {

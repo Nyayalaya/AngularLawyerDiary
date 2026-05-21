@@ -1,0 +1,141 @@
+<div [formGroup]="clientForm">
+  <app-generic-form-model
+    [form]="clientForm"
+    [title]="isEditMode() ? 'Edit Client' : 'Add Client'"
+    [show]="show()"
+    (save)="onSubmit()"
+    (close)="closeModal()">
+
+    <div class="client-form-grid">
+      <div class="client-form-field span-2">
+        <label class="form-label">Client Type <span class="text-danger">*</span></label>
+        <div class="client-type-group" role="radiogroup" aria-label="Client Type">
+          @for (type of clientTypes; track type) {
+            <label
+              class="client-type-option"
+              [class.selected]="clientForm.get('clientType')?.value === type">
+              <input
+                type="radio"
+                class="form-check-input"
+                formControlName="clientType"
+                [value]="type">
+              <span>{{ type }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <div class="client-form-field">
+        <label class="form-label">Name <span class="text-danger">*</span></label>
+        <input
+          class="form-control"
+          formControlName="name"
+          placeholder="Enter client name"
+          [class.is-invalid]="isClientInvalid('name')">
+        <div class="invalid-feedback">
+          Name is required and must be at least 2 characters.
+        </div>
+      </div>
+
+      <div class="client-form-field">
+        <label class="form-label">Mobile <span class="text-danger">*</span></label>
+        <input
+          class="form-control"
+          formControlName="mobile"
+          placeholder="Enter mobile number"
+          [class.is-invalid]="isClientInvalid('mobile')">
+        <div class="invalid-feedback">
+          Enter a valid mobile number.
+        </div>
+      </div>
+
+      <div class="client-form-field">
+        <label class="form-label">Office Phone</label>
+        <input
+          class="form-control"
+          formControlName="officePhone"
+          placeholder="Enter office phone, if any"
+          [class.is-invalid]="isClientInvalid('officePhone')">
+        <div class="invalid-feedback">
+          Enter a valid office phone number.
+        </div>
+      </div>
+
+      <div class="client-form-field">
+        <label class="form-label">Email <span class="text-danger">*</span></label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Enter email address"
+          [class.is-invalid]="isClientInvalid('email')">
+        <div class="invalid-feedback">
+          Enter a valid email address.
+        </div>
+      </div>
+
+      <div class="client-form-field">
+        <label class="form-label">Office Email</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="officeEmail"
+          placeholder="Enter office email, if any"
+          [class.is-invalid]="isClientInvalid('officeEmail')">
+        <div class="invalid-feedback">
+          Enter a valid office email address.
+        </div>
+      </div>
+
+      <div class="client-form-field">
+        <label class="form-label">Referral By</label>
+        <input
+          class="form-control"
+          formControlName="referralBy"
+          placeholder="Enter referral by">
+        <div class="form-text">
+          Select an existing referral or type a new one.
+        </div>
+      </div>
+
+      @if (isCorporateClient()) {
+        <div class="client-form-field">
+          <label class="form-label">Registration No <span class="text-danger">*</span></label>
+          <input
+            class="form-control"
+            formControlName="registrationNo"
+            placeholder="Enter corporate registration number"
+            [class.is-invalid]="isClientInvalid('registrationNo')">
+          <div class="invalid-feedback">
+            Registration No is required for corporate clients.
+          </div>
+        </div>
+      }
+
+      <div class="client-form-field">
+        <label class="form-label">Property Name <span class="text-danger">*</span></label>
+        <input
+          class="form-control"
+          formControlName="propertyName"
+          placeholder="Enter property name"
+          [class.is-invalid]="isClientInvalid('propertyName')">
+        <div class="invalid-feedback">
+          Property Name is required and must be at least 2 characters.
+        </div>
+      </div>
+
+      <div class="client-form-field span-2">
+        <label class="form-label">Address <span class="text-danger">*</span></label>
+        <textarea
+          class="form-control"
+          formControlName="address"
+          placeholder="Enter address"
+          rows="3"
+          [class.is-invalid]="isClientInvalid('address')"></textarea>
+        <div class="invalid-feedback">
+          Address is required and must be at least 5 characters.
+        </div>
+      </div>
+    </div>
+  </app-generic-form-model>
+</div>

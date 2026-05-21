@@ -1,0 +1,416 @@
+<div class="court-container">
+
+  <!-- Loading -->
+  <ng-container *ngIf="(loading$ | async); else tableOrError">
+
+    <div class="loader-container">
+      <div class="loader-card">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading courts...</p>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <!-- List / Form -->
+  <ng-template #tableOrError>
+
+    <!-- LIST VIEW -->
+    <div *ngIf="!showForm()">
+
+      <!-- Error -->
+      <div *ngIf="(error$ | async) as error"
+           class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <span>{{ error }}</span>
+
+      </div>
+
+      <!-- Table -->
+      <app-generic-table
+        title="Courts"
+        [data]="(courts$ | async) || []"
+        [columns]="columns"
+        [serverSide]="true"
+        [totalRecords]="(totalRecords$ | async) || 0"
+        [currentPage]="(pageNumber$ | async) || 1"
+        [pageSize]="(pageSize$ | async) || 10"
+        [totalPages]="(totalPages$ | async) || 0"
+        (added)="toggleForm()"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)"
+        (view)="onView($event)"
+        (pageChanged)="onPageChanged($event)">
+      </app-generic-table>
+
+    </div>
+
+    <!-- FORM VIEW -->
+    <div *ngIf="showForm()" class="form-container">
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="card shadow-sm border-0">
+
+            <!-- Header -->
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+              <h5 class="card-title mb-0">
+                {{ isEditMode() ? 'Edit Court' : 'Add Courts' }}
+              </h5>
+
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                (click)="goBackToList()">
+
+                <i class="bi bi-arrow-left"></i>
+                Back to List
+
+              </button>
+
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+
+              <!-- Error -->
+              <div *ngIf="(error$ | async) as error"
+                   class="alert alert-danger mb-3">
+
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                {{ error }}
+
+              </div>
+
+              <form [formGroup]="courtForm">
+
+                <!-- Court Type + State + District -->
+                <div class="row g-3 mb-4">
+
+                  <!-- Court Type -->
+                  <div class="col-md-4">
+
+                    <label for="courtTypeSelect" class="form-label fw-bold">
+                      Court Type
+                      <span class="text-danger">*</span>
+                    </label>
+
+                    <ng-select
+                      id="courtTypeSelect"
+                      formControlName="courtTypeId"
+                      (change)="onCourtTypeSelected($event)"
+                      [items]="(courtTypes$ | async) || []"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="-- Choose Court Type --"
+                      [clearable]="true"
+                      [searchable]="true"
+                      [class.is-invalid]="courtForm.get('courtTypeId')?.invalid &&
+                                         courtForm.get('courtTypeId')?.touched"
+                      notFoundText="No court types found">
+                    </ng-select>
+
+                    <div class="invalid-feedback d-block"
+                         *ngIf="courtForm.get('courtTypeId')?.invalid &&
+                                courtForm.get('courtTypeId')?.touched">
+
+                      <i class="bi bi-exclamation-circle"></i>
+                      Court Type is required
+
+                    </div>
+
+                  </div>
+
+                  <!-- State -->
+                  <div class="col-md-4" *ngIf="!isSupremeCourt()">
+
+                    <label for="stateSelect" class="form-label fw-bold">
+                      State
+                      <span class="text-danger">*</span>
+                    </label>
+
+                    <ng-select
+                      id="stateSelect"
+                      formControlName="stateId"
+                      (change)="onStateSelected($event || '')"
+                      [items]="(states$ | async) || []"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="-- Choose State --"
+                      [clearable]="true"
+                      [searchable]="true"
+                      [class.is-invalid]="courtForm.get('stateId')?.invalid &&
+                                         courtForm.get('stateId')?.touched"
+                      notFoundText="No states found">
+                    </ng-select>
+
+                    <div class="invalid-feedback d-block"
+                         *ngIf="courtForm.get('stateId')?.invalid &&
+                                courtForm.get('stateId')?.touched">
+
+                      <i class="bi bi-exclamation-circle"></i>
+                      State is required
+
+                    </div>
+
+                  </div>
+
+                  <!-- District -->
+                  <div class="col-md-4"
+                       *ngIf="!isSupremeCourt() && !isHighCourt()">
+
+                    <label for="districtSelect" class="form-label fw-bold">
+                      Court District
+                      <span class="text-danger">*</span>
+                    </label>
+
+                    <ng-select
+                      id="districtSelect"
+                      formControlName="courtDistrictId"
+                      [items]="filteredDistricts() || []"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="-- Choose District --"
+                      [clearable]="true"
+                      [searchable]="true"
+                      [disabled]="!selectedState() || (allDistricts().length === 0)"
+                      [class.is-invalid]="courtForm.get('courtDistrictId')?.invalid &&
+                                         courtForm.get('courtDistrictId')?.touched"
+                      notFoundText="No districts found">
+                    </ng-select>
+
+                    <div class="invalid-feedback d-block"
+                         *ngIf="courtForm.get('courtDistrictId')?.invalid &&
+                                courtForm.get('courtDistrictId')?.touched">
+
+                      <i class="bi bi-exclamation-circle"></i>
+                      Court District is required
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <!-- Courts Section -->
+                <div class="courts-section">
+
+                  <label class="form-label fw-bold mb-3">
+                    Court Details
+                    <span class="text-danger">*</span>
+                  </label>
+
+                  <!-- FormArray -->
+                  <div formArrayName="courts">
+
+                    <!-- Court Row -->
+                    <div *ngFor="let court of courts(); let i = index"
+                         [formGroupName]="i"
+                         class="court-card mb-3">
+
+                      <div class="card border-primary shadow-sm">
+
+                        <!-- Card Header -->
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+
+                          <span class="badge bg-primary px-3 py-2">
+                            Court {{ i + 1 }}
+                          </span>
+
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="card-body">
+
+                          <div class="row align-items-end g-3">
+
+                            <!-- Court Name -->
+                            <div class="col-md-5">
+
+                              <label [for]="'courtName_' + i"
+                                     class="form-label">
+
+                                Court Name
+                                <span class="text-danger">*</span>
+
+                              </label>
+
+                              <input
+                                [id]="'courtName_' + i"
+                                type="text"
+                                class="form-control"
+                                formControlName="name"
+                                placeholder="Enter court name"
+                                (blur)="court.get('name')?.markAsTouched()"
+                                [class.is-invalid]="court.get('name')?.invalid &&
+                                                   court.get('name')?.touched">
+
+                              <div class="invalid-feedback d-block"
+                                   *ngIf="court.get('name')?.invalid &&
+                                          court.get('name')?.touched">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                {{
+                                  court.get('name')?.hasError('required')
+                                    ? 'Court name is required'
+                                    : 'Court name must be at least 2 characters'
+                                }}
+
+                              </div>
+
+                            </div>
+
+                            <!-- Court Code -->
+                            <div class="col-md-3">
+
+                              <label [for]="'courtCode_' + i"
+                                     class="form-label">
+
+                                Code
+                                <span class="text-danger">*</span>
+
+                              </label>
+
+                              <input
+                                [id]="'courtCode_' + i"
+                                type="text"
+                                class="form-control"
+                                formControlName="code"
+                                placeholder="Enter court code"
+                                (blur)="court.get('code')?.markAsTouched()"
+                                [class.is-invalid]="court.get('code')?.invalid &&
+                                                   court.get('code')?.touched">
+
+                              <div class="invalid-feedback d-block"
+                                   *ngIf="court.get('code')?.invalid &&
+                                          court.get('code')?.touched">
+
+                                <i class="bi bi-exclamation-circle"></i>
+                                Code is required
+
+                              </div>
+
+                            </div>
+
+                            <!-- Virtual -->
+                            <div class="col-md-2">
+
+                              <div class="form-check mt-4">
+
+                                <input
+                                  [id]="'isVirtual_' + i"
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  formControlName="isVirtualCourt">
+
+                                <label [for]="'isVirtual_' + i"
+                                       class="form-check-label">
+
+                                  Virtual Court
+
+                                </label>
+
+                              </div>
+
+                            </div>
+
+                            <!-- Remove -->
+                            <div class="col-md-2 text-end"
+                                 *ngIf="!isEditMode()">
+
+                              <button
+                                type="button"
+                                class="btn btn-outline-danger w-100"
+                                (click)="removeCourtRow(i)"
+                                [disabled]="courts().length === 1">
+
+                                <i class="bi bi-trash"></i>
+                                Remove
+
+                              </button>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <!-- Add More -->
+                  <div class="d-flex justify-content-end mt-3"
+                       *ngIf="!isEditMode()">
+
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary"
+                      (click)="addCourtRow()"
+                      [disabled]="!canAddMore()">
+
+                      <i class="bi bi-plus-circle"></i>
+                      Add More Courts
+
+                    </button>
+
+                  </div>
+
+                  <!-- Warning -->
+                  <small class="d-block mt-2 text-warning"
+                         *ngIf="!canAddMore()">
+
+                    <i class="bi bi-info-circle"></i>
+                    Please complete the current court before adding another
+
+                  </small>
+
+                </div>
+
+              </form>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="card-footer bg-light d-flex justify-content-between gap-2">
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="goBackToList()">
+
+                <i class="bi bi-x-circle"></i>
+                Cancel
+
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                (click)="onSubmit()"
+                [disabled]="courtForm.invalid || (loading$ | async)">
+
+                <i class="bi bi-check-circle"></i>
+
+                {{ isEditMode() ? 'Update' : 'Create' }} Courts
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </ng-template>
+
+</div>

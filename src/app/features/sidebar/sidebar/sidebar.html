@@ -1,8 +1,22 @@
 <aside class="sidebar" [class.sidebar-closed]="!sidebarOpen">
+
+  <!-- HEADER -->
   <div class="sidebar-header">
 
     @if (sidebarOpen) {
-      <h1 class="brand-title">LawAdmin</h1>
+    <div class="brand-section">
+    <div class="brand-header">
+      <img src="/assets/logo.png" alt="Logo" class="brand-logo">
+      <div class="brand-info">
+        <h1 class="brand-title">LEXPRO</h1>
+        <p class="brand-tagline">LEGAL CASE MANAGEMENT</p>
+      </div>
+    </div>
+
+    <!-- <div class="role-badge" [class]="userRole">
+      {{ userRole.replace('-', ' ').toUpperCase() }}
+    </div> -->
+  </div>
     }
 
     <button class="toggle-btn" (click)="toggleSidebar()">
@@ -10,52 +24,89 @@
         {{ sidebarOpen ? 'close' : 'menu' }}
       </span>
     </button>
+
   </div>
 
+  <!-- NAV -->
   <nav class="sidebar-nav">
 
-    @for (item of menuItems; track item.id) {
+    @for (item of filteredMenuItems; track item.id) {
 
-      <div class="menu-item">
+    <div class="menu-item">
 
-        <button
-          class="menu-button"
-          [class.active]="activeMenu === item.id"
-          (click)="onMenuClick(item)"
-        >
-          <span class="material-icons menu-icon">{{ item.icon }}</span>
+      <!-- MAIN MENU -->
+      <button class="menu-button" [class.active]="activeMenu === item.id" (click)="onMenuClick(item)">
+        <span class="material-icons menu-icon">{{ item.icon }}</span>
 
-          @if (sidebarOpen) {
-            <span class="menu-label">{{ item.label }}</span>
-          }
+        @if (sidebarOpen) {
+        <span class="menu-label">{{ item.label }}</span>
+        }
 
-          @if (item.hasSubmenu && sidebarOpen) {
-            <span class="material-icons submenu-arrow">
-              {{ isMenuExpanded(item.id) ? 'expand_less' : 'expand_more' }}
-            </span>
-          }
-        </button>
+        @if (item.hasSubmenu && sidebarOpen) {
+        <span class="material-icons submenu-arrow">
+          {{ isMenuExpanded(item.id) ? 'expand_less' : 'expand_more' }}
+        </span>
+        }
+      </button>
 
-        @if (item.hasSubmenu && sidebarOpen && isMenuExpanded(item.id)) {
+      <!-- SUBMENU -->
+      @if (item.hasSubmenu && sidebarOpen && isMenuExpanded(item.id)) {
 
-          <div class="submenu">
+      <div class="submenu">
 
-            @for (sub of item.submenu; track sub) {
-              <button 
-                class="submenu-button"
-                (click)="navigateToSubmenu(sub.route)"
-              >
-                {{ sub.label }}
-              </button>
+        <!-- 🔥 FIXED TRACKING -->
+        @for (sub of item.submenu; track $index) {
+
+        @if (sub.isDivider) {
+        <div class="submenu-divider">
+          {{ getCleanLabel(sub.label) }}
+        </div>
+        } @else {
+          @if (sub.children?.length) {
+            <button class="submenu-button"
+              [class.submenu-active]="isSubmenuActive(sub.route) || isAnyChildActive(sub.children)"
+              (click)="onSubmenuGroupClick(item.id, sub)">
+              {{ sub.label }}
+              <span class="material-icons submenu-arrow submenu-group-arrow">
+                {{ isSubmenuGroupExpanded(item.id, sub) ? 'expand_less' : 'expand_more' }}
+              </span>
+            </button>
+
+            @if (isSubmenuGroupExpanded(item.id, sub)) {
+              <div class="nested-submenu">
+                @for (child of sub.children; track $index) {
+                  @if (child.isDivider) {
+                    <div class="submenu-divider">
+                      {{ getCleanLabel(child.label) }}
+                    </div>
+                  } @else {
+                    <button class="nested-submenu-button"
+                      [class.submenu-active]="isSubmenuActive(child.route)"
+                      (click)="navigateToSubmenu(child.route)">
+                      {{ child.label }}
+                    </button>
+                  }
+                }
+              </div>
             }
-
-          </div>
+          } @else {
+            <button class="submenu-button" [class.submenu-active]="isSubmenuActive(sub.route)"
+              (click)="navigateToSubmenu(sub.route)">
+              {{ sub.label }}
+            </button>
+          }
+        }
 
         }
 
       </div>
 
+      }
+
+    </div>
+
     }
 
   </nav>
+
 </aside>

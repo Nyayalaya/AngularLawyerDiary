@@ -10,12 +10,14 @@ interface MenuItem {
   route: string;
   hasSubmenu: boolean;
   submenu?: SubMenuItem[];
-   roles?: string[];
+  roles?: string[];
 }
 
-interface SubMenuItem {  
+interface SubMenuItem {
   label: string;
-  route: string;
+  route?: string;       // ✅ optional (for divider)
+  isDivider?: boolean;
+  children?: SubMenuItem[]; // optional 3rd-level "child" tree
 }
 
 @Component({
@@ -24,15 +26,17 @@ interface SubMenuItem {
   styleUrls: ['./sidebar.css']
 })
 export class Sidebar implements OnInit {
-   sidebarOpen: boolean = true;
-  activeMenu: string = 'dashboard';
-  activeSubmenu: string = '';
-  expandedMenus: Set<string> = new Set();
-  filteredMenuItems: MenuItem[] = [];
-  userRole: string = '';
 
+  sidebarOpen = true;
+  activeMenu = 'dashboard';
+  activeSubmenu = '';
+  expandedMenus = new Set<string>();
+  expandedSubmenuGroups = new Set<string>();
+  userRole = 'SuperAdmin'; 
+  filteredMenuItems: MenuItem[] = [];
+
+  // ✅ MENU CONFIG
   menuItems: MenuItem[] = [
-    
     {
       id: 'dashboard',
       label: 'Dashboard',
@@ -40,56 +44,63 @@ export class Sidebar implements OnInit {
       route: '/dashboard',
       hasSubmenu: false
     },
-    // {
-    //   id: 'manage-master',
-    //   label: 'Manage Master',
-    //   icon: 'grid_view',
-    //   route: '/manage-master',
-    //   hasSubmenu: true,
-    //   submenu:[
-    //      { label: 'Master Category', route: '/manage-master/master-category' },
-    //      { label: 'Dynamic Form Builder', route: '/manage-master/form-builder' }
-    //   ]
-    // },
+    {
+      id: 'system-overview',
+      label: 'System Overview',
+      icon: 'insights',
+      route: '/system-overview',
+      hasSubmenu: false
+    },
+    {
+      id: 'activity-log',
+      label: 'Activity Log',
+      icon: 'history',
+      route: '/activity-log',
+      hasSubmenu: false
+    },
+    {
+      id: 'analytics',
+      label: 'Analytics',
+      icon: 'bar_chart',
+      route: '/analytics',
+      hasSubmenu: false
+    },
     {
       id: 'master',
-      label: 'Master',
+      label: 'Master Management',
       icon: 'grid_view',
       route: '/master',
       hasSubmenu: true,
       roles: ['SuperAdmin'],
       submenu: [
         { label: 'State', route: '/master/state' },
+        { label: 'Cadre', route: '/master/cadre' },
+        { label: 'Case Categories', route: '/master/case-category' },
+        { label: 'Case Stages', route: '/master/case-stage' },
+
+        // { label: '───── Court ─────', isDivider: true },
         { label: 'Court Level', route: '/master/court-level' },
         { label: 'Type of Court', route: '/master/court-type' },
-        { label: 'Case categories', route: '/master/case-category' },
-        { label: 'Case stages', route: '/master/case-stage' },
         { label: 'Court District', route: '/master/court-district' },
-        { label: 'Cadre', route: '/master/cadre' },
-       
-        { label: 'Court Complex', route: '/master/court-master' },
-        { label: 'Courts', route: '/master/court-master' },
-        { label: 'Proceeding Type', route: '/master/work' },
-        { label: 'Proceeding', route: '/master/work-type' },
-        { label: 'Work Type', route: '/master/work' },
-        { label: 'Work', route: '/master/work-type' },
-        { label: 'Draft & Order', route: '/master/work-type' },
-        { label: 'Appearences', route: '/master/work-type' },
+        { label: 'Courts', route: '/master/court' },
+        { label: 'Court Complex', route: '/master/court-complex' },
+
+        // { label: '───── Forms ─────', isDivider: true },
+        { label: 'Form Type', route: '/master/form-type' },
+        { label: 'Form Master', route: '/master/form-master' },
+        { label: 'Form SubType', route: '/master/form-subtype' },
+        { label: 'Form Template', route: '/master/form-template' },
+
+        // { label: '───── Proceeding & Work ─────', isDivider: true },
+        { label: 'Proceeding Type', route: '/master/proceeding-type' },
+        { label: 'Proceeding', route: '/master/proceeding' },
+        { label: 'Work Type', route: '/master/work-type' },
+        { label: 'Work', route: '/master/work' },
+        { label: 'Draft & Order', route: '/master/draft-order' },
+        { label: 'Appearances', route: '/master/appearances' }
       ]
-    },
-    {
-      id: 'diary-drafting-master',
-      label: 'Drafting Master',
-      icon: 'work',
-      route: '/diary-drafting-master',
-      hasSubmenu: true,
-      roles: ['SuperAdmin'],
-      submenu: [
-        { label: 'Form Type', route: '/master/work-type' },
-        { label: 'Form Builder', route: '/lawyer-admin/lawyer' },
-        { label: 'Form Template', route: '/lawyer-admin/associate' }
-      ]
-    },
+    }
+    ,
     {
       id: 'lawyer-admin',
       label: 'Lawyer Admin',
@@ -100,16 +111,60 @@ export class Sidebar implements OnInit {
       submenu: [
         { label: 'Client', route: '/lawyer-admin/client' },
         { label: 'Lawyer', route: '/lawyer-admin/lawyer' },
-        { label: 'Associate', route: '/lawyer-admin/associate' }
+        { label: 'Associate', route: '/lawyer-admin/associate' },
+        { label: 'Roles & Permissions', route: '/lawyer-admin/roles-permissions' }
       ]
     },
+
+    {
+      id: 'case-management',
+      label: 'Case Management',
+      icon: 'gavel',
+      route: '/case-management',
+      hasSubmenu: true,
+      roles: ['SuperAdmin', 'Admin'],
+      submenu: [
+        { label: 'Manage Case', route: '/case-management/case-manage' }
+      ]
+    },
+
     {
       id: 'tools',
       label: 'Tools',
       icon: 'build',
       route: '/tools',
-      hasSubmenu: false,
+      hasSubmenu: true,
       roles: ['SuperAdmin', 'Admin'],
+       submenu: [
+        { label: 'Ad Valorem Fee', route: '/tools/settings' },
+        { label: 'Court Fee', route: '/system-settings/settings' },
+        { label: 'Limitation Period', route: '/system-settings/feature-management' },
+        { label: 'MACT Compensation', route: '/system-settings/subscriptions' },
+        { label: 'Interest ', route: '/system-settings/notification-settings' },
+        { label: 'Stamp Duty ', route: '/system-settings/integration' },
+        { label: 'Court Working Days', route: '/system-settings/integration' },
+        { label: 'Advocate Fee', route: '/system-settings/integration' },
+        { label: 'Compensation & Damages', route: '/system-settings/integration' },
+        { label: 'Compensation & Damages', route: '/system-settings/integration' },
+      ]
+    },
+
+    {
+      id: 'system-management',
+      label: 'System Management',
+      icon: 'settings',
+      route: '/system-management',
+      hasSubmenu: true,
+      roles: ['SuperAdmin', 'Admin'],
+      submenu: [
+        { label: 'System settings', route: '/system-settings/settings' },
+        { label: 'System Users', route: '/system-settings/system-users' },
+        { label: 'Roles & Permissions', route: '/system-settings/roles-permissions' },
+        { label: 'Feature management', route: '/system-settings/feature-management' },
+        { label: 'Subscriptions & plans', route: '/system-settings/subscriptions' },
+        { label: 'Notification Settings', route: '/system-settings/notification-settings' },
+        { label: 'Integration', route: '/system-settings/integration' },
+      ]
     }
   ];
 
@@ -118,83 +173,171 @@ export class Sidebar implements OnInit {
     private router: Router
   ) {}
 
-  filterMenuByRole(): void {
-  this.filteredMenuItems = this.menuItems.filter(menu => {
-    if (!menu.roles) return true; // no restriction
-    return menu.roles.includes(this.userRole);
-  });
-}
-
   ngOnInit(): void {
-    this.menuService.sidebarOpen$.subscribe(
-      (isOpen: boolean) => {
-        this.sidebarOpen = isOpen;
-      }
-    );
+    this.filterMenuByRole();
 
-    this.menuService.activeMenu$.subscribe(
-      (menuId: string) => {
-        this.activeMenu = menuId;
-      }
-    );
+    this.menuService.sidebarOpen$.subscribe(v => this.sidebarOpen = v);
+    this.menuService.activeMenu$.subscribe(v => this.activeMenu = v);
 
-    // Set active menu based on current route
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.updateActiveMenuFromRoute();
-    });
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(() => this.updateActiveMenuFromRoute());
 
     this.updateActiveMenuFromRoute();
   }
 
+  // ✅ ROLE FILTER
+  filterMenuByRole(): void {
+    this.filteredMenuItems = this.menuItems.filter(menu =>
+      !menu.roles || menu.roles.includes(this.userRole)
+    );
+  }
+
+  // ✅ ROUTE MATCHING
   updateActiveMenuFromRoute(): void {
-    const currentUrl = this.router.url;
-    
-    if (currentUrl.includes('/home')) {
-      this.menuService.setActiveMenu('home');
-    } else if (currentUrl.includes('/dashboard')) {
-      this.menuService.setActiveMenu('dashboard');
-    } else if (currentUrl.includes('/master')) {
-      this.menuService.setActiveMenu('master');
-      this.expandedMenus.add('master');
-    } else if (currentUrl.includes('/lawyer-admin')) {
-      this.menuService.setActiveMenu('lawyer-admin');
-      this.expandedMenus.add('lawyer-admin');
-    } else if (currentUrl.includes('/tools')) {
-      this.menuService.setActiveMenu('tools');
-    }
-  }
+  const url = this.router.url;
 
-  onMenuClick(menuItem: MenuItem): void {
-    this.menuService.setActiveMenu(menuItem.id);
-    
-    if (menuItem.hasSubmenu) {
-     // Toggle submenu expansion
-      if (this.expandedMenus.has(menuItem.id)) {
-        this.expandedMenus.delete(menuItem.id);
-      } else {
-        this.expandedMenus.add(menuItem.id);
+    // Keep sidebar state aligned with the current URL
+    this.expandedMenus.clear();
+    this.expandedSubmenuGroups.clear();
+    this.activeSubmenu = '';
+
+    for (const menu of this.filteredMenuItems) {
+      if (this.isRouteMatch(url, menu.route)) {
+        this.menuService.setActiveMenu(menu.id);
+        this.expandedMenus.add(menu.id);
+
+        if (menu.hasSubmenu) {
+          const match = this.findActiveSubmenuInMenu(menu, url);
+          this.activeSubmenu = match.activeRoute;
+          match.expandedGroupIds.forEach(id => this.expandedSubmenuGroups.add(id));
+        }
+
+        break;
       }
-    } else {
-      this.router.navigate([menuItem.route]);
-      this.activeSubmenu = '';
     }
   }
 
-  isMenuExpanded(menuId: string): boolean {
-    return this.expandedMenus.has(menuId);
+
+
+  onMenuClick(menu: MenuItem): void {
+    this.menuService.setActiveMenu(menu.id);
+
+    if (!menu.hasSubmenu) {
+      this.expandedMenus.clear();
+      this.expandedSubmenuGroups.clear();
+      this.router.navigate([menu.route]);
+      this.activeSubmenu = '';
+      return;
+    }
+
+    if (this.expandedMenus.has(menu.id)) {
+      this.expandedMenus.delete(menu.id);
+      this.activeSubmenu = '';
+      this.collapseSubmenuGroupsForMenu(menu.id);
+      return;
+    }
+
+    this.expandedMenus.clear();
+    this.expandedMenus.add(menu.id);
+    this.expandedSubmenuGroups.clear();
+
+    // If we're currently on a submenu route, auto-expand the matching subtree
+    const match = this.findActiveSubmenuInMenu(menu, this.router.url);
+    this.activeSubmenu = match.activeRoute;
+    match.expandedGroupIds.forEach(id => this.expandedSubmenuGroups.add(id));
   }
 
-  navigateToSubmenu(route: string): void {
-     this.activeSubmenu = route;
+  navigateToSubmenu(route?: string): void {
+    if (!route) return;
+
+    this.activeSubmenu = route;
     this.router.navigate([route]);
   }
 
-  isSubmenuActive(route: string): boolean {
-    return this.activeSubmenu === route || this.router.url === route;
+  isMenuExpanded(id: string): boolean {
+    return this.expandedMenus.has(id);
   }
 
+  isSubmenuActive(route?: string): boolean {
+    return route ? this.isRouteMatch(this.router.url, route) : false;
+  }
+
+  onSubmenuGroupClick(menuId: string, sub: SubMenuItem): void {
+    const key = this.submenuGroupKey(menuId, sub);
+
+    // Toggle nested group visibility
+    if (this.expandedSubmenuGroups.has(key)) {
+      this.expandedSubmenuGroups.delete(key);
+    } else {
+      this.expandedSubmenuGroups.add(key);
+    }
+
+    // If this node itself is navigable, also navigate
+    if (sub.route) {
+      this.navigateToSubmenu(sub.route);
+    }
+  }
+
+  isSubmenuGroupExpanded(menuId: string, sub: SubMenuItem): boolean {
+    return this.expandedSubmenuGroups.has(this.submenuGroupKey(menuId, sub));
+  }
+
+  isAnyChildActive(children?: SubMenuItem[]): boolean {
+    if (!children?.length) return false;
+    const url = this.router.url;
+    return children.some(ch => !ch.isDivider && this.isRouteMatch(url, ch.route));
+  }
+
+  private submenuGroupKey(menuId: string, sub: SubMenuItem): string {
+    return `${menuId}:${sub.route ?? sub.label}`;
+  }
+
+  private collapseSubmenuGroupsForMenu(menuId: string): void {
+    const prefix = `${menuId}:`;
+    for (const key of Array.from(this.expandedSubmenuGroups)) {
+      if (key.startsWith(prefix)) this.expandedSubmenuGroups.delete(key);
+    }
+  }
+
+  private isRouteMatch(url: string, route?: string): boolean {
+    if (!route) return false;
+    return url === route || url.startsWith(route + '/');
+  }
+
+  private findActiveSubmenuInMenu(menu: MenuItem, url: string): {
+    activeRoute: string;
+    expandedGroupIds: string[];
+  } {
+    const submenu = menu.submenu ?? [];
+
+    for (const sub of submenu) {
+      if (sub.isDivider) continue;
+
+      // Leaf item match
+      if (this.isRouteMatch(url, sub.route)) {
+        const expandedGroupIds = sub.children?.length ? [this.submenuGroupKey(menu.id, sub)] : [];
+        return { activeRoute: sub.route ?? '', expandedGroupIds };
+      }
+
+      // 3rd-level "child" match
+      if (sub.children?.length) {
+        const matchedChild = sub.children.find(ch => !ch.isDivider && this.isRouteMatch(url, ch.route));
+        if (matchedChild?.route) {
+          return {
+            activeRoute: matchedChild.route,
+            expandedGroupIds: [this.submenuGroupKey(menu.id, sub)],
+          };
+        }
+      }
+    }
+
+    return { activeRoute: '', expandedGroupIds: [] };
+  }
+
+  getCleanLabel(label: string): string {
+    return label.replace(/─/g, '').trim();
+  }
 
   toggleSidebar(): void {
     this.menuService.toggleSidebar();

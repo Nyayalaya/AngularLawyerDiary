@@ -1,1 +1,467 @@
-<p>profile works!</p>
+<div class="profile-container">
+  <!-- Header with Back Button -->
+  <div class="profile-header">
+    <div class="header-top">
+      <button class="back-btn" (click)="backToDashboard()" title="Back to Dashboard">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </button>
+      <h1 class="profile-title">User Profile</h1>
+      <div class="spacer"></div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading$ | async" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading profile...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="(error$ | async) as error" class="error-banner">
+    <i class="bi bi-exclamation-circle"></i>
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Profile Content -->
+  <div *ngIf="(profile$ | async) as profile" class="profile-content">
+    <!-- Personal Info Section (Top) -->
+    <div class="profile-card profile-intro-card">
+      <div class="profile-intro-content">
+        <div class="profile-image-section">
+          <img [src]="getDefaultProfileImage()" [alt]="profile?.fullName" class="profile-avatar" />
+          <label class="image-upload-label">
+            <input type="file" accept="image/*" (change)="onProfileImageChange($event)" #profileImage />
+            <span class="upload-icon"><i class="bi bi-cloud-upload"></i></span>
+          </label>
+        </div>
+        <div class="profile-intro-info">
+          <h2 class="profile-name">{{ profile?.fullName }}</h2>
+          <p class="profile-email">{{ profile?.email }}</p>
+          <p class="profile-phone" *ngIf="profile?.phoneNumber">
+            <i class="bi bi-telephone"></i> {{ profile?.phoneNumber }}
+          </p>
+          <p class="profile-role" *ngIf="profile?.role">
+            <span class="role-badge">{{ profile?.role }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-container">
+      <div class="tabs-nav">
+        <button 
+          class="tab-button" 
+          [class.active]="activeTab() === 'personal'"
+          (click)="switchTab('personal')">
+          <i class="bi bi-person-fill"></i> Personal Info
+        </button>
+        <button 
+          class="tab-button" 
+          [class.active]="activeTab() === 'professional'"
+          (click)="switchTab('professional')">
+          <i class="bi bi-briefcase-fill"></i> Professional
+        </button>
+        <button 
+          class="tab-button" 
+          [class.active]="activeTab() === 'contact'"
+          (click)="switchTab('contact')">
+          <i class="bi bi-telephone-fill"></i> Contacts
+        </button>
+        <button 
+          class="tab-button" 
+          [class.active]="activeTab() === 'address'"
+          (click)="switchTab('address')">
+          <i class="bi bi-geo-alt-fill"></i> Addresses
+        </button>
+        <button 
+          class="tab-button" 
+          [class.active]="activeTab() === 'workLocation'"
+          (click)="switchTab('workLocation')">
+          <i class="bi bi-building"></i> Work Locations
+        </button>
+        <button 
+          class="tab-button" 
+          [class.active]="activeTab() === 'billing'"
+          (click)="switchTab('billing')">
+          <i class="bi bi-receipt"></i> Billing Info
+        </button>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tabs-content">
+
+        <!-- PERSONAL INFO TAB -->
+        <div *ngIf="activeTab() === 'personal'" class="tab-pane active">
+          <div class="tab-header">
+            <h3><i class="bi bi-person-fill"></i> Personal Information</h3>
+            <p class="tab-subtitle">Update your basic personal details</p>
+          </div>
+
+          <form [formGroup]="personalInfoForm" class="form-content">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name *</label>
+                <input type="text" formControlName="firstName" class="form-control"
+                  [class.is-invalid]="personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched" />
+                <small class="error-text" *ngIf="personalInfoForm.get('firstName')?.errors?.['required']">First name is required</small>
+              </div>
+              <div class="form-group">
+                <label>Middle Name</label>
+                <input type="text" formControlName="middleName" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Last Name *</label>
+                <input type="text" formControlName="lastName" class="form-control"
+                  [class.is-invalid]="personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched" />
+                <small class="error-text" *ngIf="personalInfoForm.get('lastName')?.errors?.['required']">Last name is required</small>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" formControlName="email" class="form-control"
+                  [class.is-invalid]="personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched" />
+                <small class="error-text" *ngIf="personalInfoForm.get('email')?.errors?.['required']">Email is required</small>
+              </div>
+              <div class="form-group">
+                <label>Phone Number *</label>
+                <input type="tel" formControlName="phoneNumber" class="form-control"
+                  [class.is-invalid]="personalInfoForm.get('phoneNumber')?.invalid && personalInfoForm.get('phoneNumber')?.touched" />
+                <small class="error-text" *ngIf="personalInfoForm.get('phoneNumber')?.errors?.['pattern']">Phone must be 10 digits</small>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" (click)="updatePersonalInfo()">
+                <i class="bi bi-check-circle"></i> Update Personal Info
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- PROFESSIONAL INFO TAB -->
+        <div *ngIf="activeTab() === 'professional'" class="tab-pane active">
+          <div class="tab-header">
+            <h3><i class="bi bi-briefcase-fill"></i> Professional Information</h3>
+            <p class="tab-subtitle">Manage your professional details and qualifications</p>
+          </div>
+
+          <form [formGroup]="professionalInfoForm" class="form-content">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Professional Title</label>
+                <input type="text" formControlName="professionalTitle" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Specialization</label>
+                <input type="text" formControlName="specialization" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Years of Experience</label>
+                <input type="number" formControlName="yearsOfExperience" class="form-control" min="0" />
+              </div>
+              <div class="form-group">
+                <label>License Number</label>
+                <input type="text" formControlName="licenseNumber" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Bar Council Name</label>
+                <input type="text" formControlName="barCouncilName" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Bar Council Registration Number</label>
+                <input type="text" formControlName="barCouncilRegistrationNumber" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Qualifications</label>
+              <textarea formControlName="qualifications" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" (click)="updateProfessionalInfo()">
+                <i class="bi bi-check-circle"></i> Update Professional Info
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- CONTACT TAB -->
+        <div *ngIf="activeTab() === 'contact'" class="tab-pane active">
+          <div class="tab-header">
+            <h3><i class="bi bi-telephone-fill"></i> Contact Information</h3>
+            <p class="tab-subtitle">Add and manage your contact details</p>
+          </div>
+
+          <!-- Existing Contacts List -->
+          <div class="items-list" *ngIf="(contacts$ | async) as contacts; else noContacts">
+            <div *ngFor="let contact of contacts" class="item-card">
+              <div class="item-info">
+                <h5>{{ contact.contactType }}</h5>
+                <p>{{ contact.contactValue }}</p>
+              </div>
+              <div class="item-actions">
+                <button class="btn-icon edit" (click)="editContact(contact)" title="Edit">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn-icon delete" (click)="deleteContact(contact)" title="Delete">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <ng-template #noContacts>
+            <p class="no-data">No contacts added yet</p>
+          </ng-template>
+
+          <!-- Add Contact Form -->
+          <div class="form-section">
+            <h4>Add New Contact</h4>
+            <form [formGroup]="contactForm" class="form-content">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Contact Type *</label>
+                  <select formControlName="contactType" class="form-control">
+                    <option value="Phone">Phone</option>
+                    <option value="Email">Email</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Fax">Fax</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Contact Value *</label>
+                  <input type="text" formControlName="contactValue" class="form-control" 
+                    [class.is-invalid]="contactForm.get('contactValue')?.invalid && contactForm.get('contactValue')?.touched" />
+                </div>
+              </div>
+
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" formControlName="isDefault" />
+                  <span>Set as default contact</span>
+                </label>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-primary" (click)="addContact()">
+                  <i class="bi bi-plus-circle"></i> Add Contact
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ADDRESS TAB -->
+        <div *ngIf="activeTab() === 'address'" class="tab-pane active">
+          <div class="tab-header">
+            <h3><i class="bi bi-geo-alt-fill"></i> Addresses</h3>
+            <p class="tab-subtitle">Manage your address information</p>
+          </div>
+
+          <!-- Existing Addresses List -->
+          <div class="items-list" *ngIf="(addresses$ | async) as addresses; else noAddresses">
+            <div *ngFor="let address of addresses" class="item-card">
+              <div class="item-info">
+                <h5>{{ address.addressLine1 }}, {{ address.city }}</h5>
+                <p>{{ address.state }}, {{ address.country }} - {{ address.zipCode }}</p>
+              </div>
+              <div class="item-actions">
+                <button class="btn-icon edit" (click)="editAddress(address)" title="Edit">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn-icon delete" (click)="deleteAddress(address)" title="Delete">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <ng-template #noAddresses>
+            <p class="no-data">No addresses added yet</p>
+          </ng-template>
+
+          <!-- Add Address Form -->
+          <div class="form-section">
+            <h4>Add New Address</h4>
+            <form [formGroup]="addressForm" class="form-content">
+              <div class="form-row">
+                <div class="form-group full-width">
+                  <label>Address Line 1 *</label>
+                  <input type="text" formControlName="addressLine1" class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group full-width">
+                  <label>Address Line 2</label>
+                  <input type="text" formControlName="addressLine2" class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>City *</label>
+                  <input type="text" formControlName="city" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>State *</label>
+                  <input type="text" formControlName="state" class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Zip Code *</label>
+                  <input type="text" formControlName="zipCode" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>Country *</label>
+                  <input type="text" formControlName="country" class="form-control" />
+                </div>
+              </div>
+
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" formControlName="isDefault" />
+                  <span>Set as default address</span>
+                </label>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-primary" (click)="addAddress()">
+                  <i class="bi bi-plus-circle"></i> Add Address
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- WORK LOCATION TAB -->
+        <div *ngIf="activeTab() === 'workLocation'" class="tab-pane active">
+          <div class="tab-header">
+            <h3><i class="bi bi-building"></i> Work Locations</h3>
+            <p class="tab-subtitle">Add and manage your work locations</p>
+          </div>
+
+          <!-- Existing Work Locations List -->
+          <div class="items-list" *ngIf="(workLocations$ | async) as locations; else noLocations">
+            <div *ngFor="let location of locations" class="item-card">
+              <div class="item-info">
+                <h5>{{ location.locationName }}</h5>
+                <p>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.country }}</p>
+              </div>
+              <div class="item-actions">
+                <button class="btn-icon edit" (click)="editWorkLocation(location)" title="Edit">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn-icon delete" (click)="deleteWorkLocation(location)" title="Delete">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <ng-template #noLocations>
+            <p class="no-data">No work locations added yet</p>
+          </ng-template>
+
+          <!-- Add Work Location Form -->
+          <div class="form-section">
+            <h4>Add New Work Location</h4>
+            <form [formGroup]="workLocationForm" class="form-content">
+              <div class="form-group">
+                <label>Location Name *</label>
+                <input type="text" formControlName="locationName" class="form-control" />
+              </div>
+
+              <div class="form-group">
+                <label>Address *</label>
+                <input type="text" formControlName="address" class="form-control" />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>City *</label>
+                  <input type="text" formControlName="city" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>State *</label>
+                  <input type="text" formControlName="state" class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Country *</label>
+                <input type="text" formControlName="country" class="form-control" />
+              </div>
+
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" formControlName="isDefault" />
+                  <span>Set as default work location</span>
+                </label>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-primary" (click)="addWorkLocation()">
+                  <i class="bi bi-plus-circle"></i> Add Work Location
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- BILLING INFO TAB -->
+        <div *ngIf="activeTab() === 'billing'" class="tab-pane active">
+          <div class="tab-header">
+            <h3><i class="bi bi-receipt"></i> Billing Information</h3>
+            <p class="tab-subtitle">Manage your billing details</p>
+          </div>
+
+          <form [formGroup]="billingInfoForm" class="form-content">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Billing Name *</label>
+                <input type="text" formControlName="billingName" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Company Name</label>
+                <input type="text" formControlName="companyName" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Billing Email *</label>
+                <input type="email" formControlName="billingEmail" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Billing Phone *</label>
+                <input type="tel" formControlName="billingPhone" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Tax ID</label>
+              <input type="text" formControlName="taxId" class="form-control" />
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" (click)="updateBillingInfo()">
+                <i class="bi bi-check-circle"></i> Update Billing Info
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

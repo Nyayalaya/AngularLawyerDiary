@@ -1,0 +1,192 @@
+<section class="notification-settings-page">
+  @if (loading()) {
+    <div class="empty-state">Loading notification settings...</div>
+  } @else {
+    <app-generic-table
+      title="Notification Settings"
+      [data]="notificationSettings()"
+      [columns]="columns"
+      [viewActionLabel]="'Edit'"
+      [editActionLabel]="''"
+      [showDeleteAction]="true"
+      (added)="openAddSettings()"
+      (view)="onEdit($event)"
+      (delete)="onDelete($event)">
+    </app-generic-table>
+  }
+</section>
+
+<div [formGroup]="settingsForm">
+  <app-generic-form-model
+    [form]="settingsForm"
+    [title]="isEditMode() ? 'Edit Notification Settings' : 'Add Notification Settings'"
+    [show]="showSettingsForm()"
+    (save)="saveSettings()"
+    (close)="showSettingsForm.set(false)">
+
+    <div class="settings-section">
+      <h5 class="section-title">Communication Channels</h5>
+
+      <div class="channels-grid">
+        <div class="channel-item">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              formControlName="emailEnabled"
+              id="emailEnabled">
+            <label class="form-check-label" for="emailEnabled">
+              <i class="fas fa-envelope"></i> Email
+            </label>
+          </div>
+          @if (settingsForm.get('emailEnabled')?.value) {
+            <input
+              class="form-control mt-2"
+              type="email"
+              formControlName="emailAddress"
+              placeholder="Enter email address"
+              [class.is-invalid]="settingsForm.get('emailAddress')?.invalid && settingsForm.get('emailAddress')?.touched">
+            <div class="invalid-feedback">
+              Please enter a valid email address.
+            </div>
+          }
+        </div>
+
+        <div class="channel-item">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              formControlName="whatsappEnabled"
+              id="whatsappEnabled">
+            <label class="form-check-label" for="whatsappEnabled">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </label>
+          </div>
+          @if (settingsForm.get('whatsappEnabled')?.value) {
+            <input
+              class="form-control mt-2"
+              type="tel"
+              formControlName="whatsappNumber"
+              placeholder="Enter WhatsApp number"
+              [class.is-invalid]="settingsForm.get('whatsappNumber')?.invalid && settingsForm.get('whatsappNumber')?.touched">
+          }
+        </div>
+
+        <div class="channel-item">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              formControlName="smsEnabled"
+              id="smsEnabled">
+            <label class="form-check-label" for="smsEnabled">
+              <i class="fas fa-sms"></i> SMS
+            </label>
+          </div>
+          @if (settingsForm.get('smsEnabled')?.value) {
+            <input
+              class="form-control mt-2"
+              type="tel"
+              formControlName="smsNumber"
+              placeholder="Enter SMS number">
+          }
+        </div>
+
+        <div class="channel-item">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              formControlName="telegramEnabled"
+              id="telegramEnabled">
+            <label class="form-check-label" for="telegramEnabled">
+              <i class="fab fa-telegram"></i> Telegram
+            </label>
+          </div>
+          @if (settingsForm.get('telegramEnabled')?.value) {
+            <input
+              class="form-control mt-2"
+              type="text"
+              formControlName="telegramChatId"
+              placeholder="Enter Telegram Chat ID">
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h5 class="section-title">Notification Types</h5>
+
+      <div class="notification-types-list">
+        @for (typeControl of notificationTypesFormArray.controls; track $index) {
+          <div class="notification-type-item" [formGroup]="typeControl">
+            <div class="type-header">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  formControlName="enabled"
+                  [id]="'type-enabled-' + $index">
+                <label class="form-check-label fw-bold" [for]="'type-enabled-' + $index">
+                  {{ typeControl.get('name')?.value }}
+                </label>
+              </div>
+              <small class="text-muted">{{ typeControl.get('description')?.value }}</small>
+            </div>
+
+            @if (typeControl.get('enabled')?.value) {
+              <div class="type-channels">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    formControlName="email"
+                    [id]="'type-email-' + $index"
+                    [disabled]="!settingsForm.get('emailEnabled')?.value">
+                  <label class="form-check-label" [for]="'type-email-' + $index">
+                    Email
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    formControlName="whatsapp"
+                    [id]="'type-whatsapp-' + $index"
+                    [disabled]="!settingsForm.get('whatsappEnabled')?.value">
+                  <label class="form-check-label" [for]="'type-whatsapp-' + $index">
+                    WhatsApp
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    formControlName="sms"
+                    [id]="'type-sms-' + $index"
+                    [disabled]="!settingsForm.get('smsEnabled')?.value">
+                  <label class="form-check-label" [for]="'type-sms-' + $index">
+                    SMS
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    formControlName="telegram"
+                    [id]="'type-telegram-' + $index"
+                    [disabled]="!settingsForm.get('telegramEnabled')?.value">
+                  <label class="form-check-label" [for]="'type-telegram-' + $index">
+                    Telegram
+                  </label>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+  </app-generic-form-model>
+</div>

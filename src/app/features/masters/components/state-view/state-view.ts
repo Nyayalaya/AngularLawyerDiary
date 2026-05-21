@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
     GenericTable
   ],
   templateUrl: './state-view.html',
-  styleUrl: './state-view.css',
+  styleUrls: ['./state-view.css'],
 })
 export class StateView implements OnInit {
   

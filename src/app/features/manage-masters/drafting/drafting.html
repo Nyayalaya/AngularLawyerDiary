@@ -1,0 +1,62 @@
+<div class="drafting-container">
+  <div class="drafting-header">
+    <div class="header-content">
+      <h1 class="page-title">📋 Drafting Management</h1>
+      <p class="page-subtitle">Manage form types, masters, and templates</p>
+    </div>
+  </div>
+
+  <div class="drafting-content">
+    <!-- ================= TABLE ================= -->
+    <app-generic-table 
+      title="Drafting Items" 
+      [columns]="columns" 
+      [data]="data" 
+      (added)="onAdd()" 
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)">
+    </app-generic-table>
+
+    <!-- ================= FORM ================= -->
+    <div [formGroup]="form">
+      <app-generic-form-model 
+        [form]="form" 
+        title="Manage Drafting Item" 
+        [show]="showModal" 
+       
+        (close)="showModal=false">
+
+        <div class="form-section">
+          <label class="form-label">Item Name *</label>
+          <input 
+            class="form-input" 
+            formControlName="name" 
+            placeholder="Enter drafting item name"
+            [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched">
+          
+          <div class="invalid-feedback" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+            Item name is required
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Description</label>
+          <textarea 
+            class="form-textarea" 
+            formControlName="description"
+            placeholder="Enter description (optional)"
+            rows="3"></textarea>
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Status</label>
+          <select class="form-select" formControlName="status">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+
+      </app-generic-form-model>
+    </div>
+  </div>
+</div>

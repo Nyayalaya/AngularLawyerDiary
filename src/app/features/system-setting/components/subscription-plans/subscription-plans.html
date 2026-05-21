@@ -1,0 +1,133 @@
+<section class="subscription-plans-page">
+  @if (loading()) {
+    <div class="empty-state">Loading subscription plans...</div>
+  } @else {
+    <app-generic-table
+      title="Subscription Plans"
+      [data]="subscriptionPlans()"
+      [columns]="columns"
+      [viewActionLabel]="'Edit'"
+      [editActionLabel]="''"
+      [showDeleteAction]="true"
+      (added)="openAddPlan()"
+      (view)="onEdit($event)"
+      (delete)="onDelete($event)">
+    </app-generic-table>
+  }
+</section>
+
+<div [formGroup]="planForm">
+  <app-generic-form-model
+    [form]="planForm"
+    [title]="isEditMode() ? 'Edit Subscription Plan' : 'Add Subscription Plan'"
+    [show]="showPlanForm()"
+    (save)="savePlan()"
+    (close)="showPlanForm.set(false)">
+
+    <div class="plan-form-field">
+      <label class="form-label">Name <span class="text-danger">*</span></label>
+      <input
+        class="form-control"
+        type="text"
+        formControlName="name"
+        placeholder="Enter plan name"
+        [class.is-invalid]="planForm.get('name')?.invalid && planForm.get('name')?.touched">
+      <div class="invalid-feedback">
+        Plan name is required and must be at least 2 characters.
+      </div>
+    </div>
+
+    <div class="plan-form-field">
+      <label class="form-label">Description <span class="text-danger">*</span></label>
+      <textarea
+        class="form-control"
+        formControlName="description"
+        placeholder="Enter plan description"
+        rows="3"
+        [class.is-invalid]="planForm.get('description')?.invalid && planForm.get('description')?.touched">
+      </textarea>
+      <div class="invalid-feedback">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="plan-form-field">
+          <label class="form-label">Price <span class="text-danger">*</span></label>
+          <input
+            class="form-control"
+            type="number"
+            formControlName="price"
+            placeholder="0.00"
+            min="0"
+            step="0.01"
+            [class.is-invalid]="planForm.get('price')?.invalid && planForm.get('price')?.touched">
+          <div class="invalid-feedback">
+            Price is required and must be greater than or equal to 0.
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="plan-form-field">
+          <label class="form-label">Duration (Months) <span class="text-danger">*</span></label>
+          <input
+            class="form-control"
+            type="number"
+            formControlName="duration"
+            placeholder="1"
+            min="1"
+            [class.is-invalid]="planForm.get('duration')?.invalid && planForm.get('duration')?.touched">
+          <div class="invalid-feedback">
+            Duration is required and must be at least 1 month.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plan-form-field">
+      <label class="form-label">Max Users</label>
+      <input
+        class="form-control"
+        type="number"
+        formControlName="maxUsers"
+        placeholder="1"
+        min="1">
+    </div>
+
+    <div class="plan-form-field">
+      <label class="form-label">Features</label>
+      <div class="features-list">
+        @for (feature of features(); track feature.id) {
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [id]="'feature-' + feature.id"
+              [checked]="isFeatureSelected(feature.id)"
+              (change)="toggleFeature(feature.id, $any($event.target).checked)">
+            <label class="form-check-label" [for]="'feature-' + feature.id">
+              {{ feature.name }}
+            </label>
+          </div>
+        } @empty {
+          <div class="text-muted">No active features available</div>
+        }
+      </div>
+    </div>
+
+    <div class="plan-form-field">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          formControlName="isActive"
+          id="planIsActive">
+        <label class="form-check-label" for="planIsActive">
+          Active
+        </label>
+      </div>
+    </div>
+
+  </app-generic-form-model>
+</div>

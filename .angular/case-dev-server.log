@@ -1,0 +1,1420 @@
+
+> app-lawyerdiary@0.0.0 start
+> node --max-http-header-size=16384 node_modules/@angular/cli/bin/ng serve --host 127.0.0.1 --port 4200
+
+[33m>[39m Building...
+[32m√[39m Building...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                [2m | [22m  [36m1.39 MB[39m[2m | [22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m              [2m | [22m[36m291.22 kB[39m[2m | [22m
+[32mchunk-WGTJJIMO.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m47.63 kB[39m[2m | [22m
+[32mchunk-27N65WHU.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m36.75 kB[39m[2m | [22m
+[32mchunk-M76FILW2.js[39m  [2m | [22m[2m-[22m                   [2m | [22m  [36m5.57 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m       [2m | [22m  [1m1.78 MB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mchunk-B2HJQIUX.js[39m  [2m | [22m[2mdynamic-forms-routes[22m[2m | [22m[36m390 bytes[39m[2m | [22m
+[32mchunk-AV4T6IEM.js[39m  [2m | [22m[2mform-builder[22m        [2m | [22m[36m160 bytes[39m[2m | [22m
+
+Application bundle generation complete. [8.956 seconds] - 2026-05-07T12:58:23.141Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m4200[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.40 MB[39m[2m | [22m
+
+Application bundle generation complete. [9.014 seconds] - 2026-05-07T13:07:01.053Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: GenericTable is not used within the template of CaseManageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:47:
+[37m      38 │ ...ommonModule, ReactiveFormsModule, [32mGenericTable[37m, GenericFormModel],
+         ╵                                      [32m~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: GenericFormModel is not used within the template of CaseManageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:61:
+[37m      38 │ ...ommonModule, ReactiveFormsModule, GenericTable, [32mGenericFormModel[37m],
+         ╵                                                    [32m~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.43 MB[39m[2m | [22m
+
+Application bundle generation complete. [3.231 seconds] - 2026-05-07T13:07:25.048Z
+
+Component update sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.43 MB[39m[2m | [22m
+
+Application bundle generation complete. [2.119 seconds] - 2026-05-07T13:07:31.747Z
+
+Component update sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.43 MB[39m[2m | [22m
+
+Application bundle generation complete. [3.985 seconds] - 2026-05-07T13:18:36.688Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.43 MB[39m[2m | [22m
+
+Application bundle generation complete. [2.690 seconds] - 2026-05-07T13:19:01.332Z
+
+Component update sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.43 MB[39m[2m | [22m
+
+Application bundle generation complete. [2.776 seconds] - 2026-05-07T13:19:20.755Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [3.235 seconds] - 2026-05-07T13:26:46.937Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isExistingClient' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:68:27:
+[37m      68 │                       @if ([32misExistingClient[37m(client.id)) {
+         ╵                            [32m~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [2.842 seconds] - 2026-05-07T13:26:49.787Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isExistingClient' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:68:27:
+[37m      68 │                       @if ([32misExistingClient[37m(client.id)) {
+         ╵                            [32m~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [3.460 seconds] - 2026-05-07T13:26:55.493Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isExistingClient' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:68:27:
+[37m      68 │                       @if ([32misExistingClient[37m(client.id)) {
+         ╵                            [32m~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                [2m | [22m  [36m1.44 MB[39m[2m | [22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m              [2m | [22m[36m291.22 kB[39m[2m | [22m
+[32mchunk-WGTJJIMO.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m47.63 kB[39m[2m | [22m
+[32mchunk-27N65WHU.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m36.75 kB[39m[2m | [22m
+[32mchunk-M76FILW2.js[39m  [2m | [22m[2m-[22m                   [2m | [22m  [36m5.57 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m       [2m | [22m  [1m1.82 MB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mchunk-B2HJQIUX.js[39m  [2m | [22m[2mdynamic-forms-routes[22m[2m | [22m[36m390 bytes[39m[2m | [22m
+[32mchunk-AV4T6IEM.js[39m  [2m | [22m[2mform-builder[22m        [2m | [22m[36m160 bytes[39m[2m | [22m
+
+Application bundle generation complete. [1.029 seconds] - 2026-05-07T13:26:56.530Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [2.002 seconds] - 2026-05-07T13:27:06.167Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isExistingClient' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:68:27:
+[37m      68 │                       @if ([32misExistingClient[37m(client.id)) {
+         ╵                            [32m~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                [2m | [22m  [36m1.44 MB[39m[2m | [22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m              [2m | [22m[36m291.22 kB[39m[2m | [22m
+[32mchunk-WGTJJIMO.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m47.63 kB[39m[2m | [22m
+[32mchunk-27N65WHU.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m36.75 kB[39m[2m | [22m
+[32mchunk-M76FILW2.js[39m  [2m | [22m[2m-[22m                   [2m | [22m  [36m5.57 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m       [2m | [22m  [1m1.82 MB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mchunk-B2HJQIUX.js[39m  [2m | [22m[2mdynamic-forms-routes[22m[2m | [22m[36m390 bytes[39m[2m | [22m
+[32mchunk-AV4T6IEM.js[39m  [2m | [22m[2mform-builder[22m        [2m | [22m[36m160 bytes[39m[2m | [22m
+
+Application bundle generation complete. [1.147 seconds] - 2026-05-07T13:27:07.320Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.44 MB[39m[2m | [22m
+
+Application bundle generation complete. [3.233 seconds] - 2026-05-07T13:27:17.346Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                [2m | [22m  [36m1.44 MB[39m[2m | [22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m              [2m | [22m[36m291.22 kB[39m[2m | [22m
+[32mchunk-WGTJJIMO.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m47.63 kB[39m[2m | [22m
+[32mchunk-27N65WHU.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m36.75 kB[39m[2m | [22m
+[32mchunk-M76FILW2.js[39m  [2m | [22m[2m-[22m                   [2m | [22m  [36m5.57 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m       [2m | [22m  [1m1.82 MB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mchunk-B2HJQIUX.js[39m  [2m | [22m[2mdynamic-forms-routes[22m[2m | [22m[36m390 bytes[39m[2m | [22m
+[32mchunk-AV4T6IEM.js[39m  [2m | [22m[2mform-builder[22m        [2m | [22m[36m160 bytes[39m[2m | [22m
+
+Application bundle generation complete. [1.252 seconds] - 2026-05-07T13:27:18.604Z
+
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.44 MB[39m[2m | [22m
+
+Application bundle generation complete. [2.056 seconds] - 2026-05-07T13:27:49.660Z
+
+Component update sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                [2m | [22m  [36m1.44 MB[39m[2m | [22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m              [2m | [22m[36m291.22 kB[39m[2m | [22m
+[32mchunk-WGTJJIMO.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m47.63 kB[39m[2m | [22m
+[32mchunk-27N65WHU.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m36.75 kB[39m[2m | [22m
+[32mchunk-M76FILW2.js[39m  [2m | [22m[2m-[22m                   [2m | [22m  [36m5.57 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m       [2m | [22m  [1m1.82 MB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mchunk-B2HJQIUX.js[39m  [2m | [22m[2mdynamic-forms-routes[22m[2m | [22m[36m390 bytes[39m[2m | [22m
+[32mchunk-AV4T6IEM.js[39m  [2m | [22m[2mform-builder[22m        [2m | [22m[36m160 bytes[39m[2m | [22m
+
+Application bundle generation complete. [1.301 seconds] - 2026-05-07T13:27:51.256Z
+
+Component update sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [4.907 seconds] - 2026-05-07T13:30:43.576Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1010: 'imports' must be an array of components, directives, pipes, or NgModules.
+  Value could not be determined statically.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:61:
+[37m      38 │ ...ommonModule, ReactiveFormsModule, GenericTable, [32mGenericFormModel[37m],
+         ╵                                                    [32m~~~~~~~~~~~~~~~~[0m
+
+  Unknown reference.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:61:
+[37m      38 │ ...ommonModule, ReactiveFormsModule, GenericTable, [32mGenericFormModel[37m],
+         ╵                                                    [32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2304: Cannot find name 'GenericFormModel'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:61:
+[37m      38 │ ...ommonModule, ReactiveFormsModule, GenericTable, [32mGenericFormModel[37m],
+         ╵                                                    [32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:497:42:
+[37m      497 │   private applyClientTypeValidation(type: [32mClientType[37m): void {
+          ╵                                           [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [3.411 seconds] - 2026-05-07T13:30:49.032Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: ClientModalComponent is not used within the template of CaseManageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:61:
+[37m      38 │ ...nModule, ReactiveFormsModule, GenericTable, [32mClientModalComponent[37m],
+         ╵                                                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8001: 'app-generic-form-model' is not a known element:
+1. If 'app-generic-form-model' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:423:2:
+[37m      423 │   [32m<app-generic-form-model[37m
+          ╵   [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'form' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'form' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:4:
+[37m      424 │     [32m[form]="clientForm"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'show' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'show' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:426:4:
+[37m      426 │     [32m[show]="showClientForm()"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:497:42:
+[37m      497 │   private applyClientTypeValidation(type: [32mClientType[37m): void {
+          ╵                                           [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [3.074 seconds] - 2026-05-07T13:30:55.344Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: ClientModalComponent is not used within the template of CaseManageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:61:
+[37m      38 │ ...nModule, ReactiveFormsModule, GenericTable, [32mClientModalComponent[37m],
+         ╵                                                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8001: 'app-generic-form-model' is not a known element:
+1. If 'app-generic-form-model' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:423:2:
+[37m      423 │   [32m<app-generic-form-model[37m
+          ╵   [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'form' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'form' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:4:
+[37m      424 │     [32m[form]="clientForm"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'show' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'show' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:426:4:
+[37m      426 │     [32m[show]="showClientForm()"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2551: Property 'showClientForm' does not exist on type 'CaseManageComponent'. Did you mean 'clientForm'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:426:12:
+[37m      426 │     [show]="[32mshowClientForm[37m()"
+          ╵             [32m~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2551: Property 'showClientForm' does not exist on type 'CaseManageComponent'. Did you mean 'clientForm'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:428:13:
+[37m      428 │     (close)="[32mshowClientForm[37m.set(false)">
+          ╵              [32m~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2551: Property 'showClientForm' does not exist on type 'CaseManageComponent'. Did you mean 'clientForm'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:262:9:
+[37m      262 │     this.[32mshowClientForm[37m.set(true);
+          ╵          [32m~~~~~~~~~~~~~~[0m
+
+  'clientForm' is declared here.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:217:2:
+[37m      217 │   [32mclientForm[37m: FormGroup = this.fb.group({
+          ╵   [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2551: Property 'showClientForm' does not exist on type 'CaseManageComponent'. Did you mean 'clientForm'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:284:9:
+[37m      284 │     this.[32mshowClientForm[37m.set(false);
+          ╵          [32m~~~~~~~~~~~~~~[0m
+
+  'clientForm' is declared here.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:217:2:
+[37m      217 │   [32mclientForm[37m: FormGroup = this.fb.group({
+          ╵   [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:497:42:
+[37m      497 │   private applyClientTypeValidation(type: [32mClientType[37m): void {
+          ╵                                           [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [3.273 seconds] - 2026-05-07T13:31:16.543Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: ClientModalComponent is not used within the template of CaseManageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:61:
+[37m      38 │ ...nModule, ReactiveFormsModule, GenericTable, [32mClientModalComponent[37m],
+         ╵                                                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:422:18:
+[37m      422 │ <div [formGroup]="[32mclientForm[37m">
+          ╵                   [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8001: 'app-generic-form-model' is not a known element:
+1. If 'app-generic-form-model' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:423:2:
+[37m      423 │   [32m<app-generic-form-model[37m
+          ╵   [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'form' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'form' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:4:
+[37m      424 │     [32m[form]="clientForm"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:12:
+[37m      424 │     [form]="[32mclientForm[37m"
+          ╵             [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'show' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'show' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:426:4:
+[37m      426 │     [32m[show]="showClientForm()"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'showClientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:426:12:
+[37m      426 │     [show]="[32mshowClientForm[37m()"
+          ╵             [32m~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'addClientFromCase' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:427:12:
+[37m      427 │     (save)="[32maddClientFromCase[37m()"
+          ╵             [32m~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'showClientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:428:13:
+[37m      428 │     (close)="[32mshowClientForm[37m.set(false)">
+          ╵              [32m~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:435:64:
+[37m      435 │ ...option" [class.selected]="[32mclientForm[37m.get('clientType')?.value ...
+          ╵                              [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:358:25:
+[37m      358 │     const control = this.[32mclientForm[37m.get(controlPath);
+          ╵                          [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:363:16:
+[37m      363 │     return this.[32mclientForm[37m.get('clientType')?.value === 'Corporate';
+          ╵                 [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:449:42:
+[37m      449 │   private applyClientTypeValidation(type: [32mClientType[37m): void {
+          ╵                                           [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:450:32:
+[37m      450 │     const registrationNo = this.[32mclientForm[37m.get('registrationNo');
+          ╵                                 [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [0.572 seconds] - 2026-05-07T13:31:41.038Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:358:25:
+[37m      358 │     const control = this.[32mclientForm[37m.get(controlPath);
+          ╵                          [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:363:16:
+[37m      363 │     return this.[32mclientForm[37m.get('clientType')?.value === 'Corporate';
+          ╵                 [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:449:42:
+[37m      449 │   private applyClientTypeValidation(type: [32mClientType[37m): void {
+          ╵                                           [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:450:32:
+[37m      450 │     const registrationNo = this.[32mclientForm[37m.get('registrationNo');
+          ╵                                 [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [3.515 seconds] - 2026-05-07T13:32:47.767Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: ClientModalComponent is not used within the template of CaseManageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:61:
+[37m      38 │ ...nModule, ReactiveFormsModule, GenericTable, [32mClientModalComponent[37m],
+         ╵                                                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:422:18:
+[37m      422 │ <div [formGroup]="[32mclientForm[37m">
+          ╵                   [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8001: 'app-generic-form-model' is not a known element:
+1. If 'app-generic-form-model' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:423:2:
+[37m      423 │   [32m<app-generic-form-model[37m
+          ╵   [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'form' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'form' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:4:
+[37m      424 │     [32m[form]="clientForm"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:12:
+[37m      424 │     [form]="[32mclientForm[37m"
+          ╵             [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'show' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'show' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:426:4:
+[37m      426 │     [32m[show]="showClientForm()"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'showClientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:426:12:
+[37m      426 │     [show]="[32mshowClientForm[37m()"
+          ╵             [32m~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'addClientFromCase' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:427:12:
+[37m      427 │     (save)="[32maddClientFromCase[37m()"
+          ╵             [32m~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'showClientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:428:13:
+[37m      428 │     (close)="[32mshowClientForm[37m.set(false)">
+          ╵              [32m~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:435:64:
+[37m      435 │ ...option" [class.selected]="[32mclientForm[37m.get('clientType')?.value ...
+          ╵                              [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:445:87:
+[37m      445 │ ...er="Enter client name" [class.invalid]="[32misClientInvalid[37m('name')">
+          ╵                                            [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:450:91:
+[37m      450 │ ...Enter mobile number" [class.invalid]="[32misClientInvalid[37m('mobile')">
+          ╵                                          [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:460:95:
+[37m      460 │ ...eholder="Enter email" [class.invalid]="[32misClientInvalid[37m('email')">
+          ╵                                           [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isCorporateClient' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:473:11:
+[37m      473 │       @if ([32misCorporateClient[37m()) {
+          ╵            [32m~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:476:107:
+[37m      476 │ ...tion number" [class.invalid]="[32misClientInvalid[37m('registrationNo')">
+          ╵                                  [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:482:97:
+[37m      482 │ ...property name" [class.invalid]="[32misClientInvalid[37m('propertyName')">
+          ╵                                    [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:487:98:
+[37m      487 │ ...rows="3" [class.invalid]="[32misClientInvalid[37m('address')"></textarea>
+          ╵                              [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:440:42:
+[37m      440 │   private applyClientTypeValidation(type: [32mClientType[37m): void {
+          ╵                                           [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:441:32:
+[37m      441 │     const registrationNo = this.[32mclientForm[37m.get('registrationNo');
+          ╵                                 [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [0.682 seconds] - 2026-05-07T13:32:48.457Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:440:42:
+[37m      440 │   private applyClientTypeValidation(type: [32mClientType[37m): void {
+          ╵                                           [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:441:32:
+[37m      441 │     const registrationNo = this.[32mclientForm[37m.get('registrationNo');
+          ╵                                 [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [3.068 seconds] - 2026-05-07T13:33:07.431Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: ClientModalComponent is not used within the template of CaseManageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:38:61:
+[37m      38 │ ...nModule, ReactiveFormsModule, GenericTable, [32mClientModalComponent[37m],
+         ╵                                                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:422:18:
+[37m      422 │ <div [formGroup]="[32mclientForm[37m">
+          ╵                   [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8001: 'app-generic-form-model' is not a known element:
+1. If 'app-generic-form-model' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:423:2:
+[37m      423 │   [32m<app-generic-form-model[37m
+          ╵   [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'form' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'form' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:4:
+[37m      424 │     [32m[form]="clientForm"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:12:
+[37m      424 │     [form]="[32mclientForm[37m"
+          ╵             [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'show' since it isn't a known property of 'app-generic-form-model'.
+1. If 'app-generic-form-model' is an Angular component and it has 'show' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'app-generic-form-model' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:426:4:
+[37m      426 │     [32m[show]="showClientForm()"[37m
+          ╵     [32m~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'showClientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:426:12:
+[37m      426 │     [show]="[32mshowClientForm[37m()"
+          ╵             [32m~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'addClientFromCase' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:427:12:
+[37m      427 │     (save)="[32maddClientFromCase[37m()"
+          ╵             [32m~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'showClientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:428:13:
+[37m      428 │     (close)="[32mshowClientForm[37m.set(false)">
+          ╵              [32m~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'clientForm' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:435:64:
+[37m      435 │ ...option" [class.selected]="[32mclientForm[37m.get('clientType')?.value ...
+          ╵                              [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:445:87:
+[37m      445 │ ...er="Enter client name" [class.invalid]="[32misClientInvalid[37m('name')">
+          ╵                                            [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:450:91:
+[37m      450 │ ...Enter mobile number" [class.invalid]="[32misClientInvalid[37m('mobile')">
+          ╵                                          [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:460:95:
+[37m      460 │ ...eholder="Enter email" [class.invalid]="[32misClientInvalid[37m('email')">
+          ╵                                           [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isCorporateClient' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:473:11:
+[37m      473 │       @if ([32misCorporateClient[37m()) {
+          ╵            [32m~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:476:107:
+[37m      476 │ ...tion number" [class.invalid]="[32misClientInvalid[37m('registrationNo')">
+          ╵                                  [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:482:97:
+[37m      482 │ ...property name" [class.invalid]="[32misClientInvalid[37m('propertyName')">
+          ╵                                    [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isClientInvalid' does not exist on type 'CaseManageComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:487:98:
+[37m      487 │ ...rows="3" [class.invalid]="[32misClientInvalid[37m('address')"></textarea>
+          ╵                              [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [2.540 seconds] - 2026-05-07T13:33:23.900Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'boolean' is not assignable to type 'WritableSignal<boolean>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:3:
+[37m      424 │   [[32misEditMode[37m]="false"
+          ╵    [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [3.834 seconds] - 2026-05-07T13:33:39.337Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'boolean' is not assignable to type 'WritableSignal<boolean>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:3:
+[37m      424 │   [[32misEditMode[37m]="false"
+          ╵    [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [3.623 seconds] - 2026-05-07T13:35:24.621Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'boolean' is not assignable to type 'WritableSignal<boolean>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:3:
+[37m      424 │   [[32misEditMode[37m]="false"
+          ╵    [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [0.646 seconds] - 2026-05-07T13:35:25.279Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'boolean' is not assignable to type 'WritableSignal<boolean>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:3:
+[37m      424 │   [[32misEditMode[37m]="false"
+          ╵    [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [4.364 seconds] - 2026-05-07T13:35:46.377Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'boolean' is not assignable to type 'WritableSignal<boolean>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:3:
+[37m      424 │   [[32misEditMode[37m]="false"
+          ╵    [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [2.467 seconds] - 2026-05-07T13:35:48.849Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'boolean' is not assignable to type 'WritableSignal<boolean>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:3:
+[37m      424 │   [[32misEditMode[37m]="false"
+          ╵    [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [5.126 seconds] - 2026-05-07T13:36:19.233Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'boolean' is not assignable to type 'WritableSignal<boolean>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:3:
+[37m      424 │   [[32misEditMode[37m]="false"
+          ╵    [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [0.998 seconds] - 2026-05-07T13:36:20.245Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'boolean' is not assignable to type 'WritableSignal<boolean>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.html:424:3:
+[37m      424 │   [[32misEditMode[37m]="false"
+          ╵    [32m~~~~~~~~~~[0m
+
+  Error occurs in the template of component CaseManageComponent.
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:39:15:
+[37m      39 │   templateUrl: [32m'./case-manage.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'ClientType'. Did you mean 'ClientTypes'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/case-management/components/case-manage/case-manage.ts:98:15:
+[37m      98 │   clientTypes: [32mClientType[37m[] = ['Individual', 'Corporate'];
+         ╵                [32m~~~~~~~~~~[0m
+
+[39m[22m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                [2m | [22m  [36m1.45 MB[39m[2m | [22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m              [2m | [22m[36m291.22 kB[39m[2m | [22m
+[32mchunk-WGTJJIMO.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m47.63 kB[39m[2m | [22m
+[32mchunk-27N65WHU.js[39m  [2m | [22m[2m-[22m                   [2m | [22m [36m36.75 kB[39m[2m | [22m
+[32mchunk-M76FILW2.js[39m  [2m | [22m[2m-[22m                   [2m | [22m  [36m5.57 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m       [2m | [22m  [1m1.83 MB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m               [2m | [22m [1mRaw size[22m
+[32mchunk-B2HJQIUX.js[39m  [2m | [22m[2mdynamic-forms-routes[22m[2m | [22m[36m390 bytes[39m[2m | [22m
+[32mchunk-AV4T6IEM.js[39m  [2m | [22m[2mform-builder[22m        [2m | [22m[36m160 bytes[39m[2m | [22m
+
+Application bundle generation complete. [6.678 seconds] - 2026-05-07T13:38:06.364Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.45 MB[39m[2m | [22m
+
+Application bundle generation complete. [3.492 seconds] - 2026-05-07T13:42:52.825Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m[2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m [2m | [22m [36m1.43 MB[39m[2m | [22m
+
+Application bundle generation complete. [3.509 seconds] - 2026-05-07T13:43:15.278Z
+
+Page reload sent to client(s).

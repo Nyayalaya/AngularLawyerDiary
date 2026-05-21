@@ -1,5 +1,5 @@
 // src/app/features/auth/components/login/login.component.ts
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule }                          from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router }                                from '@angular/router';
@@ -29,6 +29,13 @@ export class Login implements OnInit, OnDestroy {
   private store   = inject(Store);
   private router  = inject(Router);
   private destroy$ = new Subject<void>();
+
+  // ── Parent toggles (used on Welcome screen) ───────────────────────────────
+  @Output() registerClick = new EventEmitter<void>();
+  @Output() forgotClick = new EventEmitter<void>();
+
+  /** When embedded inside Welcome page, render only the card area */
+  @Input() embedded = false;
 
   // ── Store streams ────────────────────────────────────────────────────────
   loading$    = this.store.select(selectAuthLoading);
@@ -90,10 +97,20 @@ export class Login implements OnInit, OnDestroy {
 
   // ── Navigation helpers ────────────────────────────────────────────────────
   onRegisterClick(): void {
+    // If hosted inside Welcome, toggle in-place. Otherwise navigate to route.
+    if ((this.registerClick as any).observers?.length) {
+      this.registerClick.emit();
+      return;
+    }
     this.router.navigate(['/register']);
   }
 
   onForgotClick(): void {
+    // If hosted inside Welcome, toggle in-place. Otherwise navigate to route.
+    if ((this.forgotClick as any).observers?.length) {
+      this.forgotClick.emit();
+      return;
+    }
     this.router.navigate(['/forgot']);
   }
 

@@ -1,132 +1,250 @@
-<!-- generic-table.component.html -->
-<div class="container-fluid py-3">
+<div class="gt-wrapper">
 
   <!-- HEADER -->
-  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-    <h5 class="fw-semibold m-0">{{ title }}</h5>
-    <div class="d-flex gap-2">
-      <input class="form-control" style="width:220px" placeholder="Search..."
-        (input)="searchTerm.set($any($event.target).value)" />
-      <button class="btn btn-outline-secondary" (click)="exportCSV()">
-        <i class="bi bi-download me-1"></i>Export
-      </button>
-      <button class="btn btn-primary" (click)="onAddClick()">
-        <i class="bi bi-plus-lg me-1"></i>Add
-      </button>
+  <div class="gt-header">
+
+    <!-- LEFT -->
+    <div class="gt-header-left">
+      <h5 class="gt-title">{{ title }}</h5>
     </div>
+
+    <!-- RIGHT -->
+    <div class="gt-actions">
+
+      <!-- ADD -->
+      <button
+        class="gt-btn gt-add-btn"
+        (click)="onAddClick()">
+
+        <i class="bi bi-plus-circle"></i>
+        Add New
+      </button>
+
+      <!-- EXPORT -->
+      <button
+        class="gt-btn gt-export-btn"
+        (click)="exportCSV()">
+
+        <i class="bi bi-download"></i>
+        Export
+      </button>
+
+      <!-- SEARCH -->
+      <div class="gt-search-box">
+        <i class="bi bi-search"></i>
+
+        <input
+          type="text" id="txtSearch"
+          placeholder="Quick search..."
+          (input)="onSearch($event)"
+        />
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- TABLE -->
-  <div class="card shadow-sm">
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover align-middle mb-0">
-        <thead class="table-light">
+  <!-- TABLE CARD -->
+  <div class="gt-card">
+
+    <div class="gt-scroll">
+
+      <table class="table gt-table">
+
+        <!-- HEADER -->
+        <thead class="gt-thead">
+
           <tr>
-            <th style="width:60px">#</th>
+
+            <th class="gt-th gt-th-serial">
+              #
+            </th>
+
             @for (col of visibleColumns(); track col.key) {
-              <th>{{ col.label }}</th>
+
+              <th class="gt-th gt-th-center">
+                {{ col.label }}
+              </th>
+
             }
-            <th style="width:130px">Actions</th>
+
+            <th class="gt-th gt-th-actions">
+              Actions
+            </th>
+
           </tr>
+
         </thead>
+
+        <!-- BODY -->
         <tbody>
-          @for (row of paginatedData(); let i = $index; track i) {
-            <tr>
-              <td class="text-center fw-semibold text-muted">{{ getSerialNumber(i) }}</td>
+
+          @for (row of paginatedData(); track row; let i = $index) {
+
+            <tr class="gt-tr">
+
+              <td class="gt-td gt-td-serial">
+                {{ getSerialNumber(i) }}
+              </td>
+
               @for (col of visibleColumns(); track col.key) {
-                <td>{{ row[col.key] }}</td>
+
+                <td class="gt-td">
+                  {{ row[col.key] }}
+                </td>
+
               }
-              <td>
+
+              <td class="gt-td gt-td-actions">
+
                 <app-action-menu
+                  [showView]="showViewAction"
+                  [showEdit]="showEditAction"
+                  [showDelete]="showDeleteAction"
+                  [viewLabel]="viewActionLabel"
+                  [editLabel]="editActionLabel"
+                  [deleteLabel]="deleteActionLabel"
                   (view)="view.emit(row)"
                   (edit)="edit.emit(row)"
                   (delete)="delete.emit(row)">
                 </app-action-menu>
+
               </td>
+
             </tr>
+
           } @empty {
+
             <tr>
-              <td [attr.colspan]="visibleColumns().length + 2"
-                  class="text-center text-muted py-4">
+
+              <td
+                [attr.colspan]="visibleColumns().length + 2"
+                class="gt-empty">
+
                 No records found
+
               </td>
+
             </tr>
+
           }
+
         </tbody>
+
       </table>
+
     </div>
+
   </div>
 
   <!-- PAGINATION -->
   @if (activeTotalPages > 1) {
-    <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
 
-      <!-- Left: page size + record count -->
-      <div class="d-flex align-items-center gap-3">
-        <div class="d-flex align-items-center gap-2">
-          <label class="text-muted small mb-0">Rows:</label>
-          <select class="form-select form-select-sm w-auto" (change)="onPageSizeChange($event)">
-            @for (opt of pageSizeOptions; track opt) {
-              <option [value]="opt" [selected]="opt === activePageSize">{{ opt }}</option>
-            }
-          </select>
-        </div>
-        <span class="text-muted small">
-          Showing
-          <strong>{{ (activePage - 1) * activePageSize + 1 }}</strong>
-          –
-          <strong>{{ [activePage * activePageSize, activeTotalRecs] | minVal }}</strong>
-          of <strong>{{ activeTotalRecs }}</strong> records
+    <div class="gt-pagination">
+
+      <!-- LEFT -->
+      <div class="gt-pagination-left">
+
+        <span class="gt-pagination-label">
+          Records per page:
         </span>
+
+        <select
+          (change)="onPageSizeChange($event)"
+          class="gt-page-size-select">
+
+          @for (opt of pageSizeOptions; track opt) {
+
+            <option [value]="opt">
+              {{ opt }}
+            </option>
+
+          }
+
+        </select>
+
+        <span class="gt-pagination-info">
+
+          {{ (activePage - 1) * activePageSize + 1 }}
+
+          -
+
+          {{ [activePage * activePageSize, activeTotalRecs] | minVal }}
+
+          of
+
+          <strong>{{ activeTotalRecs }}</strong>
+
+        </span>
+
       </div>
 
-      <!-- Right: page buttons -->
-      <div class="d-flex align-items-center gap-1">
+      <!-- RIGHT -->
+      <div class="gt-pagination-right">
 
-        <!-- First -->
-        <button class="btn btn-sm btn-outline-secondary"
-                [disabled]="activePage === 1"
-                (click)="goFirst()" title="First">
+        <button
+          class="gt-pagination-btn gt-pagination-nav"
+          (click)="goFirst()"
+          [disabled]="activePage === 1">
+
           <i class="bi bi-chevron-double-left"></i>
+
         </button>
 
-        <!-- Prev -->
-        <button class="btn btn-sm btn-outline-secondary"
-                [disabled]="activePage === 1"
-                (click)="goPrev()" title="Previous">
+        <button
+          class="gt-pagination-btn gt-pagination-nav"
+          (click)="goPrev()"
+          [disabled]="activePage === 1">
+
           <i class="bi bi-chevron-left"></i>
+
         </button>
 
-        <!-- Page numbers -->
-        @for (p of getPageNumbers(); track p) {
-          @if (p === '...') {
-            <span class="px-2 text-muted">…</span>
-          } @else {
-            <button class="btn btn-sm"
-                    [class.btn-primary]="p === activePage"
-                    [class.btn-outline-secondary]="p !== activePage"
-                    (click)="goToPage(+p)">
-              {{ p }}
+        @for (page of getPageNumbers(); track page) {
+
+          @if (page !== '...') {
+
+            <button
+              class="gt-pagination-btn"
+              [class.gt-pagination-active]="page === activePage"
+              (click)="goToPage(page)">
+
+              {{ page }}
+
             </button>
+
+          } @else {
+
+            <span class="gt-pagination-dots">
+              ...
+            </span>
+
           }
+
         }
 
-        <!-- Next -->
-        <button class="btn btn-sm btn-outline-secondary"
-                [disabled]="activePage === activeTotalPages"
-                (click)="goNext()" title="Next">
+        <button
+          class="gt-pagination-btn gt-pagination-nav"
+          (click)="goNext()"
+          [disabled]="activePage === activeTotalPages">
+
           <i class="bi bi-chevron-right"></i>
+
         </button>
 
-        <!-- Last -->
-        <button class="btn btn-sm btn-outline-secondary"
-                [disabled]="activePage === activeTotalPages"
-                (click)="goLast()" title="Last">
+        <button
+          class="gt-pagination-btn gt-pagination-nav"
+          (click)="goLast()"
+          [disabled]="activePage === activeTotalPages">
+
           <i class="bi bi-chevron-double-right"></i>
+
         </button>
 
       </div>
+
     </div>
+
   }
 
 </div>

@@ -1,15 +1,21 @@
 <div class="btn-group btn-group-sm">
 
+  @if (showView) {
   <button class="btn btn-outline-info" (click)="view.emit()">
-    View
+    {{ viewLabel }}
   </button>
+  }
 
+  @if (showEdit) {
   <button class="btn btn-outline-primary" (click)="edit.emit()">
-    Edit
+    {{ editLabel }}
   </button>
+  }
 
+  @if (showDelete) {
   <button class="btn btn-outline-danger" (click)="delete.emit()">
-    Delete
+    {{ deleteLabel }}
   </button>
+  }
 
 </div>

@@ -1,6 +1,6 @@
 <!-- App Header -->
 <header class="app-header">
-  LexDiary
+  LEXPRO
 </header>
 
 <!-- Existing Welcome Section -->
@@ -14,25 +14,31 @@
   <div class="hero-left">
     <h2>Organize your cases, appointments, and notes efficiently</h2>
     <p>
-      Keep track of your legal cases, manage your client meetings, and stay on top of deadlines with LexDiary – 
+      Keep track of your legal cases, manage your client meetings, and stay on top of deadlines with LEXPRO – 
       the smart diary designed for lawyers.
     </p>
   </div>
 
   <!-- Right Login Section -->
   <div class="hero-right">
-    <app-login *ngIf="activeBox === 'login'" 
-             (registerClick)="showRegister()" 
-             (forgotClick)="showForgot()">
-  </app-login>
+    <app-login
+      *ngIf="activeBox === 'login'"
+      [embedded]="true"
+      (registerClick)="showRegister()"
+      (forgotClick)="showForgot()"
+    ></app-login>
 
-  <app-register *ngIf="activeBox === 'register'" 
-                (loginClick)="showLogin()">
-  </app-register>
+    <app-register
+      *ngIf="activeBox === 'register'"
+      [embedded]="true"
+      (loginClick)="showLogin()"
+    ></app-register>
 
-  <app-forgot-password *ngIf="activeBox === 'forgot'" 
-                       (loginClick)="showLogin()">
-  </app-forgot-password>
+    <app-forgot-password
+      *ngIf="activeBox === 'forgot'"
+      [embedded]="true"
+      (loginClick)="showLogin()"
+    ></app-forgot-password>
   </div>
 
   <!-- Floating Icons -->
@@ -43,7 +49,7 @@
 
 <!-- App Footer -->
 <footer class="app-footer">
-  © 2025 LawTech Solutions | v1.0.0 |
+  © 2026 LawTech Solutions | v1.0.0 |
   <a href="#">Privacy Policy</a> |
   <a href="#">Terms of Service</a>
 </footer>

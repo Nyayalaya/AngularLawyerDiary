@@ -1,0 +1,67 @@
+<section class="features-page">
+  @if (loading()) {
+    <div class="empty-state">Loading features...</div>
+  } @else {
+    <app-generic-table
+      title="Feature Management"
+      [data]="features()"
+      [columns]="columns"
+      [viewActionLabel]="'Edit'"
+      [editActionLabel]="''"
+      [showDeleteAction]="true"
+      (added)="openAddFeature()"
+      (view)="onEdit($event)"
+      (delete)="onDelete($event)">
+    </app-generic-table>
+  }
+</section>
+
+<div [formGroup]="featureForm">
+  <app-generic-form-model
+    [form]="featureForm"
+    [title]="isEditMode() ? 'Edit Feature' : 'Add Feature'"
+    [show]="showFeatureForm()"
+    (save)="saveFeature()"
+    (close)="showFeatureForm.set(false)">
+
+    <div class="feature-form-field">
+      <label class="form-label">Name <span class="text-danger">*</span></label>
+      <input
+        class="form-control"
+        formControlName="name"
+        placeholder="Enter feature name"
+        [class.is-invalid]="featureForm.get('name')?.invalid && featureForm.get('name')?.touched">
+      <div class="invalid-feedback">
+        Feature name is required and must be at least 2 characters.
+      </div>
+    </div>
+
+    <div class="feature-form-field">
+      <label class="form-label">Description <span class="text-danger">*</span></label>
+      <textarea
+        class="form-control"
+        formControlName="description"
+        placeholder="Enter feature description"
+        rows="3"
+        [class.is-invalid]="featureForm.get('description')?.invalid && featureForm.get('description')?.touched">
+      </textarea>
+      <div class="invalid-feedback">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="feature-form-field">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          formControlName="isActive"
+          id="isActive">
+        <label class="form-check-label" for="isActive">
+          Active
+        </label>
+      </div>
+    </div>
+
+  </app-generic-form-model>
+</div>

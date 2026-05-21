@@ -1,0 +1,90 @@
+<section class="roles-page">
+  @if (loading()) {
+    <div class="empty-state">Loading roles...</div>
+  } @else {
+    <app-generic-table
+      title="Roles & Permissions"
+      [data]="roles()"
+      [columns]="columns"
+      [viewActionLabel]="'Edit'"
+      [editActionLabel]="'Manage Permission'"
+      [showDeleteAction]="false"
+      (added)="openAddRole()"
+      (view)="onEdit($event)"
+      (edit)="onManagePermissions($event)">
+    </app-generic-table>
+  }
+</section>
+
+<div [formGroup]="roleForm">
+  <app-generic-form-model
+    [form]="roleForm"
+    [title]="isEditMode() ? 'Edit Role' : 'Add Role'"
+    [show]="showRoleForm()"
+    (save)="saveRole()"
+    (close)="showRoleForm.set(false)">
+
+    <div class="role-form-field">
+      <label class="form-label">Name <span class="text-danger">*</span></label>
+      <input
+        class="form-control"
+        formControlName="name"
+        placeholder="Enter role name"
+        [class.is-invalid]="roleForm.get('name')?.invalid && roleForm.get('name')?.touched">
+      <div class="invalid-feedback">
+        Role name is required and must be at least 2 characters.
+      </div>
+    </div>
+
+  </app-generic-form-model>
+</div>
+
+@if (showPermissionPanel()) {
+  <div class="modal fade show d-block modal-backdrop-overlay" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content permission-modal">
+        <div class="modal-header permission-header">
+          <div>
+            <span class="role-name-label">Role Name: {{ selectedRole()?.name || 'Lawyer' }}</span>
+            <h5 class="modal-title">Permissions for {{ selectedRole()?.name || 'Lawyer' }} Role</h5>
+            <p>Manage {{ selectedRole()?.name || 'Lawyer' }} Role Permissions.</p>
+          </div>
+          <button type="button" class="btn-close" (click)="showPermissionPanel.set(false)"></button>
+        </div>
+
+        <div class="modal-body">
+          @if (permissionLoading()) {
+            <div class="empty-state">Loading permissions...</div>
+          } @else {
+            <div class="permission-list">
+              <div class="permission-row permission-row-head">
+                <span>Id</span>
+                <span>Permission Name</span>
+                <span>Select</span>
+              </div>
+
+              @for (permission of permissions(); track permission.id) {
+                <label class="permission-row">
+                  <span>{{ permission.id }}</span>
+                  <span>{{ permission.permissionName }}</span>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    [checked]="isPermissionSelected(permission.id)"
+                    (change)="togglePermission(permission, $any($event.target).checked)">
+                </label>
+              } @empty {
+                <div class="empty-state">No permissions found</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="showPermissionPanel.set(false)">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="savePermissions()">Save Permissions</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

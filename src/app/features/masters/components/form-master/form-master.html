@@ -1,0 +1,90 @@
+<!-- Loading -->
+<ng-container *ngIf="(loading$ | async); else tableOrError">
+  <div class="loader-container">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading form masters...</p>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Table -->
+<ng-template #tableOrError>
+
+  <!-- Error Banner -->
+  <div *ngIf="(error$ | async) as error"
+       class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <app-generic-table
+    *ngIf="!showForm()"
+    title="Form Masters"
+    [data]="(formMasters$ | async) || []"
+    [columns]="columns"
+    [serverSide]="true"
+    [totalRecords]="(totalRecords$ | async) || 0"
+    [currentPage]="(pageNumber$   | async) || 1"
+    [pageSize]="(pageSize$     | async) || 10"
+    [totalPages]="(totalPages$   | async) || 0"
+    (added)="toggleForm()"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (view)="onView($event)"
+    (pageChanged)="onPageChanged($event)">
+  </app-generic-table>
+
+</ng-template>
+
+<!-- Form -->
+<div [formGroup]="formMasterForm">
+  <app-generic-form-model
+    [form]="formMasterForm"
+    [title]="isEditMode() ? 'Edit Form Master' : 'Add Form Master'"
+    [show]="showForm()"
+    (save)="onSubmit()"
+    (close)="showForm.set(false)">
+
+    <select
+      class="form-control"
+      formControlName="formTypeId"
+      [class.is-invalid]="formMasterForm.get('formTypeId')?.invalid &&
+                           formMasterForm.get('formTypeId')?.touched">
+      <option value="">Select Form Type</option>
+      <option *ngFor="let formType of (formTypes$ | async)" [value]="formType.id">
+        {{ formType.name }}
+      </option>
+    </select>
+    <div class="invalid-feedback">
+      Form Type is required
+    </div>
+
+    <input
+      class="form-control mt-2"
+      formControlName="name"
+      placeholder="Form Master Name"
+      [class.is-invalid]="formMasterForm.get('name')?.invalid &&
+                           formMasterForm.get('name')?.touched">
+    <div class="invalid-feedback">
+      Form Master Name is required (min 2 characters)
+    </div>
+
+    <input
+      class="form-control mt-2"
+      formControlName="code"
+      placeholder="Code"
+      [class.is-invalid]="formMasterForm.get('code')?.invalid &&
+                           formMasterForm.get('code')?.touched">
+    <div class="invalid-feedback">
+      Code is required (min 2 characters)
+    </div>
+
+    <textarea
+      class="form-control mt-2"
+      formControlName="description"
+      placeholder="Description (Optional)"
+      rows="3"></textarea>
+
+  </app-generic-form-model>
+</div>

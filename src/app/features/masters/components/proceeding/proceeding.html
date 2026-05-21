@@ -1,0 +1,92 @@
+<!-- Loading -->
+<ng-container *ngIf="(loading$ | async); else tableOrError">
+  <div class="loader-container">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading proceedings...</p>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Table -->
+<ng-template #tableOrError>
+
+  <!-- Error Banner -->
+  <div *ngIf="(error$ | async) as error"
+       class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <app-generic-table
+    *ngIf="!showForm()"
+    title="Proceedings"
+    [data]="(proceedings$ | async) || []"
+    [columns]="columns"
+    [serverSide]="true"
+    [totalRecords]="(totalRecords$ | async) || 0"
+    [currentPage]="(pageNumber$ | async) || 1"
+    [pageSize]="(pageSize$ | async) || 10"
+    [totalPages]="(totalPages$ | async) || 0"
+    (added)="toggleForm()"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (view)="onView($event)"
+    (pageChanged)="onPageChanged($event)">
+  </app-generic-table>
+
+</ng-template>
+
+<!-- Form -->
+<div [formGroup]="proceedingForm" *ngIf="showForm()">
+  <div class="form-container">
+    <div class="form-header">
+      <h3>{{ isEditMode() ? 'Edit Proceeding' : 'Add Proceeding' }}</h3>
+      <button type="button" class="btn-close" (click)="showForm.set(false)"></button>
+    </div>
+
+    <div class="form-body">
+      <div class="mb-3">
+        <label class="form-label">Proceeding Type <span class="text-danger">*</span></label>
+        <ng-select
+          formControlName="proceedingTypeId"
+          [items]="(proceedingTypes$ | async) || []"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Select Proceeding Type"
+          [searchable]="true"
+          [clearable]="true"
+          [compareWith]="compareProceedingTypes"
+          [class.ng-invalid]="proceedingForm.get('proceedingTypeId')?.invalid &&
+                               proceedingForm.get('proceedingTypeId')?.touched">
+        </ng-select>
+        <div class="invalid-feedback d-block" 
+             *ngIf="proceedingForm.get('proceedingTypeId')?.invalid &&
+                    proceedingForm.get('proceedingTypeId')?.touched">
+          Proceeding Type is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Proceeding <span class="text-danger">*</span></label>
+        <input
+          class="form-control"
+          formControlName="proceeding"
+          placeholder="Enter Proceeding"
+          [class.is-invalid]="proceedingForm.get('proceeding')?.invalid &&
+                               proceedingForm.get('proceeding')?.touched">
+        <div class="invalid-feedback">
+          Proceeding is required (min 2 characters)
+        </div>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button type="button" class="btn btn-secondary" (click)="showForm.set(false)">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" *ngIf="showForm()" (click)="showForm.set(false)"></div>

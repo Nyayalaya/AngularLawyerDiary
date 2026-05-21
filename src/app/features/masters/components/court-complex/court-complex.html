@@ -1,0 +1,347 @@
+<div class="court-complex-container">
+
+  <!-- Loading -->
+  <ng-container *ngIf="(loading$ | async); else tableOrError">
+
+    <div class="loader-container">
+      <div class="loader-card">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading court complexes...</p>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <!-- List / Form -->
+  <ng-template #tableOrError>
+
+    <!-- LIST VIEW -->
+    <div *ngIf="!showForm()">
+
+      <!-- Error -->
+      <div *ngIf="(error$ | async) as error"
+           class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <span>{{ error }}</span>
+
+      </div>
+
+      <!-- Table -->
+      <app-generic-table
+        title="Court Complexes"
+        [data]="(courtComplexes$ | async) || []"
+        [columns]="columns"
+        [serverSide]="true"
+        [totalRecords]="(totalRecords$ | async) || 0"
+        [currentPage]="(pageNumber$ | async) || 1"
+        [pageSize]="(pageSize$ | async) || 10"
+        [totalPages]="(totalPages$ | async) || 0"
+        (added)="toggleForm()"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)"
+        (view)="onView($event)"
+        (pageChanged)="onPageChanged($event)">
+      </app-generic-table>
+
+    </div>
+
+    <!-- FORM VIEW -->
+    <div *ngIf="showForm()" class="form-container">
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="card shadow-sm border-0">
+
+            <!-- Header -->
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+              <h5 class="card-title mb-0">
+                {{ isEditMode() ? 'Edit Court Complex' : 'Add Court Complex' }}
+              </h5>
+
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                (click)="goBackToList()">
+
+                <i class="bi bi-arrow-left"></i>
+                Back to List
+
+              </button>
+
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+
+              <!-- Error -->
+              <div *ngIf="(error$ | async) as error"
+                   class="alert alert-danger mb-3">
+
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                {{ error }}
+
+              </div>
+
+              <form [formGroup]="complexForm">
+
+                <!-- Top Section: Court, State, District -->
+                <div class="row g-3 mb-4">
+
+                  <!-- Court -->
+                  <div class="col-md-4">
+
+                    <label for="courtSelect" class="form-label fw-bold">
+                      Court
+                      <span class="text-danger">*</span>
+                    </label>
+
+                    <ng-select
+                      id="courtSelect"
+                      formControlName="courtId"
+                      (change)="onCourtSelected($event)"
+                      [items]="(courts$ | async) || []"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="-- Choose Court --"
+                      [clearable]="true"
+                      [searchable]="true"
+                      [class.is-invalid]="complexForm.get('courtId')?.invalid &&
+                                         complexForm.get('courtId')?.touched"
+                      notFoundText="No courts found">
+                    </ng-select>
+
+                    <div class="invalid-feedback d-block"
+                         *ngIf="complexForm.get('courtId')?.invalid &&
+                                complexForm.get('courtId')?.touched">
+
+                      <i class="bi bi-exclamation-circle"></i>
+                      Court is required
+
+                    </div>
+
+                  </div>
+
+                  <!-- State -->
+                  <div class="col-md-4">
+
+                    <label for="stateSelect" class="form-label fw-bold">
+                      State
+                      <span class="text-danger">*</span>
+                    </label>
+
+                    <ng-select
+                      id="stateSelect"
+                      formControlName="stateId"
+                      (change)="onStateSelected($event || '')"
+                      [items]="(states$ | async) || []"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="-- Choose State --"
+                      [clearable]="true"
+                      [searchable]="true"
+                      [class.is-invalid]="complexForm.get('stateId')?.invalid &&
+                                         complexForm.get('stateId')?.touched"
+                      notFoundText="No states found">
+                    </ng-select>
+
+                    <div class="invalid-feedback d-block"
+                         *ngIf="complexForm.get('stateId')?.invalid &&
+                                complexForm.get('stateId')?.touched">
+
+                      <i class="bi bi-exclamation-circle"></i>
+                      State is required
+
+                    </div>
+
+                  </div>
+
+                  <!-- District (Optional) -->
+                  <div class="col-md-4">
+
+                    <label for="districtSelect" class="form-label fw-bold">
+                      Court District
+                    </label>
+
+                    <ng-select
+                      id="districtSelect"
+                      formControlName="courtDistrictId"
+                      [items]="filteredDistricts() || []"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="-- Choose District (Optional) --"
+                      [clearable]="true"
+                      [searchable]="true"
+                      [disabled]="!selectedState() || (allDistricts().length === 0)"
+                      notFoundText="No districts found">
+                    </ng-select>
+
+                  </div>
+
+                </div>
+
+                <!-- Details Section -->
+                <div class="row g-3 mb-4">
+
+                  <!-- Complex Name -->
+                  <div class="col-md-6">
+
+                    <label for="complexName" class="form-label fw-bold">
+                      Complex Name
+                      <span class="text-danger">*</span>
+                    </label>
+
+                    <input
+                      id="complexName"
+                      type="text"
+                      class="form-control"
+                      formControlName="name"
+                      placeholder="Enter complex name"
+                      (blur)="complexForm.get('name')?.markAsTouched()"
+                      [class.is-invalid]="complexForm.get('name')?.invalid &&
+                                         complexForm.get('name')?.touched">
+
+                    <div class="invalid-feedback d-block"
+                         *ngIf="complexForm.get('name')?.invalid &&
+                                complexForm.get('name')?.touched">
+
+                      <i class="bi bi-exclamation-circle"></i>
+                      {{ getFieldErrorMessage('name') }}
+
+                    </div>
+
+                  </div>
+
+                  <!-- Code -->
+                  <div class="col-md-6">
+
+                    <label for="complexCode" class="form-label fw-bold">
+                      Code
+                      <span class="text-danger">*</span>
+                    </label>
+
+                    <input
+                      id="complexCode"
+                      type="text"
+                      class="form-control"
+                      formControlName="code"
+                      placeholder="Enter code"
+                      (blur)="complexForm.get('code')?.markAsTouched()"
+                      [class.is-invalid]="complexForm.get('code')?.invalid &&
+                                         complexForm.get('code')?.touched">
+
+                    <div class="invalid-feedback d-block"
+                         *ngIf="complexForm.get('code')?.invalid &&
+                                complexForm.get('code')?.touched">
+
+                      <i class="bi bi-exclamation-circle"></i>
+                      {{ getFieldErrorMessage('code') }}
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <!-- Address -->
+                <div class="row g-3 mb-4">
+
+                  <div class="col-md-12">
+
+                    <label for="address" class="form-label fw-bold">
+                      Address
+                      <span class="text-danger">*</span>
+                    </label>
+
+                    <textarea
+                      id="address"
+                      class="form-control"
+                      formControlName="address"
+                      placeholder="Enter complete address"
+                      rows="3"
+                      (blur)="complexForm.get('address')?.markAsTouched()"
+                      [class.is-invalid]="complexForm.get('address')?.invalid &&
+                                         complexForm.get('address')?.touched">
+                    </textarea>
+
+                    <div class="invalid-feedback d-block"
+                         *ngIf="complexForm.get('address')?.invalid &&
+                                complexForm.get('address')?.touched">
+
+                      <i class="bi bi-exclamation-circle"></i>
+                      {{ getFieldErrorMessage('address') }}
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <!-- Virtual Checkbox -->
+                <div class="row g-3 mb-4">
+
+                  <div class="col-md-12">
+
+                    <div class="form-check">
+
+                      <input
+                        id="isVirtual"
+                        type="checkbox"
+                        class="form-check-input"
+                        formControlName="isVirtualComplex">
+
+                      <label for="isVirtual" class="form-check-label">
+
+                        Is Virtual Complex
+
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </form>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="card-footer bg-light d-flex justify-content-between gap-2">
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="goBackToList()">
+
+                <i class="bi bi-x-circle"></i>
+                Cancel
+
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                (click)="onSubmit()"
+                [disabled]="complexForm.invalid || (loading$ | async)">
+
+                <i class="bi bi-check-circle"></i>
+
+                {{ isEditMode() ? 'Update' : 'Create' }} Complex
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </ng-template>
+
+</div>

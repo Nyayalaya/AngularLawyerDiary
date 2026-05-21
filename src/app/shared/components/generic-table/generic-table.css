@@ -1,116 +1,424 @@
-/* ===== Wrapper ===== */
+/* =========================================================
+   WRAPPER
+========================================================= */
 
 .gt-wrapper {
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f4f7fc;
+  font-family: "Segoe UI", sans-serif;
 }
 
-
-/* ===== Header ===== */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .gt-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
 
-.gt-title {
-  margin: 0;
-  font-weight: 600;
-}
-
-
-/* same height for ALL controls */
-.gt-control {
-  height: 38px !important;
-  padding: 0 12px;
+.gt-header-left {
   display: flex;
   align-items: center;
 }
 
+.gt-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
 .gt-actions {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-left: auto;
+  flex-direction: row;
 }
 
-.gt-actions .btn {
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+
+.gt-search-box {
+  display: flex;
+  align-items: center;
+  width: 260px;
+  min-width: 260px;
+  height: 44px;
+  padding: 0 14px;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.gt-search-box:hover {
+  transform: translateY(-1px);
+}
+
+.gt-search-box:focus-within {
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.25);
+}
+
+.gt-search-box i {
+  color: #667eea;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.gt-search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
   font-size: 14px;
+  color: #333;
 }
 
-.gt-actions input {
-  width: 220px;
+.gt-search-box input::placeholder {
+  color: #999;
 }
 
+/* =========================================================
+   BUTTONS
+========================================================= */
 
-/* ===== Card ===== */
+.gt-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.gt-btn i {
+  font-size: 15px;
+}
+
+/* ADD BUTTON */
+
+.gt-add-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.gt-add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.gt-add-btn:active {
+  transform: translateY(0);
+}
+
+/* EXPORT BUTTON */
+
+.gt-export-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.gt-export-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.gt-export-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   CARD
+========================================================= */
 
 .gt-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  margin: 18px;
+  background: white;
+  border-radius: 14px;
   overflow: hidden;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
 }
 
-
-/* ===== Scroll container (IMPORTANT) ===== */
+/* =========================================================
+   SCROLL
+========================================================= */
 
 .gt-scroll {
-  max-height: 450px;
   overflow: auto;
+  max-height: 600px;
 }
 
-
-/* ===== Table ===== */
+/* =========================================================
+   TABLE
+========================================================= */
 
 .gt-table {
+  width: 100%;
+  border-collapse: collapse;
   margin: 0;
 }
 
-.gt-table th,
-.gt-table td {
-  font-size: 14px;
-  vertical-align: middle;
-}
+/* TABLE HEADER */
 
-
-/* ===== Sticky header (REAL FIX) ===== */
-
-.gt-table thead th {
+.gt-thead {
   position: sticky;
   top: 0;
-  background: #f8f9fa;
-  z-index: 3;
-  border-bottom: 2px solid #dee2e6;
+  z-index: 2;
+}
+
+.gt-th {
+  padding: 16px 12px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #667eea;
+  text-align: center;
+}
+
+.gt-th-center {
+  text-align: center !important;
+}
+
+.gt-th-serial {
+  width: 60px;
+  text-align: center !important;
+}
+
+.gt-th-actions {
+  width: 130px;
+  text-align: center !important;
+}
+
+/* TABLE ROW */
+
+.gt-tr {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.gt-tr:hover {
+  background: #f8fafc;
+}
+
+/* TABLE CELL */
+
+.gt-td {
+  padding: 14px 12px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.gt-td-serial {
+  text-align: center;
   font-weight: 600;
+  color: #667eea;
 }
 
-
-/* hover */
-.gt-table tbody tr:hover {
-  background: #f2f4f7;
+.gt-td-actions {
+  text-align: center;
 }
 
+/* EMPTY */
 
-/* ===== Pagination ===== */
+.gt-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* =========================================================
+   PAGINATION
+========================================================= */
 
 .gt-pagination {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: linear-gradient(to bottom, #ffffff, #f9fafb);
+  border-top: 2px solid #e5e7eb;
+  flex-wrap: wrap;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* LEFT */
+
+.gt-pagination-left {
+  display: flex;
+  align-items: center;
   gap: 12px;
-  padding: 12px;
-  background: #fafafa;
+  flex-wrap: wrap;
 }
 
-
-/* ===== Empty ===== */
-
-/* empty row inside table */
-.gt-no-data td {
-  text-align: center;
-  padding: 50px 0;
-  color: #6c757d;
-  font-style: italic;
+.gt-pagination-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
 }
 
+.gt-pagination-info {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.gt-pagination-info strong {
+  color: #667eea;
+}
+
+/* SELECT */
+
+.gt-page-size-select {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+/* RIGHT */
+
+.gt-pagination-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* BUTTON */
+
+.gt-pagination-btn {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gt-pagination-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.gt-pagination-active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  font-weight: 700;
+}
+
+.gt-pagination-nav {
+  color: #667eea;
+  border-color: #d1d5db;
+}
+
+.gt-pagination-nav:hover:not(:disabled) {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.gt-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.gt-pagination-dots {
+  padding: 0 8px;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .gt-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .gt-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: stretch;
+  }
+
+  .gt-search-box {
+    width: 100%;
+    min-width: 100%;
+    order: 1;
+  }
+
+  .gt-btn {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .gt-pagination {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .gt-pagination-right {
+    justify-content: center;
+  }
+
+  .gt-th,
+  .gt-td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+}

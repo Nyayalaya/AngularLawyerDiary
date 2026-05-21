@@ -1,0 +1,427 @@
+<section class="case-page">
+  @if (!showCaseForm()) {
+    <app-generic-table
+      title="Case List"
+      [data]="caseList()"
+      [columns]="caseColumns"
+      (added)="openAddCase()"
+      (view)="onViewCase($event)"
+      (edit)="onEditCase($event)"
+      (delete)="onDeleteCase($event)">
+    </app-generic-table>
+  }
+
+  @if (showCaseForm()) {
+    <header class="case-header">
+      <div>
+        <h2>{{ isCaseEditMode() ? 'Edit Case Detail' : 'Add New Case Detail' }}</h2>
+        <p>Manage Case</p>
+      </div>
+
+      <div class="case-actions">
+        <button type="button" class="btn btn-outline-secondary" (click)="showCaseForm.set(false)">Back to List</button>
+        <button type="button" class="btn btn-outline-warning" (click)="copyCase()">Copy case</button>
+        <button type="button" class="btn btn-outline-success" (click)="bringCase()">Bring Case</button>
+        <button type="button" class="btn btn-outline-success" (click)="repeatCase()">Repeat</button>
+      </div>
+    </header>
+
+    <p class="required-note">
+      All (*) marked fields are mandatory. If client does not exist in the dropdown, add the client first before moving next.
+    </p>
+
+    <div class="case-shell">
+      <nav class="case-tabs" aria-label="Case form sections">
+        @for (tab of tabs; track tab.id) {
+          <button
+            type="button"
+            [class.active]="activeTab() === tab.id"
+            (click)="setTab(tab.id)">
+            {{ tab.label }}
+          </button>
+        }
+      </nav>
+
+      <form [formGroup]="caseForm" class="case-form">
+        @if (activeTab() === 'client') {
+          <fieldset class="form-section">
+            <legend>Case Client Info</legend>
+
+            <div class="client-selection-info">
+              <div class="info-box">
+                <span class="info-label">Existing Client Model</span>
+                <span class="info-text">Select from existing clients or add a new one. All existing clients shown in dropdown are pre-registered in the system.</span>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-field">
+                <div class="label-row">
+                  <label>Client Detail <span>*</span></label>
+                  <button type="button" class="link-button" (click)="openAddClient()">Add New Client</button>
+                </div>
+                <select formControlName="clientId" [class.invalid]="isInvalid('clientId')">
+                  <option value="">Select client detail</option>
+                  @for (client of clients; track client.id) {
+                    <option [value]="client.id">
+                      {{ client.name }}
+                      @if (isExistingClient(client.id)) {
+                        <span>(Existing)</span>
+                      }
+                    </option>
+                  }
+                </select>
+                @if (isInvalid('clientId')) {
+                  <small>Client detail is required.</small>
+                }
+              </div>
+
+              <div class="form-field">
+                <label>Appearance <span>*</span></label>
+                <select formControlName="appearance" [class.invalid]="isInvalid('appearance')">
+                  <option value="">Select appearance</option>
+                  @for (appearance of appearances; track appearance.id) {
+                    <option [value]="appearance.id">{{ appearance.name }}</option>
+                  }
+                </select>
+                @if (isInvalid('appearance')) {
+                  <small>Appearance is required.</small>
+                }
+              </div>
+            </div>
+          </fieldset>
+        }
+
+        @if (activeTab() === 'details') {
+          <fieldset class="form-section">
+            <legend>Case Detail Information</legend>
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Institution Date <span>*</span></label>
+                <input type="date" formControlName="institutionDate" [class.invalid]="isInvalid('institutionDate')">
+              </div>
+
+              <div class="form-field">
+                <label>State <span>*</span></label>
+                <select formControlName="stateId" [class.invalid]="isInvalid('stateId')">
+                  <option value="">Select state</option>
+                  @for (state of states; track state.id) {
+                    <option [value]="state.id">{{ state.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Court Type <span>*</span></label>
+                <select formControlName="courtTypeId" [class.invalid]="isInvalid('courtTypeId')">
+                  <option value="">Select court type</option>
+                  @for (courtType of courtTypes; track courtType.id) {
+                    <option [value]="courtType.id">{{ courtType.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Bench <span>*</span></label>
+                <select formControlName="benchId" [class.invalid]="isInvalid('benchId')">
+                  <option value="">Select bench</option>
+                  @for (bench of benches; track bench.id) {
+                    <option [value]="bench.id">{{ bench.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Strength</label>
+                <select formControlName="strength">
+                  <option value="">Select strength</option>
+                  @for (cadre of cadres; track cadre.id) {
+                    <option [value]="cadre.id">{{ cadre.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Case Category <span>*</span></label>
+                <select formControlName="caseCategoryId" [class.invalid]="isInvalid('caseCategoryId')">
+                  <option value="">Select case category</option>
+                  @for (category of caseCategories; track category.id) {
+                    <option [value]="category.id">{{ category.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Case Type <span>*</span></label>
+                <select formControlName="caseTypeId" [class.invalid]="isInvalid('caseTypeId')">
+                  <option value="">Select case type</option>
+                  @for (caseType of caseTypes; track caseType.id) {
+                    <option [value]="caseType.id">{{ caseType.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field wide">
+                <label>Title First <span>*</span></label>
+                <div class="inline-pair title-input">
+                  <input formControlName="titleFirst" placeholder="Enter title first" [class.invalid]="isInvalid('titleFirst')">
+                  <select formControlName="titleFirstPartyType" [class.invalid]="isInvalid('titleFirstPartyType')">
+                    <option value="">Party type</option>
+                    @for (partyType of partyTypes; track partyType.id) {
+                      <option [value]="partyType.id">{{ partyType.name }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+
+              <div class="vs-divider">VS</div>
+
+              <div class="form-field wide">
+                <label>Title Second <span>*</span></label>
+                <div class="inline-pair title-input">
+                  <input formControlName="titleSecond" placeholder="Enter title second" [class.invalid]="isInvalid('titleSecond')">
+                  <select formControlName="titleSecondPartyType" [class.invalid]="isInvalid('titleSecondPartyType')">
+                    <option value="">Party type</option>
+                    @for (partyType of partyTypes; track partyType.id) {
+                      <option [value]="partyType.id">{{ partyType.name }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label>Case Stage <span>*</span></label>
+                <select formControlName="caseStageId" [class.invalid]="isInvalid('caseStageId')">
+                  <option value="">Select case stage</option>
+                  @for (stage of caseStages; track stage.id) {
+                    <option [value]="stage.id">{{ stage.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Case No/Year</label>
+                <div class="inline-pair">
+                  <input formControlName="caseNo" placeholder="Case Number">
+                  <select formControlName="caseYear">
+                    <option value="">Select year</option>
+                    @for (year of years; track year) {
+                      <option [value]="year">{{ year }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label>CIS No/Year</label>
+                <div class="inline-pair">
+                  <input formControlName="cisNumber" placeholder="CIS Number">
+                  <select formControlName="cisYear">
+                    <option value="">Select cis year</option>
+                    @for (year of years; track year) {
+                      <option [value]="year">{{ year }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label>CNR No</label>
+                <input formControlName="cnrNo" placeholder="CNR number">
+              </div>
+
+              <div class="form-field">
+                <label>Next Date</label>
+                <input type="date" formControlName="nextDate">
+              </div>
+
+              <div class="form-field">
+                <label>Linked With</label>
+                <select formControlName="linkedWith">
+                  <option value="">Select link case</option>
+                  @for (linkedCase of linkedCases; track linkedCase.id) {
+                    <option [value]="linkedCase.id">{{ linkedCase.name }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+          </fieldset>
+        }
+
+        @if (activeTab() === 'decision') {
+          <fieldset class="form-section" formGroupName="decision">
+            <legend>Against Case Decision For</legend>
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Impugned Order Date</label>
+                <input type="date" formControlName="impugnedOrderDate">
+              </div>
+
+              <div class="form-field">
+                <label>State</label>
+                <select formControlName="stateId">
+                  <option value="">Select a state</option>
+                  @for (state of states; track state.id) {
+                    <option [value]="state.id">{{ state.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Court Type</label>
+                <select formControlName="courtTypeId">
+                  <option value="">Select a court type</option>
+                  @for (courtType of courtTypes; track courtType.id) {
+                    <option [value]="courtType.id">{{ courtType.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Court District</label>
+                <select formControlName="courtDistrictId">
+                  <option value="">Select a Court District</option>
+                  @for (district of courtDistricts; track district.id) {
+                    <option [value]="district.id">{{ district.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Court Complex</label>
+                <select formControlName="courtComplexId">
+                  <option value="">Select a complex</option>
+                  @for (complex of courtComplexes; track complex.id) {
+                    <option [value]="complex.id">{{ complex.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Court</label>
+                <select formControlName="courtId">
+                  <option value="">Select a court</option>
+                  @for (court of courts; track court.id) {
+                    <option [value]="court.id">{{ court.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Case Category</label>
+                <select formControlName="caseCategoryId">
+                  <option value="">Select case category</option>
+                  @for (category of caseCategories; track category.id) {
+                    <option [value]="category.id">{{ category.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Case Type</label>
+                <select formControlName="caseTypeId">
+                  <option value="">Select case type</option>
+                  @for (caseType of caseTypes; track caseType.id) {
+                    <option [value]="caseType.id">{{ caseType.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Case No/Year</label>
+                <div class="inline-pair">
+                  <input formControlName="caseNo" placeholder="Case Number">
+                  <select formControlName="caseYear">
+                    <option value="">Select year</option>
+                    @for (year of years; track year) {
+                      <option [value]="year">{{ year }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label>CIS No/Year</label>
+                <div class="inline-pair">
+                  <input formControlName="cisNumber" placeholder="CIS Number">
+                  <select formControlName="cisYear">
+                    <option value="">Select cis year</option>
+                    @for (year of years; track year) {
+                      <option [value]="year">{{ year }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label>CNR No</label>
+                <input formControlName="cnrNo" placeholder="CNR number">
+              </div>
+
+              <div class="form-field">
+                <label>Officer Name</label>
+                <input formControlName="officerName" placeholder="Proceeding officer">
+              </div>
+
+              <div class="form-field">
+                <label>Cadre</label>
+                <select formControlName="cadreId">
+                  <option value="">Select cadre</option>
+                  @for (cadre of cadres; track cadre.id) {
+                    <option [value]="cadre.id">{{ cadre.name }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+          </fieldset>
+        }
+
+        @if (activeTab() === 'review') {
+          <fieldset class="form-section">
+            <legend>Final Review</legend>
+
+            <div class="review-grid">
+              <div><strong>Client</strong><span>{{ displayValue(clients, review.clientId) }}</span></div>
+              <div><strong>Appearance</strong><span>{{ displayValue(appearances, review.appearance) }}</span></div>
+              <div><strong>Institution Date</strong><span>{{ review.institutionDate || '-' }}</span></div>
+              <div><strong>State</strong><span>{{ displayValue(states, review.stateId) }}</span></div>
+              <div><strong>Court Type</strong><span>{{ displayValue(courtTypes, review.courtTypeId) }}</span></div>
+              <div><strong>Bench</strong><span>{{ displayValue(benches, review.benchId) }}</span></div>
+              <div><strong>Case Category</strong><span>{{ displayValue(caseCategories, review.caseCategoryId) }}</span></div>
+              <div><strong>Case Type</strong><span>{{ displayValue(caseTypes, review.caseTypeId) }}</span></div>
+              <div><strong>Case Title</strong><span>{{ review.titleFirst || '-' }} VS {{ review.titleSecond || '-' }}</span></div>
+              <div><strong>Case No/Year</strong><span>{{ review.caseNo || '-' }}/{{ review.caseYear || '-' }}</span></div>
+              <div><strong>Next Date</strong><span>{{ review.nextDate || '-' }}</span></div>
+              <div><strong>CNR No</strong><span>{{ review.cnrNo || '-' }}</span></div>
+            </div>
+          </fieldset>
+        }
+
+        <footer class="form-footer">
+          <div>
+            <button type="button" class="btn btn-secondary" (click)="previousTab()" [disabled]="isFirstTab">Back</button>
+            <button type="button" class="btn btn-outline-secondary ms-2" (click)="resetForm()">Reset</button>
+          </div>
+          <div>
+            @if (!isReviewTab) {
+              <button type="button" class="btn btn-primary" (click)="saveAndNext()">Save & Next</button>
+            } @else {
+              <button type="button" class="btn btn-primary" [disabled]="saving()" (click)="saveCase()">
+                {{ saving() ? 'Saving...' : 'Save Case Detail' }}
+              </button>
+            }
+          </div>
+        </footer>
+      </form>
+    </div>
+  }
+</section>
+
+<app-client-modal
+  [show]="showClientModal"
+  [isEditMode]="clientModalEditMode"
+  (clientAdded)="onClientAdded($event)"
+  (closed)="showClientModal.set(false)">
+</app-client-modal>

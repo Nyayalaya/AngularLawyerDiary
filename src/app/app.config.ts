@@ -30,6 +30,30 @@ import { cadreReducer } from './features/masters/store/cadre/cadre.reducer';
 import { CadreEffects } from './features/masters/store/cadre/cadre.effects';
 import { courtDistrictReducer } from './features/masters/store/court-district/court-district.reducer';
 import { CourtDistrictEffects } from './features/masters/store/court-district/court-district.effects';
+import { formTypeReducer } from './features/masters/store/form-type/form-type.reducer';
+import { FormTypeEffects } from './features/masters/store/form-type/form-type.effects';
+import { formMasterReducer } from './features/masters/store/form-master/form-master.reducer';
+import { FormMasterEffects } from './features/masters/store/form-master/form-master.effects';
+import { formSubTypeReducer } from './features/masters/store/form-subtype/form-subtype.reducer';
+import { FormSubTypeEffects } from './features/masters/store/form-subtype/form-subtype.effects';
+import { formTemplateReducer } from './features/masters/store/form-template/form-template.reducer';
+import { FormTemplateEffects } from './features/masters/store/form-template/form-template.effects';
+import { proceedingTypeReducer } from './features/masters/store/proceeding-type/proceeding-type.reducer';
+import { ProceedingTypeEffects } from './features/masters/store/proceeding-type/proceeding-type.effects';
+import { proceedingReducer } from './features/masters/store/proceeding/proceeding.reducer';
+import { ProceedingEffects } from './features/masters/store/proceeding/proceeding.effects';
+import { workTypeReducer } from './features/masters/store/work-type/work-type.reducer';
+import { WorkTypeEffects } from './features/masters/store/work-type/work-type.effects';
+import { workReducer } from './features/masters/store/work/work.reducer';
+import { WorkEffects } from './features/masters/store/work/work.effects';
+import { profileReducer } from './store/profile/profile.reducer';
+import { ProfileEffects } from './store/profile/profile.effects';
+import { courtReducer } from './features/masters/store/court/court.reducer';
+import { CourtEffects } from './features/masters/store/court/court.effects';
+import { courtComplexReducer } from './features/masters/store/court-complex/court-complex.reducer';
+import { CourtComplexEffects } from './features/masters/store/court-complex/court-complex.effects';
+import { clientReducer } from './features/lawyer-admin/store/client/client.reducer';
+import { ClientEffects } from './features/lawyer-admin/store/client/client.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -42,6 +66,8 @@ export const appConfig: ApplicationConfig = {
     ),
 
     provideStore({
+      court:          courtReducer,
+      courtComplex:   courtComplexReducer,
       courtType:      courtTypeReducer,
       state:          stateReducer,
       caseStage:      caseStageReducer,
@@ -49,18 +75,40 @@ export const appConfig: ApplicationConfig = {
       caseCategory:   caseCategoryReducer,
       cadre:          cadreReducer,
       courtDistrict:  courtDistrictReducer,
-      auth:           authReducer
+      formType:       formTypeReducer,
+      formMaster:     formMasterReducer,
+      formSubType:    formSubTypeReducer,
+      formTemplate:   formTemplateReducer,
+      proceedingType: proceedingTypeReducer,
+      proceeding:     proceedingReducer,
+      workType:       workTypeReducer,
+      work:           workReducer,
+      auth:           authReducer,
+      profile:        profileReducer,
+      client:         clientReducer
     }),
 
     provideEffects([
       AuthEffects, 
+      CourtEffects,
+      CourtComplexEffects,
       CourtTypeEffects, 
       StateEffects, 
       CaseStageEffects, 
       CourtLevelEffects, 
       CaseCategoryEffects, 
       CadreEffects, 
-      CourtDistrictEffects
+      CourtDistrictEffects,
+      FormTypeEffects,
+      FormMasterEffects,
+      FormSubTypeEffects,
+      FormTemplateEffects,
+      ProceedingTypeEffects,
+      ProceedingEffects,
+      WorkTypeEffects,
+      WorkEffects,
+      ProfileEffects,
+      ClientEffects
     ])
   ]
 };

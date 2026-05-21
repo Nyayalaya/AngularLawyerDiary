@@ -10,6 +10,9 @@ import { Profile } from './features/profile/profile';
 import { authGuard } from './core';
 import { ManageMastersRoutes } from './features/manage-masters/manager-master-route';
 import { roleGuard } from './core/guards/role.guard';
+import { lawyerAdminRoutes } from './features/lawyer-admin/lawyer-admin.routes';
+import { systemSettingRoutes } from './features/system-setting/system-setting.routes';
+import { caseManagementRoutes } from './features/case-management/case-management.routes';
 
 export const routes: Routes = [
   { path: '', component: Splash },      // default splash page
@@ -19,6 +22,9 @@ export const routes: Routes = [
       { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
       { path:  'master',children: masterRoutes, canActivate: [authGuard] },
       { path:  'manage-master',children: ManageMastersRoutes, canActivate: [authGuard]},
+      { path: 'lawyer-admin', children: lawyerAdminRoutes, canActivate: [authGuard] },
+      { path: 'case-management', children: caseManagementRoutes, canActivate: [authGuard] },
+      { path: 'system-settings', children: systemSettingRoutes, canActivate: [authGuard] },
       { path: 'profile',component: Profile, canActivate: [authGuard]}
     ]
   },

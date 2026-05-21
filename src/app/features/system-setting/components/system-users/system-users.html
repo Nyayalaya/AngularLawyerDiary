@@ -1,0 +1,75 @@
+<section class="system-users-page">
+  <div *ngIf="loading()" class="empty-state">Loading users...</div>
+
+  <app-generic-table
+    *ngIf="!loading()"
+    title="System Users"
+    [data]="users()"
+    [columns]="columns"
+    [viewActionLabel]="'Manage'"
+    [showEditAction]="false"
+    [showDeleteAction]="true"
+    (view)="onManage($event)"
+    (delete)="onDelete($event)">
+  </app-generic-table>
+</section>
+
+<div [formGroup]="userForm">
+  <app-generic-form-model
+    [form]="userForm"
+    [title]="isEditMode() ? 'Manage User Access' : 'Add User'"
+    [show]="showUserForm()"
+    (save)="saveUser()"
+    (close)="showUserForm.set(false)">
+
+    <div class="field-group">
+      <label class="form-label">Name</label>
+      <input class="form-control" formControlName="name" placeholder="User name" readonly>
+    </div>
+
+    <div class="field-group">
+      <label class="form-label">Email</label>
+      <input class="form-control" formControlName="email" placeholder="User email" readonly>
+    </div>
+
+    <div class="field-group">
+      <label class="form-label">Role</label>
+      <select class="form-control" formControlName="role">
+        <option value="">Select role</option>
+        <option *ngFor="let role of roles()" [value]="role.name">{{ role.name }}</option>
+      </select>
+    </div>
+
+    <div class="field-group inline-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formControlName="isActive" id="isActive">
+        <label class="form-check-label" for="isActive">Active access</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="form-label">Subscription plan</label>
+      <select class="form-control" formControlName="subscriptionPlanId">
+        <option value="">No plan assigned</option>
+        <option *ngFor="let plan of subscriptionPlans()" [value]="plan.id">{{ plan.name }} ({{ plan.duration }} months)</option>
+      </select>
+    </div>
+
+    <div class="field-group">
+      <label class="form-label">Grant features</label>
+      <div class="feature-list">
+        <div *ngFor="let feature of features()" class="feature-item">
+          <label class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [checked]="isFeatureSelected(feature.id)"
+              (change)="toggleFeature(feature.id, $event.target.checked)">
+            <span>{{ feature.name }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+  </app-generic-form-model>
+</div>
