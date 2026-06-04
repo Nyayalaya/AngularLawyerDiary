@@ -1,0 +1,46 @@
+<div class="quick-actions-container">
+  <div class="qa-header">
+    <h3>Quick Actions</h3>
+  </div>
+
+  <div class="context-panel-header" *ngIf="showContextPanel$ | async">
+    <button class="close-btn" type="button" (click)="toggleContextPanel()" title="Close context">
+      <span class="material-icons">close</span>
+    </button>
+    <p>Case ID: {{ contextCaseId$ | async }}</p>
+  </div>
+
+  <div class="actions-grid">
+    <button
+      class="action-card"
+      *ngFor="let action of quickActions"
+      [style.--action-color]="action.color"
+      (click)="action.action()"
+      [title]="action.description"
+      type="button"
+    >
+      <span class="material-icons action-icon" aria-hidden="true">{{ action.icon }}</span>
+      <span class="action-label">{{ action.label }}</span>
+      <span class="action-description">{{ action.description }}</span>
+    </button>
+  </div>
+
+  <div class="context-info" *ngIf="showContextPanel$ | async">
+    <div class="info-card">
+      <h4>Context Details</h4>
+      <div class="info-item">
+        <label>Case ID:</label>
+        <span>{{ (contextCaseId$ | async) || 'Not set' }}</span>
+      </div>
+      <button class="edit-btn" type="button">Edit Context</button>
+    </div>
+  </div>
+
+  <div class="suggestions-section">
+    <h4>Suggestions</h4>
+    <div class="suggestion-item">
+      <span class="material-icons suggestion-icon" aria-hidden="true">tips_and_updates</span>
+      <p>Try summarizing your case document first to get AI insights</p>
+    </div>
+  </div>
+</div>

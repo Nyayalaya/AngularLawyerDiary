@@ -1,0 +1,34 @@
+<div class="message-actions-container">
+  <button class="action-toggle-btn" (click)="toggleActions()" title="Message actions">⋯</button>
+
+  <div class="actions-dropdown" *ngIf="showActions">
+    <button class="action-item" (click)="copyToClipboard()" title="Copy">
+      📋 Copy
+    </button>
+    <button class="action-item" (click)="regenerate()" title="Regenerate">
+      🔄 Regenerate
+    </button>
+    <button class="action-item" (click)="shareMessage()" title="Share">
+      🔗 Share
+    </button>
+    <div class="feedback-section">
+      <span class="feedback-label">Helpful?</span>
+      <button
+        class="feedback-btn"
+        [class.active]="feedback === 'helpful'"
+        (click)="provideFeedback('helpful')"
+        title="This was helpful"
+      >
+        👍
+      </button>
+      <button
+        class="feedback-btn"
+        [class.active]="feedback === 'not-helpful'"
+        (click)="provideFeedback('not-helpful')"
+        title="This was not helpful"
+      >
+        👎
+      </button>
+    </div>
+  </div>
+</div>

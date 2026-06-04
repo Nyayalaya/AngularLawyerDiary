@@ -4,10 +4,16 @@
       title="Case List"
       [data]="caseList()"
       [columns]="caseColumns"
+      [serverSide]="true"
+      [totalRecords]="totalRecords()"
+      [currentPage]="pageNumber()"
+      [pageSize]="pageSize()"
+      [totalPages]="totalPages()"
       (added)="openAddCase()"
       (view)="onViewCase($event)"
       (edit)="onEditCase($event)"
-      (delete)="onDeleteCase($event)">
+      (delete)="onDeleteCase($event)"
+      (pageChanged)="onPageChanged($event)">
     </app-generic-table>
   }
 

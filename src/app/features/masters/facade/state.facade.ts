@@ -21,7 +21,7 @@ export class StateFacade
     totalPages$:   Observable<number>           = this.store.select(S.selectTotalPages);
 
 
-    load(pageNumber = 1, pageSize = 10,force=false): void {
+    load(pageNumber = 1, pageSize = 1000,force=false): void {
         this.store.dispatch(
           A.loadStates({ pageNumber, pageSize, force})
         );

@@ -5,12 +5,14 @@ import { Store }             from '@ngrx/store';
 import { combineLatest }     from 'rxjs';
 import { map, take }         from 'rxjs/operators';
 import { selectIsLoggedIn, selectUserRole } from '../../features/auth/store/auth.selectors';
-import { UserRole }          from '../../features/auth/models/login-response.model';
+import { TokenService }      from '../services/token.service';
 
 export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const store        = inject(Store);
   const router       = inject(Router);
-  const allowedRoles = route.data['roles'] as UserRole[];
+  const tokenSvc     = inject(TokenService);
+  const allowedRoles = ((route.data['roles'] as string[]) ?? [])
+    .map(role => role.toLowerCase());
 
   return combineLatest([
     store.select(selectIsLoggedIn),
@@ -18,10 +20,19 @@ export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   ]).pipe(
     take(1),
     map(([isLoggedIn, role]) => {
-      if (!isLoggedIn)
-        return router.createUrlTree(['/auth/login']);
-      if (!role || !allowedRoles.includes(role))
+      const authData = tokenSvc.getAuthData();
+      const hasStoredSession = !!authData && authData.expiresAt > Date.now();
+      const effectiveRole = role ?? authData?.user?.role ?? null;
+
+      if (!isLoggedIn && !hasStoredSession)
+        return router.createUrlTree(['/default']);
+      if (!effectiveRole)
         return router.createUrlTree(['/unauthorized']);
+
+      const normalizedRole = effectiveRole.toLowerCase();
+      if (allowedRoles.length && !allowedRoles.includes(normalizedRole))
+        return router.createUrlTree(['/unauthorized']);
+
       return true;
     })
   );

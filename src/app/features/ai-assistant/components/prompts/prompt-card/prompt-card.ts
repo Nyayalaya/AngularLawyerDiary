@@ -1,0 +1,11 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-prompt-card',
+  imports: [],
+  templateUrl: './prompt-card.html',
+  styleUrl: './prompt-card.css',
+})
+export class PromptCard {
+
+}

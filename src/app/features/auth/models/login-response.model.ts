@@ -1,4 +1,4 @@
-export type UserRole = 'superadmin' | 'lawyer' | 'client' | 'corporate';
+export type UserRole = 'superadmin' | 'admin' | 'lawyer' | 'client' | 'corporate';
 
 export interface LoginResponse {
   id: string;

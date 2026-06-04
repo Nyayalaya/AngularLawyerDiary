@@ -165,6 +165,15 @@ export class Sidebar implements OnInit {
         { label: 'Notification Settings', route: '/system-settings/notification-settings' },
         { label: 'Integration', route: '/system-settings/integration' },
       ]
+    },
+
+    {
+      id: 'ai-assistant',
+      label: 'AI Assistant',
+      icon: 'smart_toy',
+      route: '/ai-assistant',
+      hasSubmenu: false
+      // roles: ['LAWYER', 'CORPORATE', 'SuperAdmin', 'Admin']
     }
   ];
 

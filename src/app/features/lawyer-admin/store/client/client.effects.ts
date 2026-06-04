@@ -16,6 +16,21 @@ export class ClientEffects {
   private pageNumber$ = this.store.select(S.selectPageNumber);
   private pageSize$ = this.store.select(S.selectPageSize);
 
+  private getErrorMessage(error: any): string {
+    // Check for detailed validation errors array
+    if (error?.error?.errors && Array.isArray(error.error.errors) && error.error.errors.length > 0) {
+      return error.error.errors[0];
+    }
+    // Fall back to error message
+    if (error?.error?.message) {
+      return error.error.message;
+    }
+    if (error?.message) {
+      return error.message;
+    }
+    return 'An error occurred. Please try again.';
+  }
+
   load$ = createEffect(() =>
     this.actions$.pipe(
       ofType(A.loadClients),
@@ -32,7 +47,7 @@ export class ClientEffects {
             totalPages: res.pagination.totalPages
           })),
           catchError(error =>
-            of(A.loadClientsFailure({ error }))
+            of(A.loadClientsFailure({ error: this.getErrorMessage(error) }))
           )
         )
       )
@@ -46,7 +61,7 @@ export class ClientEffects {
         this.service.create(action.client).pipe(
           map(res => A.addClientSuccess({ client: res })),
           catchError(error =>
-            of(A.addClientFailure({ error }))
+            of(A.addClientFailure({ error: this.getErrorMessage(error) }))
           )
         )
       )
@@ -67,7 +82,7 @@ export class ClientEffects {
         this.service.update(action.client).pipe(
           map(res => A.updateClientSuccess({ client: res })),
           catchError(error =>
-            of(A.updateClientFailure({ error }))
+            of(A.updateClientFailure({ error: this.getErrorMessage(error) }))
           )
         )
       )
@@ -88,7 +103,7 @@ export class ClientEffects {
         this.service.deleteById(action.id).pipe(
           map(() => A.deleteClientSuccess({ id: action.id })),
           catchError(error =>
-            of(A.deleteClientFailure({ error }))
+            of(A.deleteClientFailure({ error: this.getErrorMessage(error) }))
           )
         )
       )

@@ -1,0 +1,37 @@
+<div class="message-wrapper" [ngClass]="{ 'user-message': isUserMessage, 'assistant-message': isAssistantMessage }">
+  <div class="message-container">
+    <div class="message-avatar" aria-hidden="true">
+      <span class="material-icons">{{ isUserMessage ? 'person' : 'smart_toy' }}</span>
+    </div>
+
+    <div class="message-content">
+      <div class="message-header">
+        <span class="sender-name">{{ isUserMessage ? 'You' : 'AI Assistant' }}</span>
+        <span class="message-time">{{ messageTime }}</span>
+      </div>
+
+      <div class="message-body">
+        <app-markdown-renderer
+          *ngIf="isAssistantMessage; else plainMessage"
+          [content]="message.content"
+        ></app-markdown-renderer>
+        <ng-template #plainMessage>
+          <p>{{ message.content }}</p>
+        </ng-template>
+      </div>
+
+      <div class="message-attachments" *ngIf="message.attachments && message.attachments.length > 0">
+        <div class="attachment-item" *ngFor="let attachment of message.attachments">
+          <span class="material-icons">attach_file</span>
+          <a href="{{ attachment.url }}" target="_blank">{{ attachment.fileName }}</a>
+        </div>
+      </div>
+
+      <div class="message-footer">
+        <span class="status-badge" [ngClass]="'status-' + message.status">
+          {{ message.status | titlecase }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

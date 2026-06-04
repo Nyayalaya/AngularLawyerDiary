@@ -15,6 +15,7 @@ import * as A from './auth.actions';
 
 const ROLE_ROUTES: Record<UserRole, string> = {
   superadmin: '/admin/dashboard',
+  admin: '/dashboard',
   lawyer: '/lawyer/dashboard',
   client: '/client/dashboard',
   corporate: '/corporate/dashboard',

@@ -1,0 +1,250 @@
+.empty-chat-container {
+  display: grid;
+  min-height: 100%;
+  place-items: center;
+  padding: 24px;
+  color: #182033;
+}
+
+.empty-state {
+  width: min(880px, 100%);
+  display: grid;
+  gap: 22px;
+}
+
+.welcome-panel {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.16), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+  border: 1px solid #dbe7f6;
+  border-radius: 8px;
+  box-shadow: 0 18px 45px rgba(31, 45, 78, 0.10);
+}
+
+.assistant-mark {
+  width: 68px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #155e75, #2563eb);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.24);
+}
+
+.assistant-mark .material-icons {
+  font-size: 36px;
+}
+
+.welcome-copy {
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.welcome-copy h2 {
+  margin: 0;
+  color: #101828;
+  font-size: 1.55rem;
+  line-height: 1.25;
+  font-weight: 750;
+}
+
+.welcome-copy p:not(.eyebrow) {
+  max-width: 620px;
+  margin: 10px 0 0;
+  color: #5b667a;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.suggested-prompts {
+  display: grid;
+  gap: 14px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.section-heading h3 {
+  margin: 0;
+  color: #182033;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.section-heading span {
+  color: #64748b;
+  font-size: 0.86rem;
+}
+
+.prompts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.prompt-btn {
+  min-height: 118px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  align-items: start;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.94);
+  color: #182033;
+  border: 1px solid #dfe8f3;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(31, 45, 78, 0.07);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.prompt-btn:hover {
+  transform: translateY(-3px);
+  border-color: #93c5fd;
+  box-shadow: 0 16px 30px rgba(37, 99, 235, 0.14);
+}
+
+.prompt-btn:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.28);
+  outline-offset: 2px;
+}
+
+.prompt-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: #155e75;
+  background: #e0f2fe;
+  font-size: 21px;
+}
+
+.prompt-content {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.prompt-content strong {
+  color: #111827;
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+
+.prompt-content span {
+  color: #667085;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.readiness-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  color: #475467;
+}
+
+.readiness-strip > .material-icons {
+  color: #0f766e;
+  font-size: 22px;
+}
+
+.readiness-strip p {
+  margin: 0;
+  color: #1f2937;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.readiness-strip ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.readiness-strip li {
+  padding: 5px 10px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  color: #475569;
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 900px) {
+  .prompts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .empty-chat-container {
+    padding: 16px;
+    place-items: start center;
+  }
+
+  .welcome-panel {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .assistant-mark {
+    width: 54px;
+    height: 54px;
+  }
+
+  .assistant-mark .material-icons {
+    font-size: 30px;
+  }
+
+  .welcome-copy h2 {
+    font-size: 1.25rem;
+  }
+
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .prompts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prompt-btn {
+    min-height: auto;
+  }
+
+  .readiness-strip {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}

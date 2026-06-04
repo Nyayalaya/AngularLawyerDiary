@@ -54,6 +54,8 @@ import { courtComplexReducer } from './features/masters/store/court-complex/cour
 import { CourtComplexEffects } from './features/masters/store/court-complex/court-complex.effects';
 import { clientReducer } from './features/lawyer-admin/store/client/client.reducer';
 import { ClientEffects } from './features/lawyer-admin/store/client/client.effects';
+import { aiAssistantReducer } from './features/ai-assistant/store/ai-assistant.reducer';
+import { AiAssistantEffects } from './features/ai-assistant/store/ai-assistant.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -85,7 +87,8 @@ export const appConfig: ApplicationConfig = {
       work:           workReducer,
       auth:           authReducer,
       profile:        profileReducer,
-      client:         clientReducer
+      client:         clientReducer,
+      aiAssistant:    aiAssistantReducer
     }),
 
     provideEffects([
@@ -108,7 +111,8 @@ export const appConfig: ApplicationConfig = {
       WorkTypeEffects,
       WorkEffects,
       ProfileEffects,
-      ClientEffects
+      ClientEffects,
+      AiAssistantEffects
     ])
   ]
 };

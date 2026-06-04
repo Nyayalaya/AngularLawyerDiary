@@ -1,0 +1,37 @@
+<div class="chat-window-container">
+  <div class="chat-header">
+    <h2>Legal AI Assistant</h2>
+    <div class="header-actions">
+      <button class="icon-btn" type="button" title="Pin conversation">
+        <span class="material-icons">push_pin</span>
+      </button>
+      <button class="icon-btn" type="button" title="Settings">
+        <span class="material-icons">settings</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="messages-area" #messagesList>
+    <ng-container *ngIf="(messages$ | async)?.length === 0; else messagesContent">
+      <app-empty-chat></app-empty-chat>
+    </ng-container>
+
+    <ng-template #messagesContent>
+      <div class="messages-container">
+        <app-chat-message
+          *ngFor="let message of messages$ | async"
+          [message]="message"
+        ></app-chat-message>
+
+        <app-typing-indicator *ngIf="typing$ | async"></app-typing-indicator>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="input-section">
+    <app-chat-input
+      [selectedConversationId]="selectedConversationId$ | async"
+      [isDisabled]="(loading$ | async) === true"
+    ></app-chat-input>
+  </div>
+</div>

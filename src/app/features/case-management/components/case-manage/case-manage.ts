@@ -1,19 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators
 } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 import { GenericTable } from '../../../../shared';
 import { ClientModalComponent } from '../../../lawyer-admin/components/client-modal/client-modal';
-import { ClientFacade } from '../../../lawyer-admin/facade/client.facade';
 import { Client, ClientType } from '../../../lawyer-admin/models/client.model';
+import { CasesListDto } from '../../dtos/case-list.dto';
 import { CaseManageFacade } from '../../facade/case-manage.facade';
 import { CaseManage } from '../../models/case-manage.model';
 
@@ -24,14 +22,6 @@ interface LookupOption {
   name: string;
 }
 
-interface CaseListItem {
-  id: string;
-  caseNumber: string;
-  caseTitle: string;
-  filingDate: string;
-  nextDate: string;
-}
-
 @Component({
   selector: 'app-case-manage',
   standalone: true,
@@ -39,18 +29,22 @@ interface CaseListItem {
   templateUrl: './case-manage.html',
   styleUrls: ['./case-manage.css']
 })
-export class CaseManageComponent {
+export class CaseManageComponent implements OnInit {
   private fb = inject(FormBuilder);
   private facade = inject(CaseManageFacade);
-  private clientFacade = inject(ClientFacade);
 
   activeTab = signal<CaseTab>('client');
   saving = signal(false);
+  loading = signal(false);
   showCaseForm = signal(false);
   showClientModal = signal(false);
   clientModalEditMode = signal(false);
   isCaseEditMode = signal(false);
   newClientIds = signal<Set<string>>(new Set());
+  totalRecords = signal(0);
+  pageNumber = signal(1);
+  pageSize = signal(10);
+  totalPages = signal(0);
 
   tabs: { id: CaseTab; label: string }[] = [
     { id: 'client', label: 'Case Client Info' },
@@ -60,35 +54,15 @@ export class CaseManageComponent {
   ];
 
   caseColumns = [
+    { key: 'caseType', label: 'Case Type' },
     { key: 'caseNumber', label: 'Case Number' },
     { key: 'caseTitle', label: 'Case Title' },
     { key: 'filingDate', label: 'Filing Date' },
-    { key: 'nextDate', label: 'Next Date' }
+    { key: 'nextDate', label: 'Next Date' },
+    { key: 'status', label: 'Status' }
   ];
 
-  caseList = signal<CaseListItem[]>([
-    {
-      id: '1',
-      caseNumber: '1477/2025',
-      caseTitle: 'KARAN SINGH VS UMMEDI LAL AND ORS',
-      filingDate: '02-03-2026',
-      nextDate: '09-03-2026'
-    },
-    {
-      id: '2',
-      caseNumber: '212/2026',
-      caseTitle: 'URBAN IMPROVEMENT TRUST BHARATPUR VS STATE OF RAJASTHAN',
-      filingDate: '12-02-2026',
-      nextDate: '18-03-2026'
-    },
-    {
-      id: '3',
-      caseNumber: '89/2025',
-      caseTitle: 'M/S SHARMA BUILDCON VS RAJENDRA PRASAD',
-      filingDate: '21-11-2025',
-      nextDate: '14-03-2026'
-    }
-  ]);
+  caseList = signal<CasesListDto[]>([]);
 
   clients: LookupOption[] = [
     { id: '1', name: 'URBAN IMPROVEMENT TRUST BHARATPUR (8385834350 - BHARATPUR)' },
@@ -215,6 +189,33 @@ export class CaseManageComponent {
     })
   });
 
+  ngOnInit(): void {
+    this.loadCases();
+  }
+
+  loadCases(pageNumber = this.pageNumber(), pageSize = this.pageSize()): void {
+    this.loading.set(true);
+    this.facade.loadCases(pageNumber, pageSize).subscribe({
+      next: response => {
+        this.caseList.set(response.data ?? []);
+        this.totalRecords.set(response.pagination?.totalCount ?? response.data?.length ?? 0);
+        this.pageNumber.set(response.pagination?.pageNumber ?? pageNumber);
+        this.pageSize.set(response.pagination?.pageSize ?? pageSize);
+        this.totalPages.set(response.pagination?.totalPages ?? 1);
+        this.loading.set(false);
+      },
+      error: error => {
+        this.loading.set(false);
+        this.caseList.set([]);
+        Swal.fire('Error', error.message ?? 'Unable to load case details.', 'error');
+      }
+    });
+  }
+
+  onPageChanged(event: { page: number; pageSize: number }): void {
+    this.loadCases(event.page, event.pageSize);
+  }
+
   setTab(tab: CaseTab): void {
     this.activeTab.set(tab);
   }
@@ -239,38 +240,43 @@ export class CaseManageComponent {
     this.caseForm.patchValue({ clientId });
   }
 
-  onViewCase(item: CaseListItem): void {
+  onViewCase(item: CasesListDto): void {
     Swal.fire({
       title: 'Case Detail',
       html: `<div style="text-align:left">
                <p><strong>Case Number:</strong> ${item.caseNumber}</p>
                <p><strong>Case Title:</strong> ${item.caseTitle}</p>
+               <p><strong>Case Type:</strong> ${item.caseType}</p>
                <p><strong>Filing Date:</strong> ${item.filingDate}</p>
                <p><strong>Next Date:</strong> ${item.nextDate}</p>
+               <p><strong>Assigned Lawyer:</strong> ${item.assignedLawyer || '-'}</p>
+               <p><strong>Status:</strong> ${item.status || '-'}</p>
              </div>`,
       icon: 'info'
     });
   }
 
-  onEditCase(item: CaseListItem): void {
+  onEditCase(item: CasesListDto): void {
     this.isCaseEditMode.set(true);
-    const [caseNo, caseYear] = item.caseNumber.split('/');
-    const [titleFirst, titleSecond = ''] = item.caseTitle.split(' VS ');
-
-    this.caseForm.patchValue({
-      id: item.id,
-      caseNo,
-      caseYear,
-      titleFirst,
-      titleSecond,
-      nextDate: this.toDateInput(item.nextDate),
-      institutionDate: this.toDateInput(item.filingDate)
+    this.loading.set(true);
+    this.facade.getCaseById(item.id).subscribe({
+      next: caseDetail => {
+        this.loading.set(false);
+        this.patchCaseForm(caseDetail);
+        this.showCaseForm.set(true);
+        this.activeTab.set('client');
+      },
+      error: () => {
+        this.loading.set(false);
+        this.patchCaseFormFromList(item);
+        this.showCaseForm.set(true);
+        this.activeTab.set('client');
+        Swal.fire('Notice', 'Full case detail could not be loaded. Basic list details are available for editing.', 'info');
+      }
     });
-    this.showCaseForm.set(true);
-    this.activeTab.set('client');
   }
 
-  onDeleteCase(item: CaseListItem): void {
+  onDeleteCase(item: CasesListDto): void {
     Swal.fire({
       title: 'Delete Confirmation',
       text: `Are you sure you want to delete ${item.caseNumber}?`,
@@ -279,7 +285,18 @@ export class CaseManageComponent {
       confirmButtonText: 'Yes, delete it'
     }).then(result => {
       if (result.isConfirmed) {
-        this.caseList.set(this.caseList().filter(x => x.id !== item.id));
+        this.loading.set(true);
+        this.facade.deleteCase(item.id).subscribe({
+          next: () => {
+            this.loading.set(false);
+            Swal.fire('Deleted', 'Case detail deleted successfully.', 'success');
+            this.loadCases(this.pageNumber(), this.pageSize());
+          },
+          error: error => {
+            this.loading.set(false);
+            Swal.fire('Error', error.message ?? 'Unable to delete case detail.', 'error');
+          }
+        });
       }
     });
   }
@@ -335,7 +352,7 @@ export class CaseManageComponent {
     this.facade.saveCase(this.caseForm.getRawValue() as CaseManage).subscribe({
       next: () => {
         this.saving.set(false);
-        this.upsertCaseListItem();
+        this.loadCases(this.pageNumber(), this.pageSize());
         this.showCaseForm.set(false);
         Swal.fire('Success', 'Final review complete. Case detail saved successfully.', 'success');
       },
@@ -422,21 +439,33 @@ export class CaseManageComponent {
     return true;
   }
 
-  private upsertCaseListItem(): void {
-    const value = this.caseForm.getRawValue() as CaseManage;
-    const item: CaseListItem = {
-      id: value.id || `case-${Date.now()}`,
-      caseNumber: `${value.caseNo || 'New'}/${value.caseYear || new Date().getFullYear()}`,
-      caseTitle: `${value.titleFirst} VS ${value.titleSecond}`,
-      filingDate: this.toDisplayDate(value.institutionDate),
-      nextDate: value.nextDate ? this.toDisplayDate(value.nextDate) : '-'
-    };
+  private patchCaseForm(caseDetail: CaseManage): void {
+    this.caseForm.reset();
+    this.caseForm.patchValue({
+      ...caseDetail,
+      institutionDate: this.toDateInput(caseDetail.institutionDate),
+      nextDate: this.toDateInput(caseDetail.nextDate),
+      decision: {
+        ...caseDetail.decision,
+        impugnedOrderDate: this.toDateInput(caseDetail.decision?.impugnedOrderDate)
+      }
+    });
+  }
 
-    const exists = this.caseList().some(x => x.id === item.id);
-    this.caseList.set(exists
-      ? this.caseList().map(x => x.id === item.id ? item : x)
-      : [item, ...this.caseList()]
-    );
+  private patchCaseFormFromList(item: CasesListDto): void {
+    const [caseNo = '', caseYear = ''] = (item.caseNumber || '').split('/');
+    const [titleFirst = '', titleSecond = ''] = (item.caseTitle || '').split(/\s+VS\s+/i);
+
+    this.caseForm.reset();
+    this.caseForm.patchValue({
+      id: item.id,
+      caseNo,
+      caseYear,
+      titleFirst,
+      titleSecond,
+      nextDate: this.toDateInput(item.nextDate),
+      institutionDate: this.toDateInput(item.filingDate)
+    });
   }
 
   private toDisplayDate(value?: string): string {

@@ -44,7 +44,7 @@ export class ApiEndpoints {
         };
     static readonly CASE_MANAGEMENT =
         {
-            BASE_CONTROLLER_URL: 'CaseManagement'
+            BASE_CONTROLLER_URL: 'Case'
         };
     static readonly COURT_DISTRICT =
         {

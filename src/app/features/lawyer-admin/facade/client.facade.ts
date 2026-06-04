@@ -12,7 +12,7 @@ export class ClientFacade {
 
   clients$: Observable<Client[]> = this.store.select(S.selectAll);
   loading$: Observable<boolean> = this.store.select(S.selectLoading);
-  error$: Observable<string | null> = this.store.select(S.selectError);
+  error$: Observable<string | undefined> = this.store.select(S.selectError);
   totalRecords$: Observable<number> = this.store.select(S.selectTotalRecords);
   pageNumber$: Observable<number> = this.store.select(S.selectPageNumber);
   pageSize$: Observable<number> = this.store.select(S.selectPageSize);
@@ -34,5 +34,9 @@ export class ClientFacade {
 
   delete(id: string): void {
     this.store.dispatch(A.deleteClient({ id }));
+  }
+
+  clearError(): void {
+    this.store.dispatch(A.clearError());
   }
 }

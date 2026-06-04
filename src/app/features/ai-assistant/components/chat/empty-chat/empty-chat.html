@@ -1,0 +1,48 @@
+<div class="empty-chat-container">
+  <section class="empty-state" aria-label="Legal AI Assistant start screen">
+    <div class="welcome-panel">
+      <div class="assistant-mark" aria-hidden="true">
+        <span class="material-icons">smart_toy</span>
+      </div>
+
+      <div class="welcome-copy">
+        <p class="eyebrow">Legal AI workspace</p>
+        <h2>Start with a task, then add your case details.</h2>
+        <p>
+          Choose a prompt below or type your own question. The assistant will ask for the
+          missing facts before preparing a response.
+        </p>
+      </div>
+    </div>
+
+    <div class="suggested-prompts" aria-label="Suggested legal assistant prompts">
+      <div class="section-heading">
+        <h3>Quick starts</h3>
+        <span>Pick one to begin</span>
+      </div>
+
+      <div class="prompts-grid">
+        <button
+          class="prompt-btn"
+          *ngFor="let prompt of suggestedPrompts"
+          type="button"
+          (click)="sendPrompt(prompt.prompt)"
+        >
+          <span class="material-icons prompt-icon" aria-hidden="true">{{ prompt.icon }}</span>
+          <span class="prompt-content">
+            <strong>{{ prompt.title }}</strong>
+            <span>{{ prompt.description }}</span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="readiness-strip" aria-label="Helpful details to include">
+      <span class="material-icons" aria-hidden="true">checklist</span>
+      <p>Helpful details:</p>
+      <ul>
+        <li *ngFor="let item of readinessItems">{{ item }}</li>
+      </ul>
+    </div>
+  </section>
+</div>

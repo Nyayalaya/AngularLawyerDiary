@@ -27,64 +27,106 @@
 
       <div class="client-form-field">
         <label class="form-label">Name <span class="text-danger">*</span></label>
-        <input
-          class="form-control"
-          formControlName="name"
-          placeholder="Enter client name"
-          [class.is-invalid]="isClientInvalid('name')">
-        <div class="invalid-feedback">
-          Name is required and must be at least 2 characters.
+        <div class="input-group">
+          <input
+            class="form-control"
+            formControlName="name"
+            placeholder="Enter client name"
+            [class.is-invalid]="isClientInvalid('name')"
+            [class.is-valid]="isClientValid('name')">
+          @if (isClientValid('name')) {
+            <span class="input-group-text valid-checkmark">✓</span>
+          }
         </div>
+        @if (isClientInvalid('name')) {
+          <div class="invalid-feedback d-block">
+            Name is required and must be at least 2 characters.
+          </div>
+        }
       </div>
 
       <div class="client-form-field">
         <label class="form-label">Mobile <span class="text-danger">*</span></label>
-        <input
-          class="form-control"
-          formControlName="mobile"
-          placeholder="Enter mobile number"
-          [class.is-invalid]="isClientInvalid('mobile')">
-        <div class="invalid-feedback">
-          Enter a valid mobile number.
+        <div class="input-group">
+          <input
+            class="form-control"
+            formControlName="mobile"
+            placeholder="Enter 10-digit mobile number"
+            maxlength="10"
+            [class.is-invalid]="isClientInvalid('mobile')"
+            [class.is-valid]="isClientValid('mobile')">
+          @if (isClientValid('mobile')) {
+            <span class="input-group-text valid-checkmark">✓</span>
+          }
         </div>
+        @if (isClientInvalid('mobile')) {
+          <div class="invalid-feedback d-block">
+            Enter a valid 10-digit mobile number.
+          </div>
+        }
       </div>
 
       <div class="client-form-field">
         <label class="form-label">Office Phone</label>
-        <input
-          class="form-control"
-          formControlName="officePhone"
-          placeholder="Enter office phone, if any"
-          [class.is-invalid]="isClientInvalid('officePhone')">
-        <div class="invalid-feedback">
-          Enter a valid office phone number.
+        <div class="input-group">
+          <input
+            class="form-control"
+            formControlName="officePhone"
+            placeholder="Enter 10-digit phone number"
+            maxlength="10"
+            [class.is-invalid]="isClientInvalid('officePhone')"
+            [class.is-valid]="isClientValid('officePhone')">
+          @if (isClientValid('officePhone')) {
+            <span class="input-group-text valid-checkmark">✓</span>
+          }
         </div>
+        @if (isClientInvalid('officePhone')) {
+          <div class="invalid-feedback d-block">
+            Enter a valid 10-digit office phone number.
+          </div>
+        }
       </div>
 
       <div class="client-form-field">
         <label class="form-label">Email <span class="text-danger">*</span></label>
-        <input
-          type="email"
-          class="form-control"
-          formControlName="email"
-          placeholder="Enter email address"
-          [class.is-invalid]="isClientInvalid('email')">
-        <div class="invalid-feedback">
-          Enter a valid email address.
+        <div class="input-group">
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Enter email address"
+            [class.is-invalid]="isClientInvalid('email')"
+            [class.is-valid]="isClientValid('email')">
+          @if (isClientValid('email')) {
+            <span class="input-group-text valid-checkmark">✓</span>
+          }
         </div>
+        @if (isClientInvalid('email')) {
+          <div class="invalid-feedback d-block">
+            Enter a valid email address.
+          </div>
+        }
       </div>
 
       <div class="client-form-field">
         <label class="form-label">Office Email</label>
-        <input
-          type="email"
-          class="form-control"
-          formControlName="officeEmail"
-          placeholder="Enter office email, if any"
-          [class.is-invalid]="isClientInvalid('officeEmail')">
-        <div class="invalid-feedback">
-          Enter a valid office email address.
+        <div class="input-group">
+          <input
+            type="email"
+            class="form-control"
+            formControlName="officeEmail"
+            placeholder="Enter office email, if any"
+            [class.is-invalid]="isClientInvalid('officeEmail')"
+            [class.is-valid]="isClientValid('officeEmail')">
+          @if (isClientValid('officeEmail')) {
+            <span class="input-group-text valid-checkmark">✓</span>
+          }
         </div>
+        @if (isClientInvalid('officeEmail')) {
+          <div class="invalid-feedback d-block">
+            Enter a valid office email address.
+          </div>
+        }
       </div>
 
       <div class="client-form-field">
@@ -101,28 +143,24 @@
       @if (isCorporateClient()) {
         <div class="client-form-field">
           <label class="form-label">Registration No <span class="text-danger">*</span></label>
-          <input
-            class="form-control"
-            formControlName="registrationNo"
-            placeholder="Enter corporate registration number"
-            [class.is-invalid]="isClientInvalid('registrationNo')">
-          <div class="invalid-feedback">
-            Registration No is required for corporate clients.
+          <div class="input-group">
+            <input
+              class="form-control"
+              formControlName="registrationNo"
+              placeholder="Enter corporate registration number"
+              [class.is-invalid]="isClientInvalid('registrationNo')"
+              [class.is-valid]="isClientValid('registrationNo')">
+            @if (isClientValid('registrationNo')) {
+              <span class="input-group-text valid-checkmark">✓</span>
+            }
           </div>
+          @if (isClientInvalid('registrationNo')) {
+            <div class="invalid-feedback d-block">
+              Registration No is required for corporate clients.
+            </div>
+          }
         </div>
       }
-
-      <div class="client-form-field">
-        <label class="form-label">Property Name <span class="text-danger">*</span></label>
-        <input
-          class="form-control"
-          formControlName="propertyName"
-          placeholder="Enter property name"
-          [class.is-invalid]="isClientInvalid('propertyName')">
-        <div class="invalid-feedback">
-          Property Name is required and must be at least 2 characters.
-        </div>
-      </div>
 
       <div class="client-form-field span-2">
         <label class="form-label">Address <span class="text-danger">*</span></label>
@@ -131,10 +169,13 @@
           formControlName="address"
           placeholder="Enter address"
           rows="3"
-          [class.is-invalid]="isClientInvalid('address')"></textarea>
-        <div class="invalid-feedback">
-          Address is required and must be at least 5 characters.
-        </div>
+          [class.is-invalid]="isClientInvalid('address')"
+          [class.is-valid]="isClientValid('address')"></textarea>
+        @if (isClientInvalid('address')) {
+          <div class="invalid-feedback d-block">
+            Address is required and must be at least 5 characters.
+          </div>
+        }
       </div>
     </div>
   </app-generic-form-model>

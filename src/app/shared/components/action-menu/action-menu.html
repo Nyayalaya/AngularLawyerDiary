@@ -1,20 +1,38 @@
-<div class="btn-group btn-group-sm">
+<div class="action-group">
 
   @if (showView) {
-  <button class="btn btn-outline-info" (click)="view.emit()">
-    {{ viewLabel }}
+  <button
+    class="action-btn view-btn"
+    type="button"
+    title="View"
+    (click)="view.emit()">
+
+    <i class="bi bi-eye-fill"></i>
+
   </button>
   }
 
   @if (showEdit) {
-  <button class="btn btn-outline-primary" (click)="edit.emit()">
-    {{ editLabel }}
+  <button
+    class="action-btn edit-btn"
+    type="button"
+    title="Edit"
+    (click)="edit.emit()">
+
+    <i class="bi bi-pencil-square"></i>
+
   </button>
   }
 
   @if (showDelete) {
-  <button class="btn btn-outline-danger" (click)="delete.emit()">
-    {{ deleteLabel }}
+  <button
+    class="action-btn delete-btn"
+    type="button"
+    title="Delete"
+    (click)="delete.emit()">
+
+    <i class="bi bi-trash-fill"></i>
+
   </button>
   }
 

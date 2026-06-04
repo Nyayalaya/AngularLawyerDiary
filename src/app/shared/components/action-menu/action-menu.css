@@ -1,60 +1,86 @@
+.action-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .action-btn {
-  width: 34px;
-  height: 30px;
-  padding: 0;
-  font-size: 18px;
-  line-height: 0;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* ============================================================================
-   ACTION BUTTONS STYLING
-   ============================================================================ */
+.action-btn i {
 
-:host ::ng-deep .btn-group-sm .btn {
-  padding: 6px 12px;
-  font-size: 12px;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  border-width: 1.5px;
+    transition: transform 0.2s ease;
 }
 
-:host ::ng-deep .btn-outline-info {
-  color: #3b82f6;
-  border-color: #3b82f6;
-  background: transparent;
+/* HOVER EFFECT */
+
+.action-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
-:host ::ng-deep .btn-outline-info:hover {
-  background: rgba(59, 130, 246, 0.1);
-  border-color: #3b82f6;
-  color: #3b82f6;
+.action-btn:hover i {
+
+    transform: scale(1.1);
 }
 
-:host ::ng-deep .btn-outline-primary {
-  color: #667eea;
-  border-color: #667eea;
-  background: transparent;
+/* VIEW */
+
+.view-btn {
+
+    background: #e0f2fe;
+
+    color: #0284c7;
 }
 
-:host ::ng-deep .btn-outline-primary:hover {
-  background: rgba(102, 126, 234, 0.1);
-  border-color: #667eea;
-  color: #667eea;
+.view-btn:hover {
+
+    background: #0284c7;
+
+    color: white;
 }
 
-:host ::ng-deep .btn-outline-danger {
-  color: #f56565;
-  border-color: #f56565;
-  background: transparent;
+/* EDIT */
+
+.edit-btn {
+
+    background: #ede9fe;
+
+    color: #7c3aed;
 }
 
-:host ::ng-deep .btn-outline-danger:hover {
-  background: rgba(245, 101, 101, 0.1);
-  border-color: #f56565;
-  color: #f56565;
+.edit-btn:hover {
+
+    background: #7c3aed;
+
+    color: white;
 }
 
-:host ::ng-deep .btn-group-sm .btn:active {
-  transform: scale(0.95);
+/* DELETE */
+
+.delete-btn {
+
+    background: #fee2e2;
+
+    color: #dc2626;
+}
+
+.delete-btn:hover {
+
+    background: #dc2626;
+
+    color: white;
 }

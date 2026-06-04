@@ -67,3 +67,7 @@ export const deleteClientFailure = createAction(
   '[Client] Delete Failure',
   props<{ error: string }>()
 );
+
+export const clearError = createAction(
+  '[Client] Clear Error'
+);

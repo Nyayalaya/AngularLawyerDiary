@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, filter } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 import { GenericTable } from '../../../../shared';
@@ -21,12 +22,13 @@ import { Client } from '../../models/client.model';
     ClientModalComponent
   ]
 })
-export class ClientComponent implements OnInit {
+export class ClientComponent implements OnInit, OnDestroy {
   private facade = inject(ClientFacade);
+  private destroy$ = new Subject<void>();
 
   clients$: Observable<Client[]> = this.facade.clients$;
   loading$: Observable<boolean> = this.facade.loading$;
-  error$: Observable<string | null> = this.facade.error$;
+  error$: Observable<string | undefined> = this.facade.error$;
   totalRecords$: Observable<number> = this.facade.totalRecords$;
   pageNumber$: Observable<number> = this.facade.pageNumber$;
   pageSize$: Observable<number> = this.facade.pageSize$;
@@ -37,6 +39,8 @@ export class ClientComponent implements OnInit {
   pageSize = signal(10);
   isEditMode = signal(false);
   selectedClient = signal<Client | null>(null);
+  
+  private isDeleting = signal(false);
 
   columns = [
     { key: 'id', label: 'ID', hidden: true, isKey: true },
@@ -50,6 +54,22 @@ export class ClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPage();
+    
+    // Handle delete errors
+    this.error$
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(error => error !== null && this.isDeleting())
+      )
+      .subscribe(error => {
+        this.isDeleting.set(false);
+        Swal.fire('Error', error, 'error');
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   loadPage(): void {
@@ -104,12 +124,21 @@ export class ClientComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
+        this.isDeleting.set(true);
         this.facade.delete(item.id);
-        Swal.fire(
-          'Deleted!',
-          'Client has been deleted.',
-          'success'
-        );
+        
+        // Wait for delete to complete (success or error)
+        setTimeout(() => {
+          if (this.isDeleting()) {
+            // Still marked as deleting means it succeeded (no error caught)
+            this.isDeleting.set(false);
+            Swal.fire(
+              'Deleted!',
+              'Client has been deleted.',
+              'success'
+            );
+          }
+        }, 1500);
       }
     });
   }

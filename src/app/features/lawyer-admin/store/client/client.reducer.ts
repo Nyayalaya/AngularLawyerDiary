@@ -51,6 +51,27 @@ export const clientReducer = createReducer(
 
   on(A.addClientSuccess, (state, { client }) => ({
     ...state,
-    items: [...state.items, client]
+    items: [...state.items, client],
+    error: null
+  })),
+
+  on(A.addClientFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+
+  on(A.updateClientFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+
+  on(A.deleteClientFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+
+  on(A.clearError, (state) => ({
+    ...state,
+    error: null
   }))
 );

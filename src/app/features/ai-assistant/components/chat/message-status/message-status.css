@@ -1,0 +1,36 @@
+.message-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.status-icon {
+  font-size: 0.9rem;
+}
+
+.status-text {
+  font-weight: 500;
+}
+
+.status-sending {
+  color: #f5a623;
+}
+
+.status-sent {
+  color: #667eea;
+}
+
+.status-received {
+  color: #06d6a0;
+}
+
+.status-read {
+  color: #06d6a0;
+  font-weight: 600;
+}
+
+.status-failed {
+  color: #f5576c;
+}
