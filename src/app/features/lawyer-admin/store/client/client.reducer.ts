@@ -31,16 +31,11 @@ export const clientReducer = createReducer(
   })),
 
   on(A.deleteClientSuccess, (state, { id }) => {
-    const newItems = state.items.filter(x => x.id !== id);
-    const newTotal = Math.max(0, state.totalRecords - 1);
-    const newTotalPages = state.pageSize ? Math.max(1, Math.ceil(newTotal / state.pageSize)) : 1;
-
+    // Item will be removed when loadClients completes
+    // For now, just mark that we're waiting for the reload
     return {
       ...state,
-      items: newItems,
-      totalRecords: newTotal,
-      pageNumber: Math.min(state.pageNumber, newTotalPages),
-      totalPages: newTotalPages
+      loading: true
     };
   }),
 

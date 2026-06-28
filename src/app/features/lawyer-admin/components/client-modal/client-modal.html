@@ -133,10 +133,16 @@
         <label class="form-label">Referral By</label>
         <input
           class="form-control"
-          formControlName="referralBy"
-          placeholder="Enter referral by">
+          formControlName="referalBy"
+          placeholder="Enter or select referral"
+          list="referralsList">
+        <datalist id="referralsList">
+          @for (referalBy of referrals$ | async; track referalBy) {
+            <option [value]="referalBy"></option>
+          }
+        </datalist>
         <div class="form-text">
-          Select an existing referral or type a new one.
+          Type to enter custom referral or select from suggestions.
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, effect, inject, signal } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -8,12 +8,13 @@ import {
   ValidationErrors,
   Validators
 } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 import { GenericFormModel } from '../../../../shared/components/generic-form-model/generic-form-model';
 import { ClientFacade } from '../../facade/client.facade';
+import { ClientService } from '../../services/client.service';
 import { Client, ClientType } from '../../models/client.model';
 
 @Component({
@@ -26,6 +27,7 @@ import { Client, ClientType } from '../../models/client.model';
 export class ClientModalComponent implements OnInit, OnChanges, OnDestroy {
   private fb = inject(FormBuilder);
   protected facade = inject(ClientFacade);
+  private clientService = inject(ClientService);
   private destroy$ = new Subject<void>();
 
   @Input() show = signal(false);
@@ -35,6 +37,7 @@ export class ClientModalComponent implements OnInit, OnChanges, OnDestroy {
   @Output() closed = new EventEmitter<void>();
 
   clientTypes: ClientType[] = ['Individual', 'Corporate'];
+  referrals$: Observable<string[]>;
 
   clientForm: FormGroup = this.fb.group({
     id: [''],
@@ -44,7 +47,7 @@ export class ClientModalComponent implements OnInit, OnChanges, OnDestroy {
     officePhone: ['', [Validators.pattern(/^[0-9]{10}$/)]],
     email: ['', [Validators.required, Validators.email]],
     officeEmail: ['', [Validators.email]],
-    referralBy: [''],
+    referalBy: [''],
     registrationNo: [''],
     address: ['', [Validators.required, Validators.minLength(5)]]
   });
@@ -53,8 +56,16 @@ export class ClientModalComponent implements OnInit, OnChanges, OnDestroy {
   private lastSubmittedClientId: string | null = null;
 
   constructor() {
+    this.referrals$ = this.clientService.getReferrals();
     this.clientForm.get('clientType')?.valueChanges.subscribe(type => {
       this.applyClientTypeValidation(type);
+    });
+
+    // Watch for changes to the show signal and reload referrals
+    effect(() => {
+      if (this.show()) {
+        this.referrals$ = this.clientService.getReferrals();
+      }
     });
   }
 
@@ -90,7 +101,7 @@ export class ClientModalComponent implements OnInit, OnChanges, OnDestroy {
           officePhone: this.client.officePhone ?? '',
           email: this.client.email ?? '',
           officeEmail: this.client.officeEmail ?? '',
-          referralBy: this.client.referralBy ?? '',
+          referralBy: this.client.referalBy ?? '',
           registrationNo: this.client.registrationNo ?? '',
           address: this.client.address ?? ''
         });
@@ -115,7 +126,7 @@ export class ClientModalComponent implements OnInit, OnChanges, OnDestroy {
       officePhone: '',
       email: '',
       officeEmail: '',
-      referralBy: '',
+      referalBy: '',
       registrationNo: '',
       address: ''
     });

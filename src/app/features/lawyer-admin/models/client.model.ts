@@ -8,7 +8,7 @@ export interface Client {
   officePhone?: string;
   email?: string;
   officeEmail?: string;
-  referralBy?: string;
+  referalBy?: string;
   registrationNo?: string;
   propertyName: string;
   address?: string;

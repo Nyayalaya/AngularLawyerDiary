@@ -48,8 +48,7 @@ export class ClientComponent implements OnInit, OnDestroy {
     { key: 'name', label: 'Name' },
     { key: 'mobile', label: 'Mobile' },
     { key: 'email', label: 'Email' },
-    { key: 'referralBy', label: 'Referral By' },
-    { key: 'propertyName', label: 'Property Name' }
+    { key: 'referalBy', label: 'Referral By' }
   ];
 
   ngOnInit(): void {
@@ -154,7 +153,7 @@ export class ClientComponent implements OnInit, OnDestroy {
                <p><strong>Email:</strong> ${item.email ?? '-'}</p>
                <p><strong>Office Phone:</strong> ${item.officePhone ?? '-'}</p>
                <p><strong>Office Email:</strong> ${item.officeEmail ?? '-'}</p>
-               <p><strong>Referral By:</strong> ${item.referralBy ?? '-'}</p>
+               <p><strong>Referral By:</strong> ${item.referalBy ?? '-'}</p>
                <p><strong>Registration No:</strong> ${item.registrationNo ?? '-'}</p>
                <p><strong>Property Name:</strong> ${item.propertyName}</p>
                <p><strong>Address:</strong> ${item.address ?? '-'}</p>

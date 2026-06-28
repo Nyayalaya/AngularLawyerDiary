@@ -18,6 +18,7 @@ interface SubMenuItem {
   route?: string;       // ✅ optional (for divider)
   isDivider?: boolean;
   children?: SubMenuItem[]; // optional 3rd-level "child" tree
+  roles?: string[]; 
 }
 
 @Component({
@@ -32,7 +33,7 @@ export class Sidebar implements OnInit {
   activeSubmenu = '';
   expandedMenus = new Set<string>();
   expandedSubmenuGroups = new Set<string>();
-  userRole = 'SuperAdmin'; 
+  userRole = 'Lawyer'; 
   filteredMenuItems: MenuItem[] = [];
 
   // ✅ MENU CONFIG
@@ -107,7 +108,7 @@ export class Sidebar implements OnInit {
       icon: 'work',
       route: '/lawyer-admin',
       hasSubmenu: true,
-      roles: ['SuperAdmin', 'Admin'],
+      roles: ['SuperAdmin', 'Admin','Lawyer'],
       submenu: [
         { label: 'Client', route: '/lawyer-admin/client' },
         { label: 'Lawyer', route: '/lawyer-admin/lawyer' },
@@ -122,7 +123,7 @@ export class Sidebar implements OnInit {
       icon: 'gavel',
       route: '/case-management',
       hasSubmenu: true,
-      roles: ['SuperAdmin', 'Admin'],
+      roles: ['SuperAdmin', 'Admin','Lawyer'],
       submenu: [
         { label: 'Manage Case', route: '/case-management/case-manage' }
       ]
@@ -173,7 +174,7 @@ export class Sidebar implements OnInit {
       icon: 'smart_toy',
       route: '/ai-assistant',
       hasSubmenu: false
-      // roles: ['LAWYER', 'CORPORATE', 'SuperAdmin', 'Admin']
+     
     }
   ];
 
@@ -197,10 +198,32 @@ export class Sidebar implements OnInit {
 
   // ✅ ROLE FILTER
   filterMenuByRole(): void {
-    this.filteredMenuItems = this.menuItems.filter(menu =>
-      !menu.roles || menu.roles.includes(this.userRole)
-    );
-  }
+
+  this.filteredMenuItems = this.menuItems
+    .filter(menu =>
+      !menu.roles ||
+      menu.roles.includes(this.userRole)
+    )
+    .map(menu => {
+
+      if(menu.submenu)
+      {
+        return {
+          ...menu,
+
+          submenu: menu.submenu.filter(sub =>
+            !sub.roles ||
+            sub.roles.includes(this.userRole)
+          )
+
+        };
+      }
+
+      return menu;
+
+    });
+
+}
 
   // ✅ ROUTE MATCHING
   updateActiveMenuFromRoute(): void {
